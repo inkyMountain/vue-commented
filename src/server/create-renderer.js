@@ -46,6 +46,7 @@ export function createRenderer ({
   serializer
 }: RenderOptions = {}): Renderer {
   const render = createRenderFunction(modules, directives, isUnaryTag, cache)
+  // 模版渲染器，作用是将 vnode 渲染的结果和 html 模板进行拼接，最终生成返回给浏览器的内容。
   const templateRenderer = new TemplateRenderer({
     template,
     inject,
@@ -65,16 +66,20 @@ export function createRenderer ({
         cb = context
         context = {}
       }
+
+      // context 对象包含用户自定义的，需要在 html 模板上替换的变量。
       if (context) {
         templateRenderer.bindRenderFns(context)
       }
 
       // no callback, return Promise
+      // 兼容 callback 和 promise 两种调用方式。
       let promise
       if (!cb) {
         ({ promise, cb } = createPromiseCallback())
       }
 
+      // vnode 渲染结果存储变量，不包含 html 模板内容。
       let result = ''
       const write = createWriteFunction(text => {
         result += text
@@ -88,21 +93,24 @@ export function createRenderer ({
           if (context && context.rendered) {
             context.rendered(context)
           }
+          // 如果用户传入了模板，那么根据模板，进行渲染。
           if (template) {
             try {
               const res = templateRenderer.render(result, context)
+              // 如果 res 是 Promise
               if (typeof res !== 'string') {
-                // function template returning promise
                 res
                   .then(html => cb(null, html))
                   .catch(cb)
               } else {
+                // 如果 res 是 string，就直接调用 cb 返回。
                 cb(null, res)
               }
             } catch (e) {
               cb(e)
             }
           } else {
+            // 如果没有模板，就直接返回 vnode 渲染的结果。
             cb(null, result)
           }
         })

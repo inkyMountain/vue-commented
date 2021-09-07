@@ -2,7 +2,21 @@ const { createRenderer } = require("./packages/vue-server-renderer/build.dev");
 
 const Vue = require("./dist/vue");
 
-const renderer = createRenderer();
+const renderer = createRenderer({
+  template: `<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+     <!--vue-ssr-outlet-->
+  </body>
+  </html>
+  `
+});
 const VNODE_AMOUNT = 500000;
 const TIME_ID = `renderToString ${VNODE_AMOUNT}个vnode节点总耗时`;
 console.time(TIME_ID);
@@ -41,7 +55,7 @@ const root = new Vue({
 });
 
 renderer.renderToString(root, (error, html) => {
-  // console.log("render done", html);
+  console.log("render done", html);
   if (!error) {
     console.timeEnd(TIME_ID);
     // console.log("html", html);

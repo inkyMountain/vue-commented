@@ -25,6 +25,10 @@ if (process.argv[2]) {
 
 build(builds)
 
+/**
+ * 串行构建多个任务
+ * @param {Array} builds genConfig 方法生成的 rollup 打包配置
+ */
 function build (builds) {
   let built = 0
   const total = builds.length
@@ -64,6 +68,13 @@ function buildEntry (config) {
     })
 }
 
+/**
+ * 
+ * @param {String} dest 文件输出地址
+ * @param {String} code rollup 打包后的代码
+ * @param {Boolean} zip 是否要计算压缩后的代码体积
+ * @returns 
+ */
 function write (dest, code, zip) {
   return new Promise((resolve, reject) => {
     function report (extra) {
