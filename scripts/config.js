@@ -35,7 +35,10 @@ const resolve = p => {
   }
 }
 
+// 这个对象包含了各种构建目标的配置
 const builds = {
+  // 在路径的配置中，有一个 resolve 函数。这个函数是为了解决构建环节的 alias 无法使用的问题。
+  // resolve 函数使用的 alias 和 rollup 打包时的 alias 是同一个来源。
   // Runtime only (CommonJS). Used by bundlers e.g. Webpack & Browserify
   'web-runtime-cjs-dev': {
     entry: resolve('web/entry-runtime.js'),
@@ -213,6 +216,8 @@ const builds = {
   }
 }
 
+// 由于 builds 对象使用了自定义的一套规范，去定义一个打包的配置，而不是 rollup 的配置规范，
+// 所以需要 genConfig 这个方法进行转换。
 function genConfig (name) {
   const opts = builds[name]
   const config = {
@@ -235,6 +240,7 @@ function genConfig (name) {
     }
   }
 
+  // 配置各种 rollup 插件
   // built-in vars
   const vars = {
     __WEEX__: !!opts.weex,
@@ -255,6 +261,7 @@ function genConfig (name) {
     config.plugins.push(buble())
   }
 
+  // 将 builds 对象中的 name 放在 config 对象的 _name 上。
   Object.defineProperty(config, '_name', {
     enumerable: false,
     value: name
