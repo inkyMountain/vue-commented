@@ -52,11 +52,18 @@ const normalizeRender = vm => {
 
 function waitForServerPrefetch (vm, resolve, reject) {
   let handlers = vm.$options.serverPrefetch
+  /**
+   * 如果 serverPrefetch 报错，则会调用两次 done，renderer.renderToString() 的回调会被调用两次。
+   * 第一次会给回调传入这里的 try catch 语句 或者 promise catch 捕获的错误，和空的 html 字符串。
+   * 第二次会给回调传空的 error 对象，和没有无网络请求下的渲染结果。
+   */
   if (isDef(handlers)) {
     if (!Array.isArray(handlers)) handlers = [handlers]
     try {
       const promises = []
       for (let i = 0, j = handlers.length; i < j; i++) {
+        // 由于这里 .call 传入的 this 是 vm，所以 vm 中的 serverPrefetch 函数,
+        // 是可以通过 this 访问 vm 对象的。
         const result = handlers[i].call(vm, vm)
         if (result && typeof result.then === 'function') {
           promises.push(result)
@@ -294,6 +301,7 @@ function renderStringNode (el, context) {
 function renderElement (el, isRoot, context) {
   const { write, next } = context
 
+  // 如果是根节点，那么在节点上加上 ssr 渲染标记。
   if (isTrue(isRoot)) {
     if (!el.data) el.data = {}
     if (!el.data.attrs) el.data.attrs = {}
@@ -304,13 +312,19 @@ function renderElement (el, isRoot, context) {
     registerComponentForCache(el.fnOptions, write)
   }
 
+  // 渲染起始标签，包含 指令、class、style 等各种逻辑。
   const startTag = renderStartingTag(el, context)
   const endTag = `</${el.tag}>`
+  // 如果是自闭合标签，那么只需要写入开始标签即可。
   if (context.isUnaryTag(el.tag)) {
     write(startTag, next)
-  } else if (isUndef(el.children) || el.children.length === 0) {
+  } 
+  // 如果不是自闭合标签，但是没有 children，那么写入开始+结束标签。
+  else if (isUndef(el.children) || el.children.length === 0) {
     write(startTag + endTag, next)
-  } else {
+  } 
+  // 如果有 children，那么推入 renderStates，然后渲染该标签的 children。
+  else {
     const children: Array<VNode> = el.children
     context.renderStates.push({
       type: 'Element',
@@ -415,6 +429,8 @@ export function createRenderFunction (
   return function render (
     component: Component,
     write: (text: string, next: Function) => void,
+    // userContext 包括用户传入的希望替换 html 模板中的内容，
+    // 但也绑定了 templateRenderer 中的 html 模板 render 方法，比如 renderScripts, renderStyle 等。
     userContext: ?Object,
     done: Function
   ) {
@@ -422,16 +438,25 @@ export function createRenderFunction (
     const context = new RenderContext({
       activeInstance: component,
       userContext,
-      write, done, renderNode,
-      isUnaryTag, modules, directives,
+      write, 
+      // 这个 done 不是用户传入的回调，而是 render 函数的回调。
+      // render 函数的回调里面才会去调用用户传入的回调。
+      done,
+      renderNode,
+      isUnaryTag, 
+      modules, 
+      directives,
       cache
     })
     installSSRHelpers(component)
+    // 如果用户包含 template 而不含 render 函数，
+    // 那么将 template 编译程 render 函数。
     normalizeRender(component)
 
     const resolve = () => {
       renderNode(component._render(), true, context)
     }
+    // 在获取服务端数据后，再调用 resolve，开始 render node。
     waitForServerPrefetch(component, resolve, done)
   }
 }

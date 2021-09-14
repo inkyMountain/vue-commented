@@ -79,8 +79,9 @@ export function createRenderer ({
         templateRenderer.bindRenderFns(context)
       }
 
-      // no callback, return Promise
-      // 兼容 callback 和 promise 两种调用方式。
+      // 抹平 callback 和 promise 两种方式的区别。如果用户希望采用 promise 方式，
+      // 那么创建一个 promise, 并创建一个 callback，在 callback 中调用 resolve 方法。
+      // 所以在后续的处理中，无论是 promise 还是回调，只要调用 cb()，就可以将结果返回给用户。
       let promise
       if (!cb) {
         ({ promise, cb } = createPromiseCallback())
