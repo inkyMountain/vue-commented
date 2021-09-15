@@ -41,6 +41,10 @@
     "release": "bash scripts/release.sh",
     "release:weex": "bash scripts/release-weex.sh",
     "release:note": "node scripts/gen-release-note.js",
+
+    "build:go": "tinygo build -o packages/vue-server-renderer/go.wasm -target wasm src/server/go/turbo.go",
+    "go": "npm run build:go",
+
     "commit": "git-cz"
   },
   "gitHooks": {

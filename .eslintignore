@@ -1,3 +1,6 @@
 flow
 dist
 packages
+
+# ignore go dir, especially for tinygo_wasm_exec.js
+src/server/go

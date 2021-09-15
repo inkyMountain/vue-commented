@@ -55,7 +55,6 @@ const root = new Vue({
 });
 
 renderer.renderToString(root, (error, html) => {
-  console.log("render done", html);
   if (!error) {
     console.timeEnd(TIME_ID);
     // console.log("html", html);

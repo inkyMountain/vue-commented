@@ -10,6 +10,25 @@ import { isUnaryTag, canBeLeftOpenTag } from './compiler/util'
 import { createRenderer as _createRenderer } from 'server/create-renderer'
 import { createBundleRendererCreator } from 'server/bundle-renderer/create-bundle-renderer'
 
+const fs = require("fs");
+const path = require("path");
+const wasmBuffer = fs.readFileSync(path.resolve(__dirname, "go.wasm"));
+
+require('./tinygo_wasm_exec')
+
+const go = new Go();
+
+WebAssembly.instantiate(wasmBuffer, go.importObject).then(function ({
+  instance: wasm,
+}) {
+  go.run(wasm);
+
+  const result = wasm.exports.add(10000);
+  console.log("go result", result);
+});
+
+
+
 export function createRenderer (options?: Object = {}): {
   renderToString: Function,
   renderToStream: Function
