@@ -97,6 +97,7 @@ export class RenderContext {
         // Element 和 Fragment 渲染逻辑相同。
         case 'Element':
         case 'Fragment':
+          // Fragment means functional component
           const { children, total } = lastState
           const rendered = lastState.rendered++
           // 如果 children 数据还没有渲染完，那么继续调用 renderNode。
@@ -124,6 +125,9 @@ export class RenderContext {
             components: componentBuffer[bufferIndex]
           }
           this.cache.set(key, result)
+          // 把有 serverCacheKey 的组件成为带缓存组件，
+          // 如果带缓存组件出现嵌套，bufferIndex 就会出现 > 0 的情况。
+          // 假设 A 套着 B，B 套着 C，那么 ABC 的 bufferIndex 分别是 0 1 2.
           if (bufferIndex === 0) {
             // this is a top-level cached component,
             // exit caching mode.
@@ -131,6 +135,7 @@ export class RenderContext {
           } else {
             // parent component is also being cached,
             // merge self into parent's result
+            // 嵌套的缓存组件，被嵌套的组件渲染时，将渲染结果同时写入父组件缓存中。
             buffer[bufferIndex - 1] += result.html
             const prev = componentBuffer[bufferIndex - 1]
             result.components.forEach(c => prev.add(c))

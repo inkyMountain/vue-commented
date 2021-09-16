@@ -2448,6 +2448,7 @@ function createWriteFunction (
 ) {
   var stackDepth = 0;
   var cachedWrite = function (text, next) {
+    // 如果 caching 标记为 true，那么每次调用 write 时，都把内容写入缓存。
     if (text && cachedWrite.caching) {
       cachedWrite.cacheBuffer[cachedWrite.cacheBuffer.length - 1] += text;
     }
@@ -2616,6 +2617,7 @@ RenderContext.prototype.next = function next () {
       // Element 和 Fragment 渲染逻辑相同。
       case 'Element':
       case 'Fragment':
+        // Fragment means functional component
         var children = lastState.children;
       var total = lastState.total;
         var rendered = lastState.rendered++;
@@ -2647,6 +2649,9 @@ RenderContext.prototype.next = function next () {
           components: componentBuffer[bufferIndex]
         };
         this.cache.set(key, result);
+        // 把有 serverCacheKey 的组件成为带缓存组件，
+        // 如果带缓存组件出现嵌套，bufferIndex 就会出现 > 0 的情况。
+        // 假设 A 套着 B，B 套着 C，那么 ABC 的 bufferIndex 分别是 0 1 2.
         if (bufferIndex === 0) {
           // this is a top-level cached component,
           // exit caching mode.
@@ -2654,6 +2659,7 @@ RenderContext.prototype.next = function next () {
         } else {
           // parent component is also being cached,
           // merge self into parent's result
+          // 嵌套的缓存组件，被嵌套的组件渲染时，将渲染结果同时写入父组件缓存中。
           buffer[bufferIndex - 1] += result.html;
           var prev = componentBuffer[bufferIndex - 1];
           result.components.forEach(function (c) { return prev.add(c); });
@@ -8401,17 +8407,24 @@ function renderComponent (node, isRoot, context) {
   var cache = context.cache;
   var registerComponent = registerComponentForCache(Ctor.options, write);
 
+  // 如果组件有定义 serverCacheKey，且有 name 属性，那么走组件缓存逻辑。
   if (isDef(getKey) && isDef(cache) && isDef(name)) {
     var rawKey = getKey(node.componentOptions.propsData);
+    // 如果 serverCacheKey 的返回值是 false，那么不走缓存逻辑。
     if (rawKey === false) {
       renderComponentInner(node, isRoot, context);
       return
     }
+    // 将 serverCacheKey 的返回值与 name 拼在一起。
+    // 这也是为什么 vue 强制要求，想要缓存，必须要提供 name 属性的原因。
+    // 为了隔离不同的组件的cache。
     var key = name + '::' + rawKey;
     var has = context.has;
     var get = context.get;
+    // 兼容 cache 对象没有提供 has 的情况
     if (isDef(has)) {
       has(key, function (hit) {
+        // 如果命中了缓存，则直接写入缓存值。
         if (hit === true && isDef(get)) {
           get(key, function (res) {
             if (isDef(registerComponent)) {
@@ -8421,10 +8434,12 @@ function renderComponent (node, isRoot, context) {
             write(res.html, next);
           });
         } else {
+          // 如果没有命中缓存，则渲染组件，并设置缓存。
           renderComponentWithCache(node, isRoot, key, context);
         }
       });
     } else if (isDef(get)) {
+      // 逻辑与上一个 if 分支相同。
       get(key, function (res) {
         if (isDef(res)) {
           if (isDef(registerComponent)) {
@@ -8438,6 +8453,8 @@ function renderComponent (node, isRoot, context) {
       });
     }
   } else {
+    // 如果组件有定义 serverCacheKey，但是没有 name 属性或者 cache 的实现，
+    // 那么发出一个警告，然后跳过缓存逻辑，像普通组件一样渲染。
     if (isDef(getKey) && isUndef(cache)) {
       warnOnce(
         "[vue-server-renderer] Component " + (Ctor.options.name || '(anonymous)') + " implemented serverCacheKey, " +
@@ -8456,8 +8473,10 @@ function renderComponent (node, isRoot, context) {
 
 function renderComponentWithCache (node, isRoot, key, context) {
   var write = context.write;
+  // 将 caching flag 置为 true，意味着接下来的 render 结果都是需要缓存的。
   write.caching = true;
   var buffer = write.cacheBuffer;
+  // 记录这个组件的缓存，在 cacheBuffer 的 index，方便后续读取对应缓存。
   var bufferIndex = buffer.push('') - 1;
   var componentBuffer = write.componentBuffer;
   componentBuffer.push(new Set());
@@ -8472,13 +8491,18 @@ function renderComponentWithCache (node, isRoot, key, context) {
 }
 
 function renderComponentInner (node, isRoot, context) {
+  // 把前一个活跃组件存起来，这样在这个组件 render 完成后，
+  // 可以将 activeInstance 重置为 prevActive。
   var prevActive = context.activeInstance;
   // expose userContext on vnode
   node.ssrContext = context.userContext;
   var child = context.activeInstance = createComponentInstanceForVnode(
     node,
+    // 这是 child 变量中的 parent 值
     context.activeInstance
   );
+
+  // 抹平 template 与 render 函数的差异
   normalizeRender(child);
 
   var resolve = function () {
@@ -8499,6 +8523,7 @@ function renderComponentInner (node, isRoot, context) {
 function renderAsyncComponent (node, isRoot, context) {
   var factory = node.asyncFactory;
 
+  // 在 factory 构造结束后的逻辑
   var resolve = function (comp) {
     if (comp.__esModule && comp.default) {
       comp = comp.default;
@@ -8517,24 +8542,25 @@ function renderAsyncComponent (node, isRoot, context) {
     );
     if (resolvedNode) {
       if (resolvedNode.componentOptions) {
-        // normal component
+        // 如果是组件，走组件 render 逻辑
         renderComponent(resolvedNode, isRoot, context);
       } else if (!Array.isArray(resolvedNode)) {
         // single return node from functional component
         renderNode(resolvedNode, isRoot, context);
       } else {
         // multiple return nodes from functional component
+        // 如果是一个数组，那么就入栈
         context.renderStates.push({
           type: 'Fragment',
           children: resolvedNode,
           rendered: 0,
           total: resolvedNode.length
         });
+        // 然后继续渲染它的 children
         context.next();
       }
     } else {
-      // invalid component, but this does not throw on the client
-      // so render empty comment node
+      // 如果是无效的组件，那么写一个空的注释，然后继续渲染下一个组件。
       context.write("<!---->", context.next);
     }
   };
@@ -8545,6 +8571,7 @@ function renderAsyncComponent (node, isRoot, context) {
   }
 
   var reject = context.done;
+  // 调用 factory 函数来产生一个 vue 组件，然后调用 resolve 函数。
   var res;
   try {
     res = factory(resolve, reject);
@@ -8643,6 +8670,7 @@ function getVShowDirectiveInfo (node) {
   return dir
 }
 
+// 渲染起始标签，包含指令、class、style等各种逻辑。
 function renderStartingTag (node, context) {
   var markup = "<" + (node.tag);
   var directives = context.directives;
@@ -8654,7 +8682,7 @@ function renderStartingTag (node, context) {
     node.data = {};
   }
   if (isDef(node.data)) {
-    // check directives
+    // vue 指令
     var dirs = node.data.directives;
     if (dirs) {
       for (var i = 0; i < dirs.length; i++) {
@@ -8670,13 +8698,13 @@ function renderStartingTag (node, context) {
       }
     }
 
-    // v-show directive needs to be merged from parent to child
+    // v-show 逻辑
     var vshowDirectiveInfo = getVShowDirectiveInfo(node);
     if (vshowDirectiveInfo) {
       directives.show(node, vshowDirectiveInfo);
     }
 
-    // apply other modules
+    // modules 函数调用
     for (var i$1 = 0; i$1 < modules.length; i$1++) {
       var res = modules[i$1](node);
       if (res) {

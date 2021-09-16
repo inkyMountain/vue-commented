@@ -25,6 +25,7 @@ export function createWriteFunction (
 ): Function {
   let stackDepth = 0
   const cachedWrite = (text, next) => {
+    // 如果 caching 标记为 true，那么每次调用 write 时，都把内容写入缓存。
     if (text && cachedWrite.caching) {
       cachedWrite.cacheBuffer[cachedWrite.cacheBuffer.length - 1] += text
     }
