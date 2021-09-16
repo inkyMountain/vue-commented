@@ -2451,17 +2451,24 @@ function createWriteFunction (
     if (text && cachedWrite.caching) {
       cachedWrite.cacheBuffer[cachedWrite.cacheBuffer.length - 1] += text;
     }
+    // waitForNext 在 write 结束后，是否主动调用 next 函数，在开启下一个节点的渲染。
     var waitForNext = write(text, next);
     if (waitForNext !== true) {
+      // 如果主动调用 next 函数，那么就会与 write 函数的调用方形成递归。
+      // 如果组件特别大，非常容易超出最大函数栈的限制。
+      // 所以在这里对最大递归调用做一个限制。
       if (stackDepth >= MAX_STACK_DEPTH) {
+        // defer 是 nextTick 的 兼容写法
         defer(function () {
           try { next(); } catch (e) {
             onError(e);
           }
         });
       } else {
+        // 如果主动调用 next，那么就将栈层数统计 +1。
         stackDepth++;
         next();
+        // 在递归结束后，栈高度减少，所以将栈层数统计 -1。
         stackDepth--;
       }
     }
@@ -8934,6 +8941,7 @@ var TemplateRenderer = function TemplateRenderer (options) {
   // as a utility object for rendering assets like preload links and scripts.
     
   var template = options.template;
+  // 将 template 转换为三个 head neck tail 三个部分
   this.parsedTemplate = template
     ? typeof template === 'string'
       ? parseTemplate(template)
@@ -8960,6 +8968,8 @@ var TemplateRenderer = function TemplateRenderer (options) {
   }
 };
 
+// 将 renderStyles 等几个函数，绑定到 context 上。
+// 此处的 context 是用户传入的，用于替换模板中的 {{{}}} 的上下文。
 TemplateRenderer.prototype.bindRenderFns = function bindRenderFns (context) {
   var renderer = this
   ;['ResourceHints', 'State', 'Scripts', 'Styles'].forEach(function (type) {
@@ -8969,7 +8979,7 @@ TemplateRenderer.prototype.bindRenderFns = function bindRenderFns (context) {
   context.getPreloadFiles = renderer.getPreloadFiles.bind(renderer, context);
 };
 
-// render synchronously given rendered app content and render context
+// 将所有零散 html 字符串，拼接成最终输出的字符串。
 TemplateRenderer.prototype.render = function render (content, context) {
   var template = this.parsedTemplate;
   if (!template) {
@@ -9028,6 +9038,7 @@ TemplateRenderer.prototype.renderStyles = function renderStyles (context) {
   )
 };
 
+// preload + prefetch
 TemplateRenderer.prototype.renderResourceHints = function renderResourceHints (context) {
   return this.renderPreloadLinks(context) + this.renderPrefetchLinks(context)
 };
@@ -9041,6 +9052,7 @@ TemplateRenderer.prototype.getPreloadFiles = function getPreloadFiles (context) 
   }
 };
 
+// 拼接 preload link
 TemplateRenderer.prototype.renderPreloadLinks = function renderPreloadLinks (context) {
     var this$1 = this;
 
@@ -9099,6 +9111,7 @@ TemplateRenderer.prototype.renderPrefetchLinks = function renderPrefetchLinks (c
   }
 };
 
+// 服务端获取的接口数据 ？
 TemplateRenderer.prototype.renderState = function renderState (context, options) {
   var ref = options || {};
     var contextKey = ref.contextKey; if ( contextKey === void 0 ) contextKey = 'state';
@@ -9111,6 +9124,7 @@ TemplateRenderer.prototype.renderState = function renderState (context, options)
     : ''
 };
 
+// <script> 标签
 TemplateRenderer.prototype.renderScripts = function renderScripts (context) {
     var this$1 = this;
 
@@ -9246,6 +9260,8 @@ function createRenderer (ref) {
 
       // vnode 渲染结果存储变量，不包含 html 模板内容。
       var result = '';
+      // 创建一个 write 函数，将 ssr 数据写入 result 中。
+      // 第二个参数 cb 是一个 onError 函数。
       var write = createWriteFunction(function (text) {
         result += text;
         return false
@@ -9678,6 +9694,7 @@ var wasmBuffer = fs$1.readFileSync(path$3.resolve(__dirname, "go.wasm"));
 
 require('./tinygo_wasm_exec');
 
+// eslint-disable-next-line
 var go = new Go();
 
 WebAssembly.instantiate(wasmBuffer, go.importObject).then(function (ref) {
