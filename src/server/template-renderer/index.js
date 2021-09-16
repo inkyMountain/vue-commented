@@ -57,6 +57,7 @@ export default class TemplateRenderer {
     // as a utility object for rendering assets like preload links and scripts.
     
     const { template } = options
+    // 将 template 转换为三个 head neck tail 三个部分
     this.parsedTemplate = template
       ? typeof template === 'string'
         ? parseTemplate(template)
@@ -83,6 +84,8 @@ export default class TemplateRenderer {
     }
   }
 
+  // 将 renderStyles 等几个函数，绑定到 context 上。
+  // 此处的 context 是用户传入的，用于替换模板中的 {{{}}} 的上下文。
   bindRenderFns (context: Object) {
     const renderer: any = this
     ;['ResourceHints', 'State', 'Scripts', 'Styles'].forEach(type => {
@@ -92,7 +95,7 @@ export default class TemplateRenderer {
     context.getPreloadFiles = renderer.getPreloadFiles.bind(renderer, context)
   }
 
-  // render synchronously given rendered app content and render context
+  // 将所有零散 html 字符串，拼接成最终输出的字符串。
   render (content: string, context: ?Object): string | Promise<string> {
     const template = this.parsedTemplate
     if (!template) {
@@ -141,6 +144,7 @@ export default class TemplateRenderer {
     )
   }
 
+  // preload + prefetch
   renderResourceHints (context: Object): string {
     return this.renderPreloadLinks(context) + this.renderPrefetchLinks(context)
   }
@@ -154,6 +158,7 @@ export default class TemplateRenderer {
     }
   }
 
+  // 拼接 preload link
   renderPreloadLinks (context: Object): string {
     const files = this.getPreloadFiles(context)
     const shouldPreload = this.options.shouldPreload
@@ -205,6 +210,7 @@ export default class TemplateRenderer {
     }
   }
 
+  // 服务端获取的接口数据 ？
   renderState (context: Object, options?: Object): string {
     const {
       contextKey = 'state',
@@ -220,6 +226,7 @@ export default class TemplateRenderer {
       : ''
   }
 
+  // <script> 标签
   renderScripts (context: Object): string {
     if (this.clientManifest) {
       const initial = this.preloadFiles.filter(({ file }) => isJS(file))

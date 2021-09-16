@@ -13,7 +13,6 @@ import { createBundleRendererCreator } from 'server/bundle-renderer/create-bundl
 const fs = require("fs");
 const path = require("path");
 const wasmBuffer = fs.readFileSync(path.resolve(__dirname, "go.wasm"));
-
 require('./tinygo_wasm_exec')
 
 const go = new Go();
