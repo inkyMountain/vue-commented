@@ -46,11 +46,19 @@ export function createRenderer ({
   serializer
 }: RenderOptions = {}): Renderer {
   /**
+   * createRenderer 函数的整体流程：
    * 1. 创建 render 函数，负责将 Vue 对象渲染成字符串。
    * 2. 创建 templateRenderer，负责将 步骤1 中的结果与 html 模板拼接成完整的 html 文档。
    * renderToString 部分
    * 3. 创建一个具备 缓存、避免最大栈溢出的 write 函数。
    * 4. 调用 render 函数，与 templateRenderer 协作，拼接最终响应结果。
+   */
+
+  /**
+   * modules: 根据 vnode 渲染 startTag 的一部分。
+   * directives: server 端指令的实现。
+   * isUnaryTag: 判断某个 html 元素是否是一元标签(比如 <img >)
+   * cache: 组件缓存的实现，通常为 lru cache. 至少需要实现 get set 两个方法。
    */
   const render = createRenderFunction(modules, directives, isUnaryTag, cache)
   // 模版渲染器，作用是将 vnode 渲染的结果和 html 模板进行拼接，最终生成返回给浏览器的内容。

@@ -63,7 +63,7 @@ function waitForServerPrefetch (vm, resolve, reject) {
       const promises = []
       for (let i = 0, j = handlers.length; i < j; i++) {
         // 由于这里 .call 传入的 this 是 vm，所以 vm 中的 serverPrefetch 函数,
-        // 是可以通过 this 访问 vm 对象的。
+        // 是可以通过 this 访问 vm 对象的。获取到数据后，赋值给 this 上的 data。
         const result = handlers[i].call(vm, vm)
         if (result && typeof result.then === 'function') {
           promises.push(result)
@@ -79,20 +79,31 @@ function waitForServerPrefetch (vm, resolve, reject) {
 }
 
 function renderNode (node, isRoot, context) {
+  // 字符串节点
   if (node.isString) {
     renderStringNode(node, context)
-  } else if (isDef(node.componentOptions)) {
+  } 
+  // vue 组件节点
+  else if (isDef(node.componentOptions)) {
     renderComponent(node, isRoot, context)
-  } else if (isDef(node.tag)) {
+  } 
+  // html 标签
+  else if (isDef(node.tag)) {
     renderElement(node, isRoot, context)
-  } else if (isTrue(node.isComment)) {
+  } 
+  // 注释节点
+  else if (isTrue(node.isComment)) {
+    // 注释节点有可能是一个异步组件
     if (isDef(node.asyncFactory)) {
-      // async component
+      // 处理异步组件
       renderAsyncComponent(node, isRoot, context)
     } else {
+      // 如果不是异步组件，那么就写入注释。
       context.write(`<!--${node.text}-->`, context.next)
     }
-  } else {
+  } 
+  // 如果以上节点类型都没有命中，那么就将 text 写入。
+  else {
     context.write(
       node.raw ? node.text : escape(String(node.text)),
       context.next
@@ -438,7 +449,7 @@ export function createRenderFunction (
     const context = new RenderContext({
       activeInstance: component,
       userContext,
-      write, 
+      write,
       // 这个 done 不是用户传入的回调，而是 render 函数的回调。
       // render 函数的回调里面才会去调用用户传入的回调。
       done,
@@ -451,6 +462,8 @@ export function createRenderFunction (
     installSSRHelpers(component)
     // 如果用户包含 template 而不含 render 函数，
     // 那么将 template 编译程 render 函数。
+    // 如果 component 中使用 template 而不是 render 函数，
+    // 那么这一步将使用 SSRHElpers 中的函数。
     normalizeRender(component)
 
     const resolve = () => {

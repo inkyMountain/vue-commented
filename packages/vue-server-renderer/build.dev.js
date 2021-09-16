@@ -2597,28 +2597,37 @@ var RenderContext = function RenderContext (options) {
   this.get = cache && normalizeAsync(cache, 'get');
   this.has = cache && normalizeAsync(cache, 'has');
 
+  // 避免 next 函数传递给 write 以后，this 不再是 renderContext 的问题。
   this.next = this.next.bind(this);
 };
 
 RenderContext.prototype.next = function next () {
   // eslint-disable-next-line
   while (true) {
+    // 取出渲染栈中的最后一个需要渲染的元素
     var lastState = this.renderStates[this.renderStates.length - 1];
+
+    // 当渲染栈中没有需要渲染的元素时，说明渲染完成，调用回调函数。
     if (isUndef(lastState)) {
       return this.done()
     }
     /* eslint-disable no-case-declarations */
     switch (lastState.type) {
+      // Element 和 Fragment 渲染逻辑相同。
       case 'Element':
       case 'Fragment':
         var children = lastState.children;
       var total = lastState.total;
         var rendered = lastState.rendered++;
+        // 如果 children 数据还没有渲染完，那么继续调用 renderNode。
         if (rendered < total) {
           return this.renderNode(children[rendered], false, this)
-        } else {
+        } 
+        else {
+          // 如果 children 数据已经渲染完了，那么将这个 Element 移除，
           this.renderStates.pop();
           if (lastState.type === 'Element') {
+            // 并写入它的结束标签，e.g. </div> </span> 等。
             return this.write(lastState.endTag, this.next)
           }
         }
@@ -2656,13 +2665,18 @@ RenderContext.prototype.next = function next () {
   }
 };
 
+// 兼容 cache 对象的 get, has 方法调用方式。
+// const value = cache.get('cacheKey')
+// cache.get('cacheKey', (value) => {})
 function normalizeAsync (cache, method) {
   var fn = cache[method];
   if (isUndef(fn)) {
     return
-  } else if (fn.length > 1) {
+  }
+  else if (fn.length > 1) {
     return function (key, cb) { return fn.call(cache, key, cb); }
-  } else {
+  }
+  else {
     return function (key, cb) { return cb(fn.call(cache, key)); }
   }
 }
@@ -6499,6 +6513,8 @@ var ssrHelpers = {
   _ssrStyle: renderSSRStyle
 };
 
+// 在 Vue 原型上绑定一些 ssr 专用的方法，可以通过 this 来访问这些方法。
+// 在服务端 template -> render 函数这一步，会使用这些方法。
 function installSSRHelpers (vm) {
   if (vm._ssrNode) {
     return
@@ -8315,7 +8331,7 @@ function waitForServerPrefetch (vm, resolve, reject) {
       var promises = [];
       for (var i = 0, j = handlers.length; i < j; i++) {
         // 由于这里 .call 传入的 this 是 vm，所以 vm 中的 serverPrefetch 函数,
-        // 是可以通过 this 访问 vm 对象的。
+        // 是可以通过 this 访问 vm 对象的。获取到数据后，赋值给 this 上的 data。
         var result = handlers[i].call(vm, vm);
         if (result && typeof result.then === 'function') {
           promises.push(result);
@@ -8331,20 +8347,31 @@ function waitForServerPrefetch (vm, resolve, reject) {
 }
 
 function renderNode (node, isRoot, context) {
+  // 字符串节点
   if (node.isString) {
     renderStringNode$1(node, context);
-  } else if (isDef(node.componentOptions)) {
+  } 
+  // vue 组件节点
+  else if (isDef(node.componentOptions)) {
     renderComponent(node, isRoot, context);
-  } else if (isDef(node.tag)) {
+  } 
+  // html 标签
+  else if (isDef(node.tag)) {
     renderElement(node, isRoot, context);
-  } else if (isTrue(node.isComment)) {
+  } 
+  // 注释节点
+  else if (isTrue(node.isComment)) {
+    // 注释节点有可能是一个异步组件
     if (isDef(node.asyncFactory)) {
-      // async component
+      // 处理异步组件
       renderAsyncComponent(node, isRoot, context);
     } else {
+      // 如果不是异步组件，那么就写入注释。
       context.write(("<!--" + (node.text) + "-->"), context.next);
     }
-  } else {
+  } 
+  // 如果以上节点类型都没有命中，那么就将 text 写入。
+  else {
     context.write(
       node.raw ? node.text : escape(String(node.text)),
       context.next
@@ -8697,7 +8724,7 @@ function createRenderFunction (
     var context = new RenderContext({
       activeInstance: component,
       userContext: userContext,
-      write: write, 
+      write: write,
       // 这个 done 不是用户传入的回调，而是 render 函数的回调。
       // render 函数的回调里面才会去调用用户传入的回调。
       done: done,
@@ -8710,6 +8737,8 @@ function createRenderFunction (
     installSSRHelpers(component);
     // 如果用户包含 template 而不含 render 函数，
     // 那么将 template 编译程 render 函数。
+    // 如果 component 中使用 template 而不是 render 函数，
+    // 那么这一步将使用 SSRHElpers 中的函数。
     normalizeRender(component);
 
     var resolve = function () {
@@ -9215,11 +9244,19 @@ function createRenderer (ref) {
   var serializer = ref.serializer;
 
   /**
+   * createRenderer 函数的整体流程：
    * 1. 创建 render 函数，负责将 Vue 对象渲染成字符串。
    * 2. 创建 templateRenderer，负责将 步骤1 中的结果与 html 模板拼接成完整的 html 文档。
    * renderToString 部分
    * 3. 创建一个具备 缓存、避免最大栈溢出的 write 函数。
    * 4. 调用 render 函数，与 templateRenderer 协作，拼接最终响应结果。
+   */
+
+  /**
+   * modules: 根据 vnode 渲染 startTag 的一部分。
+   * directives: server 端指令的实现。
+   * isUnaryTag: 判断某个 html 元素是否是一元标签(比如 <img >)
+   * cache: 组件缓存的实现，通常为 lru cache. 至少需要实现 get set 两个方法。
    */
   var render = createRenderFunction(modules, directives, isUnaryTag, cache);
   // 模版渲染器，作用是将 vnode 渲染的结果和 html 模板进行拼接，最终生成返回给浏览器的内容。
