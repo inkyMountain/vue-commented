@@ -89,6 +89,8 @@ export function createRenderer ({
 
       // vnode 渲染结果存储变量，不包含 html 模板内容。
       let result = ''
+      // 创建一个 write 函数，将 ssr 数据写入 result 中。
+      // 第二个参数 cb 是一个 onError 函数。
       const write = createWriteFunction(text => {
         result += text
         return false
