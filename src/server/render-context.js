@@ -18,19 +18,35 @@ type RenderState = {
   prevActive: Component;
 } | {
   type: 'ComponentWithCache';
+  // write.cacheBuffer
   buffer: Array<string>;
   bufferIndex: number;
+  // write.componentBuffer
   componentBuffer: Array<Set<Class<Component>>>;
+  // serverCacheKey
   key: string;
 };
 
 export class RenderContext {
+  // 用户模板中需要替换的变量
   userContext: ?Object;
+
+  // 当前正在处理的 vue component
   activeInstance: Component;
+
+  // 最为重要的变量：渲染栈
   renderStates: Array<RenderState>;
+
+  // 由 createWriteFunction 创建的 write 函数
   write: (text: string, next: Function) => void;
+
+  // 节点渲染函数，内部对不同节点类型，采取不同的渲染策略。
   renderNode: (node: VNode, isRoot: boolean, context: RenderContext) => void;
+
+  // 传递给 write 函数使用的 next 函数，用于触发下一次的渲染。
   next: () => void;
+
+  // 在全部渲染工作完成后的回调函数。
   done: (err: ?Error) => void;
 
   modules: Array<(node: VNode) => ?string>;
@@ -62,27 +78,37 @@ export class RenderContext {
     this.get = cache && normalizeAsync(cache, 'get')
     this.has = cache && normalizeAsync(cache, 'has')
 
+    // 避免 next 函数传递给 write 以后，this 不再是 renderContext 的问题。
     this.next = this.next.bind(this)
   }
 
   next () {
     // eslint-disable-next-line
     while (true) {
+      // 取出渲染栈中的最后一个需要渲染的元素
       const lastState = this.renderStates[this.renderStates.length - 1]
+
+      // 当渲染栈中没有需要渲染的元素时，说明渲染完成，调用回调函数。
       if (isUndef(lastState)) {
         return this.done()
       }
       /* eslint-disable no-case-declarations */
       switch (lastState.type) {
+        // Element 和 Fragment 渲染逻辑相同。
         case 'Element':
         case 'Fragment':
+          // Fragment means functional component
           const { children, total } = lastState
           const rendered = lastState.rendered++
+          // 如果 children 数据还没有渲染完，那么继续调用 renderNode。
           if (rendered < total) {
             return this.renderNode(children[rendered], false, this)
-          } else {
+          } 
+          else {
+            // 如果 children 数据已经渲染完了，那么将这个 Element 移除，
             this.renderStates.pop()
             if (lastState.type === 'Element') {
+              // 并写入它的结束标签，e.g. </div> </span> 等。
               return this.write(lastState.endTag, this.next)
             }
           }
@@ -99,6 +125,9 @@ export class RenderContext {
             components: componentBuffer[bufferIndex]
           }
           this.cache.set(key, result)
+          // 把有 serverCacheKey 的组件成为带缓存组件，
+          // 如果带缓存组件出现嵌套，bufferIndex 就会出现 > 0 的情况。
+          // 假设 A 套着 B，B 套着 C，那么 ABC 的 bufferIndex 分别是 0 1 2.
           if (bufferIndex === 0) {
             // this is a top-level cached component,
             // exit caching mode.
@@ -106,6 +135,7 @@ export class RenderContext {
           } else {
             // parent component is also being cached,
             // merge self into parent's result
+            // 嵌套的缓存组件，被嵌套的组件渲染时，将渲染结果同时写入父组件缓存中。
             buffer[bufferIndex - 1] += result.html
             const prev = componentBuffer[bufferIndex - 1]
             result.components.forEach(c => prev.add(c))
@@ -118,13 +148,18 @@ export class RenderContext {
   }
 }
 
+// 兼容 cache 对象的 get, has 方法调用方式。
+// const value = cache.get('cacheKey')
+// cache.get('cacheKey', (value) => {})
 function normalizeAsync (cache, method) {
   const fn = cache[method]
   if (isUndef(fn)) {
     return
-  } else if (fn.length > 1) {
+  }
+  else if (fn.length > 1) {
     return (key, cb) => fn.call(cache, key, cb)
-  } else {
+  }
+  else {
     return (key, cb) => cb(fn.call(cache, key))
   }
 }

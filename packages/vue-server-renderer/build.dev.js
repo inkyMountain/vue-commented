@@ -2421,20 +2421,28 @@ function createWriteFunction (
 ) {
   var stackDepth = 0;
   var cachedWrite = function (text, next) {
+    // 如果 caching 标记为 true，那么每次调用 write 时，都把内容写入缓存。
     if (text && cachedWrite.caching) {
       cachedWrite.cacheBuffer[cachedWrite.cacheBuffer.length - 1] += text;
     }
+    // waitForNext 在 write 结束后，是否主动调用 next 函数，在开启下一个节点的渲染。
     var waitForNext = write(text, next);
     if (waitForNext !== true) {
+      // 如果主动调用 next 函数，那么就会与 write 函数的调用方形成递归。
+      // 如果组件特别大，非常容易超出最大函数栈的限制。
+      // 所以在这里对最大递归调用做一个限制。
       if (stackDepth >= MAX_STACK_DEPTH) {
+        // defer 是 nextTick 的 兼容写法
         defer(function () {
           try { next(); } catch (e) {
             onError(e);
           }
         });
       } else {
+        // 如果主动调用 next，那么就将栈层数统计 +1。
         stackDepth++;
         next();
+        // 在递归结束后，栈高度减少，所以将栈层数统计 -1。
         stackDepth--;
       }
     }
@@ -2563,28 +2571,38 @@ var RenderContext = function RenderContext (options) {
   this.get = cache && normalizeAsync(cache, 'get');
   this.has = cache && normalizeAsync(cache, 'has');
 
+  // 避免 next 函数传递给 write 以后，this 不再是 renderContext 的问题。
   this.next = this.next.bind(this);
 };
 
 RenderContext.prototype.next = function next () {
   // eslint-disable-next-line
   while (true) {
+    // 取出渲染栈中的最后一个需要渲染的元素
     var lastState = this.renderStates[this.renderStates.length - 1];
+
+    // 当渲染栈中没有需要渲染的元素时，说明渲染完成，调用回调函数。
     if (isUndef(lastState)) {
       return this.done()
     }
     /* eslint-disable no-case-declarations */
     switch (lastState.type) {
+      // Element 和 Fragment 渲染逻辑相同。
       case 'Element':
       case 'Fragment':
+        // Fragment means functional component
         var children = lastState.children;
       var total = lastState.total;
         var rendered = lastState.rendered++;
+        // 如果 children 数据还没有渲染完，那么继续调用 renderNode。
         if (rendered < total) {
           return this.renderNode(children[rendered], false, this)
-        } else {
+        } 
+        else {
+          // 如果 children 数据已经渲染完了，那么将这个 Element 移除，
           this.renderStates.pop();
           if (lastState.type === 'Element') {
+            // 并写入它的结束标签，e.g. </div> </span> 等。
             return this.write(lastState.endTag, this.next)
           }
         }
@@ -2604,6 +2622,9 @@ RenderContext.prototype.next = function next () {
           components: componentBuffer[bufferIndex]
         };
         this.cache.set(key, result);
+        // 把有 serverCacheKey 的组件成为带缓存组件，
+        // 如果带缓存组件出现嵌套，bufferIndex 就会出现 > 0 的情况。
+        // 假设 A 套着 B，B 套着 C，那么 ABC 的 bufferIndex 分别是 0 1 2.
         if (bufferIndex === 0) {
           // this is a top-level cached component,
           // exit caching mode.
@@ -2611,6 +2632,7 @@ RenderContext.prototype.next = function next () {
         } else {
           // parent component is also being cached,
           // merge self into parent's result
+          // 嵌套的缓存组件，被嵌套的组件渲染时，将渲染结果同时写入父组件缓存中。
           buffer[bufferIndex - 1] += result.html;
           var prev = componentBuffer[bufferIndex - 1];
           result.components.forEach(function (c) { return prev.add(c); });
@@ -2622,13 +2644,18 @@ RenderContext.prototype.next = function next () {
   }
 };
 
+// 兼容 cache 对象的 get, has 方法调用方式。
+// const value = cache.get('cacheKey')
+// cache.get('cacheKey', (value) => {})
 function normalizeAsync (cache, method) {
   var fn = cache[method];
   if (isUndef(fn)) {
     return
-  } else if (fn.length > 1) {
+  }
+  else if (fn.length > 1) {
     return function (key, cb) { return fn.call(cache, key, cb); }
-  } else {
+  }
+  else {
     return function (key, cb) { return cb(fn.call(cache, key)); }
   }
 }
@@ -6478,6 +6505,8 @@ var ssrHelpers = {
   _ssrStyle: renderSSRStyle
 };
 
+// 在 Vue 原型上绑定一些 ssr 专用的方法，可以通过 this 来访问这些方法。
+// 在服务端 template -> render 函数这一步，会使用这些方法。
 function installSSRHelpers (vm) {
   if (vm._ssrNode) {
     return
@@ -8170,7 +8199,7 @@ function waitForServerPrefetch (vm, resolve, reject) {
       var promises = [];
       for (var i = 0, j = handlers.length; i < j; i++) {
         // 由于这里 .call 传入的 this 是 vm，所以 vm 中的 serverPrefetch 函数,
-        // 是可以通过 this 访问 vm 对象的。
+        // 是可以通过 this 访问 vm 对象的。获取到数据后，赋值给 this 上的 data。
         var result = handlers[i].call(vm, vm);
         if (result && typeof result.then === 'function') {
           promises.push(result);
@@ -8186,20 +8215,31 @@ function waitForServerPrefetch (vm, resolve, reject) {
 }
 
 function renderNode (node, isRoot, context) {
+  // 字符串节点
   if (node.isString) {
     renderStringNode$1(node, context);
-  } else if (isDef(node.componentOptions)) {
+  } 
+  // vue 组件节点
+  else if (isDef(node.componentOptions)) {
     renderComponent(node, isRoot, context);
-  } else if (isDef(node.tag)) {
+  } 
+  // html 标签
+  else if (isDef(node.tag)) {
     renderElement(node, isRoot, context);
-  } else if (isTrue(node.isComment)) {
+  } 
+  // 注释节点
+  else if (isTrue(node.isComment)) {
+    // 注释节点有可能是一个异步组件
     if (isDef(node.asyncFactory)) {
-      // async component
+      // 处理异步组件
       renderAsyncComponent(node, isRoot, context);
     } else {
+      // 如果不是异步组件，那么就写入注释。
       context.write(("<!--" + (node.text) + "-->"), context.next);
     }
-  } else {
+  } 
+  // 如果以上节点类型都没有命中，那么就将 text 写入。
+  else {
     context.write(
       node.raw ? node.text : escape(String(node.text)),
       context.next
@@ -8229,17 +8269,24 @@ function renderComponent (node, isRoot, context) {
   var cache = context.cache;
   var registerComponent = registerComponentForCache(Ctor.options, write);
 
+  // 如果组件有定义 serverCacheKey，且有 name 属性，那么走组件缓存逻辑。
   if (isDef(getKey) && isDef(cache) && isDef(name)) {
     var rawKey = getKey(node.componentOptions.propsData);
+    // 如果 serverCacheKey 的返回值是 false，那么不走缓存逻辑。
     if (rawKey === false) {
       renderComponentInner(node, isRoot, context);
       return
     }
+    // 将 serverCacheKey 的返回值与 name 拼在一起。
+    // 这也是为什么 vue 强制要求，想要缓存，必须要提供 name 属性的原因。
+    // 为了隔离不同的组件的cache。
     var key = name + '::' + rawKey;
     var has = context.has;
     var get = context.get;
+    // 兼容 cache 对象没有提供 has 的情况
     if (isDef(has)) {
       has(key, function (hit) {
+        // 如果命中了缓存，则直接写入缓存值。
         if (hit === true && isDef(get)) {
           get(key, function (res) {
             if (isDef(registerComponent)) {
@@ -8249,10 +8296,12 @@ function renderComponent (node, isRoot, context) {
             write(res.html, next);
           });
         } else {
+          // 如果没有命中缓存，则渲染组件，并设置缓存。
           renderComponentWithCache(node, isRoot, key, context);
         }
       });
     } else if (isDef(get)) {
+      // 逻辑与上一个 if 分支相同。
       get(key, function (res) {
         if (isDef(res)) {
           if (isDef(registerComponent)) {
@@ -8266,6 +8315,8 @@ function renderComponent (node, isRoot, context) {
       });
     }
   } else {
+    // 如果组件有定义 serverCacheKey，但是没有 name 属性或者 cache 的实现，
+    // 那么发出一个警告，然后跳过缓存逻辑，像普通组件一样渲染。
     if (isDef(getKey) && isUndef(cache)) {
       warnOnce(
         "[vue-server-renderer] Component " + (Ctor.options.name || '(anonymous)') + " implemented serverCacheKey, " +
@@ -8284,8 +8335,10 @@ function renderComponent (node, isRoot, context) {
 
 function renderComponentWithCache (node, isRoot, key, context) {
   var write = context.write;
+  // 将 caching flag 置为 true，意味着接下来的 render 结果都是需要缓存的。
   write.caching = true;
   var buffer = write.cacheBuffer;
+  // 记录这个组件的缓存，在 cacheBuffer 的 index，方便后续读取对应缓存。
   var bufferIndex = buffer.push('') - 1;
   var componentBuffer = write.componentBuffer;
   componentBuffer.push(new Set());
@@ -8300,13 +8353,18 @@ function renderComponentWithCache (node, isRoot, key, context) {
 }
 
 function renderComponentInner (node, isRoot, context) {
+  // 把前一个活跃组件存起来，这样在这个组件 render 完成后，
+  // 可以将 activeInstance 重置为 prevActive。
   var prevActive = context.activeInstance;
   // expose userContext on vnode
   node.ssrContext = context.userContext;
   var child = context.activeInstance = createComponentInstanceForVnode(
     node,
+    // 这是 child 变量中的 parent 值
     context.activeInstance
   );
+
+  // 抹平 template 与 render 函数的差异
   normalizeRender(child);
 
   var resolve = function () {
@@ -8327,6 +8385,7 @@ function renderComponentInner (node, isRoot, context) {
 function renderAsyncComponent (node, isRoot, context) {
   var factory = node.asyncFactory;
 
+  // 在 factory 构造结束后的逻辑
   var resolve = function (comp) {
     if (comp.__esModule && comp.default) {
       comp = comp.default;
@@ -8345,24 +8404,25 @@ function renderAsyncComponent (node, isRoot, context) {
     );
     if (resolvedNode) {
       if (resolvedNode.componentOptions) {
-        // normal component
+        // 如果是组件，走组件 render 逻辑
         renderComponent(resolvedNode, isRoot, context);
       } else if (!Array.isArray(resolvedNode)) {
         // single return node from functional component
         renderNode(resolvedNode, isRoot, context);
       } else {
         // multiple return nodes from functional component
+        // 如果是一个数组，那么就入栈
         context.renderStates.push({
           type: 'Fragment',
           children: resolvedNode,
           rendered: 0,
           total: resolvedNode.length
         });
+        // 然后继续渲染它的 children
         context.next();
       }
     } else {
-      // invalid component, but this does not throw on the client
-      // so render empty comment node
+      // 如果是无效的组件，那么写一个空的注释，然后继续渲染下一个组件。
       context.write("<!---->", context.next);
     }
   };
@@ -8373,6 +8433,7 @@ function renderAsyncComponent (node, isRoot, context) {
   }
 
   var reject = context.done;
+  // 调用 factory 函数来产生一个 vue 组件，然后调用 resolve 函数。
   var res;
   try {
     res = factory(resolve, reject);
@@ -8471,6 +8532,7 @@ function getVShowDirectiveInfo (node) {
   return dir
 }
 
+// 渲染起始标签，包含指令、class、style等各种逻辑。
 function renderStartingTag (node, context) {
   var markup = "<" + (node.tag);
   var directives = context.directives;
@@ -8482,7 +8544,7 @@ function renderStartingTag (node, context) {
     node.data = {};
   }
   if (isDef(node.data)) {
-    // check directives
+    // vue 指令
     var dirs = node.data.directives;
     if (dirs) {
       for (var i = 0; i < dirs.length; i++) {
@@ -8498,13 +8560,13 @@ function renderStartingTag (node, context) {
       }
     }
 
-    // v-show directive needs to be merged from parent to child
+    // v-show 逻辑
     var vshowDirectiveInfo = getVShowDirectiveInfo(node);
     if (vshowDirectiveInfo) {
       directives.show(node, vshowDirectiveInfo);
     }
 
-    // apply other modules
+    // modules 函数调用
     for (var i$1 = 0; i$1 < modules.length; i$1++) {
       var res = modules[i$1](node);
       if (res) {
@@ -8552,7 +8614,7 @@ function createRenderFunction (
     var context = new RenderContext({
       activeInstance: component,
       userContext: userContext,
-      write: write, 
+      write: write,
       // 这个 done 不是用户传入的回调，而是 render 函数的回调。
       // render 函数的回调里面才会去调用用户传入的回调。
       done: done,
@@ -8565,6 +8627,8 @@ function createRenderFunction (
     installSSRHelpers(component);
     // 如果用户包含 template 而不含 render 函数，
     // 那么将 template 编译程 render 函数。
+    // 如果 component 中使用 template 而不是 render 函数，
+    // 那么这一步将使用 SSRHElpers 中的函数。
     normalizeRender(component);
 
     var resolve = function () {
@@ -9070,11 +9134,19 @@ function createRenderer (ref) {
   var serializer = ref.serializer;
 
   /**
+   * createRenderer 函数的整体流程：
    * 1. 创建 render 函数，负责将 Vue 对象渲染成字符串。
    * 2. 创建 templateRenderer，负责将 步骤1 中的结果与 html 模板拼接成完整的 html 文档。
    * renderToString 部分
    * 3. 创建一个具备 缓存、避免最大栈溢出的 write 函数。
    * 4. 调用 render 函数，与 templateRenderer 协作，拼接最终响应结果。
+   */
+
+  /**
+   * modules: 根据 vnode 渲染 startTag 的一部分。
+   * directives: server 端指令的实现。
+   * isUnaryTag: 判断某个 html 元素是否是一元标签(比如 <img >)
+   * cache: 组件缓存的实现，通常为 lru cache. 至少需要实现 get set 两个方法。
    */
   var render = createRenderFunction(modules, directives, isUnaryTag, cache);
   // 模版渲染器，作用是将 vnode 渲染的结果和 html 模板进行拼接，最终生成返回给浏览器的内容。
@@ -9115,6 +9187,8 @@ function createRenderer (ref) {
 
       // vnode 渲染结果存储变量，不包含 html 模板内容。
       var result = '';
+      // 创建一个 write 函数，将 ssr 数据写入 result 中。
+      // 第二个参数 cb 是一个 onError 函数。
       var write = createWriteFunction(function (text) {
         result += text;
         return false
@@ -9546,6 +9620,7 @@ var path$3 = require("path");
 var wasmBuffer = fs$1.readFileSync(path$3.resolve(__dirname, "go.wasm"));
 require('./tinygo_wasm_exec');
 
+// eslint-disable-next-line
 var go = new Go();
 
 WebAssembly.instantiate(wasmBuffer, go.importObject).then(function (ref) {

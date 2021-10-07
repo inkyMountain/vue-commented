@@ -63,7 +63,7 @@ function waitForServerPrefetch (vm, resolve, reject) {
       const promises = []
       for (let i = 0, j = handlers.length; i < j; i++) {
         // 由于这里 .call 传入的 this 是 vm，所以 vm 中的 serverPrefetch 函数,
-        // 是可以通过 this 访问 vm 对象的。
+        // 是可以通过 this 访问 vm 对象的。获取到数据后，赋值给 this 上的 data。
         const result = handlers[i].call(vm, vm)
         if (result && typeof result.then === 'function') {
           promises.push(result)
@@ -79,20 +79,31 @@ function waitForServerPrefetch (vm, resolve, reject) {
 }
 
 function renderNode (node, isRoot, context) {
+  // 字符串节点
   if (node.isString) {
     renderStringNode(node, context)
-  } else if (isDef(node.componentOptions)) {
+  } 
+  // vue 组件节点
+  else if (isDef(node.componentOptions)) {
     renderComponent(node, isRoot, context)
-  } else if (isDef(node.tag)) {
+  } 
+  // html 标签
+  else if (isDef(node.tag)) {
     renderElement(node, isRoot, context)
-  } else if (isTrue(node.isComment)) {
+  } 
+  // 注释节点
+  else if (isTrue(node.isComment)) {
+    // 注释节点有可能是一个异步组件
     if (isDef(node.asyncFactory)) {
-      // async component
+      // 处理异步组件
       renderAsyncComponent(node, isRoot, context)
     } else {
+      // 如果不是异步组件，那么就写入注释。
       context.write(`<!--${node.text}-->`, context.next)
     }
-  } else {
+  } 
+  // 如果以上节点类型都没有命中，那么就将 text 写入。
+  else {
     context.write(
       node.raw ? node.text : escape(String(node.text)),
       context.next
@@ -120,16 +131,23 @@ function renderComponent (node, isRoot, context) {
   const cache = context.cache
   const registerComponent = registerComponentForCache(Ctor.options, write)
 
+  // 如果组件有定义 serverCacheKey，且有 name 属性，那么走组件缓存逻辑。
   if (isDef(getKey) && isDef(cache) && isDef(name)) {
     const rawKey = getKey(node.componentOptions.propsData)
+    // 如果 serverCacheKey 的返回值是 false，那么不走缓存逻辑。
     if (rawKey === false) {
       renderComponentInner(node, isRoot, context)
       return
     }
+    // 将 serverCacheKey 的返回值与 name 拼在一起。
+    // 这也是为什么 vue 强制要求，想要缓存，必须要提供 name 属性的原因。
+    // 为了隔离不同的组件的cache。
     const key = name + '::' + rawKey
     const { has, get } = context
+    // 兼容 cache 对象没有提供 has 的情况
     if (isDef(has)) {
       has(key, hit => {
+        // 如果命中了缓存，则直接写入缓存值。
         if (hit === true && isDef(get)) {
           get(key, res => {
             if (isDef(registerComponent)) {
@@ -139,10 +157,12 @@ function renderComponent (node, isRoot, context) {
             write(res.html, next)
           })
         } else {
+          // 如果没有命中缓存，则渲染组件，并设置缓存。
           renderComponentWithCache(node, isRoot, key, context)
         }
       })
     } else if (isDef(get)) {
+      // 逻辑与上一个 if 分支相同。
       get(key, res => {
         if (isDef(res)) {
           if (isDef(registerComponent)) {
@@ -156,6 +176,8 @@ function renderComponent (node, isRoot, context) {
       })
     }
   } else {
+    // 如果组件有定义 serverCacheKey，但是没有 name 属性或者 cache 的实现，
+    // 那么发出一个警告，然后跳过缓存逻辑，像普通组件一样渲染。
     if (isDef(getKey) && isUndef(cache)) {
       warnOnce(
         `[vue-server-renderer] Component ${
@@ -176,8 +198,10 @@ function renderComponent (node, isRoot, context) {
 
 function renderComponentWithCache (node, isRoot, key, context) {
   const write = context.write
+  // 将 caching flag 置为 true，意味着接下来的 render 结果都是需要缓存的。
   write.caching = true
   const buffer = write.cacheBuffer
+  // 记录这个组件的缓存，在 cacheBuffer 的 index，方便后续读取对应缓存。
   const bufferIndex = buffer.push('') - 1
   const componentBuffer = write.componentBuffer
   componentBuffer.push(new Set())
@@ -192,13 +216,18 @@ function renderComponentWithCache (node, isRoot, key, context) {
 }
 
 function renderComponentInner (node, isRoot, context) {
+  // 把前一个活跃组件存起来，这样在这个组件 render 完成后，
+  // 可以将 activeInstance 重置为 prevActive。
   const prevActive = context.activeInstance
   // expose userContext on vnode
   node.ssrContext = context.userContext
   const child = context.activeInstance = createComponentInstanceForVnode(
     node,
+    // 这是 child 变量中的 parent 值
     context.activeInstance
   )
+
+  // 抹平 template 与 render 函数的差异
   normalizeRender(child)
 
   const resolve = () => {
@@ -219,6 +248,7 @@ function renderComponentInner (node, isRoot, context) {
 function renderAsyncComponent (node, isRoot, context) {
   const factory = node.asyncFactory
 
+  // 在 factory 构造结束后的逻辑
   const resolve = comp => {
     if (comp.__esModule && comp.default) {
       comp = comp.default
@@ -234,24 +264,25 @@ function renderAsyncComponent (node, isRoot, context) {
     )
     if (resolvedNode) {
       if (resolvedNode.componentOptions) {
-        // normal component
+        // 如果是组件，走组件 render 逻辑
         renderComponent(resolvedNode, isRoot, context)
       } else if (!Array.isArray(resolvedNode)) {
         // single return node from functional component
         renderNode(resolvedNode, isRoot, context)
       } else {
         // multiple return nodes from functional component
+        // 如果是一个数组，那么就入栈
         context.renderStates.push({
           type: 'Fragment',
           children: resolvedNode,
           rendered: 0,
           total: resolvedNode.length
         })
+        // 然后继续渲染它的 children
         context.next()
       }
     } else {
-      // invalid component, but this does not throw on the client
-      // so render empty comment node
+      // 如果是无效的组件，那么写一个空的注释，然后继续渲染下一个组件。
       context.write(`<!---->`, context.next)
     }
   }
@@ -262,6 +293,7 @@ function renderAsyncComponent (node, isRoot, context) {
   }
 
   const reject = context.done
+  // 调用 factory 函数来产生一个 vue 组件，然后调用 resolve 函数。
   let res
   try {
     res = factory(resolve, reject)
@@ -358,6 +390,7 @@ function getVShowDirectiveInfo (node: VNode): ?VNodeDirective {
   return dir
 }
 
+// 渲染起始标签，包含指令、class、style等各种逻辑。
 function renderStartingTag (node: VNode, context) {
   let markup = `<${node.tag}`
   const { directives, modules } = context
@@ -368,7 +401,7 @@ function renderStartingTag (node: VNode, context) {
     node.data = {}
   }
   if (isDef(node.data)) {
-    // check directives
+    // vue 指令
     const dirs = node.data.directives
     if (dirs) {
       for (let i = 0; i < dirs.length; i++) {
@@ -384,13 +417,13 @@ function renderStartingTag (node: VNode, context) {
       }
     }
 
-    // v-show directive needs to be merged from parent to child
+    // v-show 逻辑
     const vshowDirectiveInfo = getVShowDirectiveInfo(node)
     if (vshowDirectiveInfo) {
       directives.show(node, vshowDirectiveInfo)
     }
 
-    // apply other modules
+    // modules 函数调用
     for (let i = 0; i < modules.length; i++) {
       const res = modules[i](node)
       if (res) {
@@ -438,7 +471,7 @@ export function createRenderFunction (
     const context = new RenderContext({
       activeInstance: component,
       userContext,
-      write, 
+      write,
       // 这个 done 不是用户传入的回调，而是 render 函数的回调。
       // render 函数的回调里面才会去调用用户传入的回调。
       done,
@@ -451,6 +484,8 @@ export function createRenderFunction (
     installSSRHelpers(component)
     // 如果用户包含 template 而不含 render 函数，
     // 那么将 template 编译程 render 函数。
+    // 如果 component 中使用 template 而不是 render 函数，
+    // 那么这一步将使用 SSRHElpers 中的函数。
     normalizeRender(component)
 
     const resolve = () => {

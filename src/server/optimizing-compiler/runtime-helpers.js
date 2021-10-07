@@ -28,6 +28,8 @@ const ssrHelpers = {
   _ssrStyle: renderSSRStyle
 }
 
+// 在 Vue 原型上绑定一些 ssr 专用的方法，可以通过 this 来访问这些方法。
+// 在服务端 template -> render 函数这一步，会使用这些方法。
 export function installSSRHelpers (vm: Component) {
   if (vm._ssrNode) {
     return
