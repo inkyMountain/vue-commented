@@ -12,8 +12,8 @@ var yellow = ref.yellow;
 var webpack = require('webpack');
 
 var prefix = "[vue-server-renderer-webpack-plugin]";
-var warn = exports.warn = function (msg) { return console.error(red((prefix + " " + msg + "\n"))); };
-var tip = exports.tip = function (msg) { return console.log(yellow((prefix + " " + msg + "\n"))); };
+exports.warn = function (msg) { return console.error(red((prefix + " " + msg + "\n"))); };
+exports.tip = function (msg) { return console.log(yellow((prefix + " " + msg + "\n"))); };
 
 var isWebpack5 = !!(webpack.version && webpack.version[0] > 4);
 
@@ -67,7 +67,7 @@ var VueSSRClientPlugin = function VueSSRClientPlugin (options) {
 };
 
 VueSSRClientPlugin.prototype.apply = function apply (compiler) {
-    var this$1 = this;
+    var this$1$1 = this;
 
   var stage = 'PROCESS_ASSETS_STAGE_ADDITIONAL';
   onEmit(compiler, 'vue-client-plugin', stage, function (compilation, cb) {
@@ -116,7 +116,7 @@ VueSSRClientPlugin.prototype.apply = function apply (compiler) {
     });
 
     var json = JSON.stringify(manifest, null, 2);
-    compilation.assets[this$1.options.filename] = {
+    compilation.assets[this$1$1.options.filename] = {
       source: function () { return json; },
       size: function () { return json.length; }
     };

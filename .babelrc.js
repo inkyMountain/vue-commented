@@ -2,7 +2,7 @@ const babelPresetFlowVue = {
   plugins: [
     require('@babel/plugin-proposal-class-properties'),
     // require('@babel/plugin-syntax-flow'), // not needed, included in transform-flow-strip-types
-    require('@babel/plugin-transform-flow-strip-types')
+    require('@babel/plugin-transform-flow-strip-types'),
   ]
 }
 
@@ -14,7 +14,8 @@ module.exports = {
   ],
   plugins: [
     require('babel-plugin-transform-vue-jsx'),
-    require('@babel/plugin-syntax-dynamic-import')
+    require('@babel/plugin-syntax-dynamic-import'),
+    require('@babel/plugin-syntax-import-meta')
   ],
   ignore: [
     'dist/*.js',

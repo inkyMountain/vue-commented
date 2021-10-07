@@ -78,7 +78,7 @@ var VueSSRServerPlugin = function VueSSRServerPlugin (options) {
 };
 
 VueSSRServerPlugin.prototype.apply = function apply (compiler) {
-    var this$1 = this;
+    var this$1$1 = this;
 
   validate(compiler);
 
@@ -128,7 +128,7 @@ VueSSRServerPlugin.prototype.apply = function apply (compiler) {
     });
 
     var json = JSON.stringify(bundle, null, 2);
-    var filename = this$1.options.filename;
+    var filename = this$1$1.options.filename;
 
     compilation.assets[filename] = {
       source: function () { return json; },
