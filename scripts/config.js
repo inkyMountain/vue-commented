@@ -5,6 +5,8 @@ const cjs = require('rollup-plugin-commonjs')
 const replace = require('rollup-plugin-replace')
 const node = require('rollup-plugin-node-resolve')
 const flow = require('rollup-plugin-flow-no-whitespace')
+const rust = require('@wasm-tool/rollup-plugin-rust')
+
 const version = process.env.VERSION || require('../package.json').version
 const weexVersion = process.env.WEEX_VERSION || require('../packages/weex-vue-framework/package.json').version
 const featureFlags = require('./feature-flags')
@@ -162,14 +164,16 @@ const builds = {
     dest: resolve('packages/vue-server-renderer/build.dev.js'),
     format: 'cjs',
     env: 'development',
-    external: Object.keys(require('../packages/vue-server-renderer/package.json').dependencies)
+    external: Object.keys(require('../packages/vue-server-renderer/package.json').dependencies),
+    plugins: [rust()]
   },
   'web-server-renderer-prod': {
     entry: resolve('web/entry-server-renderer.js'),
     dest: resolve('packages/vue-server-renderer/build.prod.js'),
     format: 'cjs',
     env: 'production',
-    external: Object.keys(require('../packages/vue-server-renderer/package.json').dependencies)
+    external: Object.keys(require('../packages/vue-server-renderer/package.json').dependencies),
+    plugins: [rust()]
   },
   'web-server-renderer-basic': {
     entry: resolve('web/entry-server-basic-renderer.js'),
