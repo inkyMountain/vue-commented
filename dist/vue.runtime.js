@@ -6,8 +6,8 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.Vue = factory());
-}(this, function () { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Vue = factory());
+})(this, (function () { 'use strict';
 
   /*  */
 
@@ -141,7 +141,7 @@
   /**
    * Remove an item from an array.
    */
-  function remove (arr, item) {
+  function remove$2 (arr, item) {
     if (arr.length) {
       var index = arr.indexOf(item);
       if (index > -1) {
@@ -525,10 +525,10 @@
   var isIE = UA && /msie|trident/.test(UA);
   var isIE9 = UA && UA.indexOf('msie 9.0') > 0;
   var isEdge = UA && UA.indexOf('edge/') > 0;
-  var isAndroid = (UA && UA.indexOf('android') > 0) || (weexPlatform === 'android');
+  (UA && UA.indexOf('android') > 0) || (weexPlatform === 'android');
   var isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA)) || (weexPlatform === 'ios');
-  var isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge;
-  var isPhantomJS = UA && /phantomjs/.test(UA);
+  UA && /chrome\/\d+/.test(UA) && !isEdge;
+  UA && /phantomjs/.test(UA);
   var isFF = UA && UA.match(/firefox\/(\d+)/);
 
   // Firefox has a "watch" function on Object.prototype...
@@ -698,14 +698,14 @@
 
   /*  */
 
-  var uid = 0;
+  var uid$2 = 0;
 
   /**
    * A dep is an observable that can have multiple
    * directives subscribing to it.
    */
   var Dep = function Dep () {
-    this.id = uid++;
+    this.id = uid$2++;
     this.subs = [];
   };
 
@@ -714,7 +714,7 @@
   };
 
   Dep.prototype.removeSub = function removeSub (sub) {
-    remove(this.subs, sub);
+    remove$2(this.subs, sub);
   };
 
   Dep.prototype.depend = function depend () {
@@ -935,7 +935,7 @@
   Observer.prototype.walk = function walk (obj) {
     var keys = Object.keys(obj);
     for (var i = 0; i < keys.length; i++) {
-      defineReactive$$1(obj, keys[i]);
+      defineReactive(obj, keys[i]);
     }
   };
 
@@ -1002,7 +1002,7 @@
   /**
    * Define a reactive property on an Object.
    */
-  function defineReactive$$1 (
+  function defineReactive (
     obj,
     key,
     val,
@@ -1069,7 +1069,7 @@
    * already exist.
    */
   function set (target, key, val) {
-    if (isUndef(target) || isPrimitive(target)
+    if ((isUndef(target) || isPrimitive(target))
     ) {
       warn(("Cannot set reactive property on undefined, null, or primitive value: " + ((target))));
     }
@@ -1094,7 +1094,7 @@
       target[key] = val;
       return val
     }
-    defineReactive$$1(ob.value, key, val);
+    defineReactive(ob.value, key, val);
     ob.dep.notify();
     return val
   }
@@ -1103,7 +1103,7 @@
    * Delete a property and trigger change if necessary.
    */
   function del (target, key) {
-    if (isUndef(target) || isPrimitive(target)
+    if ((isUndef(target) || isPrimitive(target))
     ) {
       warn(("Cannot delete reactive property on undefined, null, or primitive value: " + ((target))));
     }
@@ -1267,7 +1267,7 @@
   /**
    * Hooks and props are merged as arrays.
    */
-  function mergeHook (
+  function mergeHook$1 (
     parentVal,
     childVal
   ) {
@@ -1294,7 +1294,7 @@
   }
 
   LIFECYCLE_HOOKS.forEach(function (hook) {
-    strats[hook] = mergeHook;
+    strats[hook] = mergeHook$1;
   });
 
   /**
@@ -1483,13 +1483,13 @@
   /**
    * Normalize raw function directives into object format.
    */
-  function normalizeDirectives (options) {
+  function normalizeDirectives$1 (options) {
     var dirs = options.directives;
     if (dirs) {
       for (var key in dirs) {
-        var def$$1 = dirs[key];
-        if (typeof def$$1 === 'function') {
-          dirs[key] = { bind: def$$1, update: def$$1 };
+        var def = dirs[key];
+        if (typeof def === 'function') {
+          dirs[key] = { bind: def, update: def };
         }
       }
     }
@@ -1524,7 +1524,7 @@
 
     normalizeProps(child, vm);
     normalizeInject(child, vm);
-    normalizeDirectives(child);
+    normalizeDirectives$1(child);
 
     // Apply extends and mixins on the child options,
     // but only if it is a raw options object that isn't
@@ -2006,8 +2006,6 @@
     }
   }
 
-  /*  */
-
   /* not type checking this file because flow doesn't play well with Proxy */
 
   var initProxy;
@@ -2161,13 +2159,13 @@
   var normalizeEvent = cached(function (name) {
     var passive = name.charAt(0) === '&';
     name = passive ? name.slice(1) : name;
-    var once$$1 = name.charAt(0) === '~'; // Prefixed last, checked first
-    name = once$$1 ? name.slice(1) : name;
+    var once = name.charAt(0) === '~'; // Prefixed last, checked first
+    name = once ? name.slice(1) : name;
     var capture = name.charAt(0) === '!';
     name = capture ? name.slice(1) : name;
     return {
       name: name,
-      once: once$$1,
+      once: once,
       capture: capture,
       passive: passive
     }
@@ -2196,13 +2194,13 @@
     on,
     oldOn,
     add,
-    remove$$1,
+    remove,
     createOnceHandler,
     vm
   ) {
-    var name, def$$1, cur, old, event;
+    var name, cur, old, event;
     for (name in on) {
-      def$$1 = cur = on[name];
+      cur = on[name];
       old = oldOn[name];
       event = normalizeEvent(name);
       if (isUndef(cur)) {
@@ -2226,7 +2224,7 @@
     for (name in oldOn) {
       if (isUndef(on[name])) {
         event = normalizeEvent(name);
-        remove$$1(event.name, oldOn[name], event.capture);
+        remove(event.name, oldOn[name], event.capture);
       }
     }
   }
@@ -2244,7 +2242,7 @@
       hook.apply(this, arguments);
       // important: remove merged hook to ensure it's called only once
       // and prevent memory leak
-      remove(invoker.fns, wrappedHook);
+      remove$2(invoker.fns, wrappedHook);
     }
 
     if (isUndef(oldHook)) {
@@ -2439,7 +2437,7 @@
       Object.keys(result).forEach(function (key) {
         /* istanbul ignore else */
         {
-          defineReactive$$1(vm, key, result[key], function () {
+          defineReactive(vm, key, result[key], function () {
             warn(
               "Avoid mutating an injected value directly since the changes will be " +
               "overwritten whenever the provided component re-renders. " +
@@ -2976,7 +2974,7 @@
     parent,
     Ctor
   ) {
-    var this$1 = this;
+    var this$1$1 = this;
 
     var options = Ctor.options;
     // ensure the createElement function in functional components
@@ -3004,13 +3002,13 @@
     this.listeners = data.on || emptyObject;
     this.injections = resolveInject(options.inject, parent);
     this.slots = function () {
-      if (!this$1.$slots) {
+      if (!this$1$1.$slots) {
         normalizeScopedSlots(
           data.scopedSlots,
-          this$1.$slots = resolveSlots(children, parent)
+          this$1$1.$slots = resolveSlots(children, parent)
         );
       }
-      return this$1.$slots
+      return this$1$1.$slots
     };
 
     Object.defineProperty(this, 'scopedSlots', ({
@@ -3031,7 +3029,7 @@
 
     if (options._scopeId) {
       this._c = function (a, b, c, d) {
-        var vnode = createElement(contextVm, a, b, c, d, needNormalization);
+        var vnode = createElement$1(contextVm, a, b, c, d, needNormalization);
         if (vnode && !Array.isArray(vnode)) {
           vnode.fnScopeId = options._scopeId;
           vnode.fnContext = parent;
@@ -3039,7 +3037,7 @@
         return vnode
       };
     } else {
-      this._c = function (a, b, c, d) { return createElement(contextVm, a, b, c, d, needNormalization); };
+      this._c = function (a, b, c, d) { return createElement$1(contextVm, a, b, c, d, needNormalization); };
     }
   }
 
@@ -3110,12 +3108,6 @@
 
   /*  */
 
-  /*  */
-
-  /*  */
-
-  /*  */
-
   // inline hooks to be invoked on component VNodes during patch
   var componentVNodeHooks = {
     init: function init (vnode, hydrating) {
@@ -3153,7 +3145,7 @@
       var componentInstance = vnode.componentInstance;
       if (!componentInstance._isMounted) {
         componentInstance._isMounted = true;
-        callHook(componentInstance, 'mounted');
+        callHook$1(componentInstance, 'mounted');
       }
       if (vnode.data.keepAlive) {
         if (context._isMounted) {
@@ -3309,12 +3301,12 @@
       var existing = hooks[key];
       var toMerge = componentVNodeHooks[key];
       if (existing !== toMerge && !(existing && existing._merged)) {
-        hooks[key] = existing ? mergeHook$1(toMerge, existing) : toMerge;
+        hooks[key] = existing ? mergeHook(toMerge, existing) : toMerge;
       }
     }
   }
 
-  function mergeHook$1 (f1, f2) {
+  function mergeHook (f1, f2) {
     var merged = function (a, b) {
       // flow complains about extra args which is why we use any
       f1(a, b);
@@ -3353,7 +3345,7 @@
 
   // wrapper function for providing a more flexible interface
   // without getting yelled at by flow
-  function createElement (
+  function createElement$1 (
     context,
     tag,
     data,
@@ -3506,10 +3498,10 @@
     // so that we get proper render context inside it.
     // args order: tag, data, children, normalizationType, alwaysNormalize
     // internal version is used by render functions compiled from templates
-    vm._c = function (a, b, c, d) { return createElement(vm, a, b, c, d, false); };
+    vm._c = function (a, b, c, d) { return createElement$1(vm, a, b, c, d, false); };
     // normalization is always applied for the public version, used in
     // user-written render functions.
-    vm.$createElement = function (a, b, c, d) { return createElement(vm, a, b, c, d, true); };
+    vm.$createElement = function (a, b, c, d) { return createElement$1(vm, a, b, c, d, true); };
 
     // $attrs & $listeners are exposed for easier HOC creation.
     // they need to be reactive so that HOCs using them are always updated
@@ -3517,10 +3509,10 @@
 
     /* istanbul ignore else */
     {
-      defineReactive$$1(vm, '$attrs', parentData && parentData.attrs || emptyObject, function () {
+      defineReactive(vm, '$attrs', parentData && parentData.attrs || emptyObject, function () {
         !isUpdatingChildComponent && warn("$attrs is readonly.", vm);
       }, true);
-      defineReactive$$1(vm, '$listeners', options._parentListeners || emptyObject, function () {
+      defineReactive(vm, '$listeners', options._parentListeners || emptyObject, function () {
         !isUpdatingChildComponent && warn("$listeners is readonly.", vm);
       }, true);
     }
@@ -3655,7 +3647,7 @@
       var timerLoading = null;
       var timerTimeout = null
 
-      ;(owner).$on('hook:destroyed', function () { return remove(owners, owner); });
+      ;(owner).$on('hook:destroyed', function () { return remove$2(owners, owner); });
 
       var forceRender = function (renderCompleted) {
         for (var i = 0, l = owners.length; i < l; i++) {
@@ -3733,7 +3725,8 @@
               timerTimeout = null;
               if (isUndef(factory.resolved)) {
                 reject(
-                  "timeout (" + (res.timeout) + "ms)"
+                  ("timeout (" + (res.timeout) + "ms)")
+                    
                 );
               }
             }, res.timeout);
@@ -3764,8 +3757,6 @@
 
   /*  */
 
-  /*  */
-
   function initEvents (vm) {
     vm._events = Object.create(null);
     vm._hasHookEvent = false;
@@ -3776,18 +3767,18 @@
     }
   }
 
-  var target;
+  var target$1;
 
-  function add (event, fn) {
-    target.$on(event, fn);
+  function add$1 (event, fn) {
+    target$1.$on(event, fn);
   }
 
   function remove$1 (event, fn) {
-    target.$off(event, fn);
+    target$1.$off(event, fn);
   }
 
-  function createOnceHandler (event, fn) {
-    var _target = target;
+  function createOnceHandler$1 (event, fn) {
+    var _target = target$1;
     return function onceHandler () {
       var res = fn.apply(null, arguments);
       if (res !== null) {
@@ -3801,9 +3792,9 @@
     listeners,
     oldListeners
   ) {
-    target = vm;
-    updateListeners(listeners, oldListeners || {}, add, remove$1, createOnceHandler, vm);
-    target = undefined;
+    target$1 = vm;
+    updateListeners(listeners, oldListeners || {}, add$1, remove$1, createOnceHandler$1, vm);
+    target$1 = undefined;
   }
 
   function eventsMixin (Vue) {
@@ -3982,12 +3973,12 @@
       if (vm._isBeingDestroyed) {
         return
       }
-      callHook(vm, 'beforeDestroy');
+      callHook$1(vm, 'beforeDestroy');
       vm._isBeingDestroyed = true;
       // remove self from parent
       var parent = vm.$parent;
       if (parent && !parent._isBeingDestroyed && !vm.$options.abstract) {
-        remove(parent.$children, vm);
+        remove$2(parent.$children, vm);
       }
       // teardown watchers
       if (vm._watcher) {
@@ -4007,7 +3998,7 @@
       // invoke destroy hooks on current rendered tree
       vm.__patch__(vm._vnode, null);
       // fire destroyed hook
-      callHook(vm, 'destroyed');
+      callHook$1(vm, 'destroyed');
       // turn off all instance listeners.
       vm.$off();
       // remove __vue__ reference
@@ -4047,7 +4038,7 @@
         }
       }
     }
-    callHook(vm, 'beforeMount');
+    callHook$1(vm, 'beforeMount');
 
     var updateComponent;
     /* istanbul ignore if */
@@ -4080,7 +4071,7 @@
     new Watcher(vm, updateComponent, noop, {
       before: function before () {
         if (vm._isMounted && !vm._isDestroyed) {
-          callHook(vm, 'beforeUpdate');
+          callHook$1(vm, 'beforeUpdate');
         }
       }
     }, true /* isRenderWatcher */);
@@ -4090,7 +4081,7 @@
     // mounted is called for render-created child components in its inserted hook
     if (vm.$vnode == null) {
       vm._isMounted = true;
-      callHook(vm, 'mounted');
+      callHook$1(vm, 'mounted');
     }
     return vm
   }
@@ -4197,7 +4188,7 @@
       for (var i = 0; i < vm.$children.length; i++) {
         activateChildComponent(vm.$children[i]);
       }
-      callHook(vm, 'activated');
+      callHook$1(vm, 'activated');
     }
   }
 
@@ -4213,11 +4204,11 @@
       for (var i = 0; i < vm.$children.length; i++) {
         deactivateChildComponent(vm.$children[i]);
       }
-      callHook(vm, 'deactivated');
+      callHook$1(vm, 'deactivated');
     }
   }
 
-  function callHook (vm, hook) {
+  function callHook$1 (vm, hook) {
     // #7573 disable dep collection when invoking lifecycle hooks
     pushTarget();
     var handlers = vm.$options[hook];
@@ -4356,7 +4347,7 @@
       var watcher = queue[i];
       var vm = watcher.vm;
       if (vm._watcher === watcher && vm._isMounted && !vm._isDestroyed) {
-        callHook(vm, 'updated');
+        callHook$1(vm, 'updated');
       }
     }
   }
@@ -4416,7 +4407,7 @@
 
 
 
-  var uid$2 = 0;
+  var uid$1 = 0;
 
   /**
    * A watcher parses an expression, collects dependencies,
@@ -4446,14 +4437,15 @@
       this.deep = this.user = this.lazy = this.sync = false;
     }
     this.cb = cb;
-    this.id = ++uid$2; // uid for batching
+    this.id = ++uid$1; // uid for batching
     this.active = true;
     this.dirty = this.lazy; // for lazy watchers
     this.deps = [];
     this.newDeps = [];
     this.depIds = new _Set();
     this.newDepIds = new _Set();
-    this.expression = expOrFn.toString();
+    this.expression = expOrFn.toString()
+      ;
     // parse expression for getter
     if (typeof expOrFn === 'function') {
       this.getter = expOrFn;
@@ -4607,7 +4599,7 @@
       // this is a somewhat expensive operation so we skip it
       // if the vm is being destroyed.
       if (!this.vm._isBeingDestroyed) {
-        remove(this.vm._watchers, this);
+        remove$2(this.vm._watchers, this);
       }
       var i = this.deps.length;
       while (i--) {
@@ -4639,20 +4631,20 @@
   function initState (vm) {
     vm._watchers = [];
     var opts = vm.$options;
-    if (opts.props) { initProps(vm, opts.props); }
+    if (opts.props) { initProps$1(vm, opts.props); }
     if (opts.methods) { initMethods(vm, opts.methods); }
     if (opts.data) {
       initData(vm);
     } else {
       observe(vm._data = {}, true /* asRootData */);
     }
-    if (opts.computed) { initComputed(vm, opts.computed); }
+    if (opts.computed) { initComputed$1(vm, opts.computed); }
     if (opts.watch && opts.watch !== nativeWatch) {
       initWatch(vm, opts.watch);
     }
   }
 
-  function initProps (vm, propsOptions) {
+  function initProps$1 (vm, propsOptions) {
     var propsData = vm.$options.propsData || {};
     var props = vm._props = {};
     // cache prop keys so that future props updates can iterate using Array
@@ -4676,7 +4668,7 @@
             vm
           );
         }
-        defineReactive$$1(props, key, value, function () {
+        defineReactive(props, key, value, function () {
           if (!isRoot && !isUpdatingChildComponent) {
             warn(
               "Avoid mutating a prop directly since the value will be " +
@@ -4757,7 +4749,7 @@
 
   var computedWatcherOptions = { lazy: true };
 
-  function initComputed (vm, computed) {
+  function initComputed$1 (vm, computed) {
     // $flow-disable-line
     var watchers = vm._computedWatchers = Object.create(null);
     // computed properties are just getters during SSR
@@ -4960,13 +4952,13 @@
 
   /*  */
 
-  var uid$3 = 0;
+  var uid = 0;
 
-  function initMixin (Vue) {
+  function initMixin$1 (Vue) {
     Vue.prototype._init = function (options) {
       var vm = this;
       // a uid
-      vm._uid = uid$3++;
+      vm._uid = uid++;
 
       var startTag, endTag;
       /* istanbul ignore if */
@@ -5000,11 +4992,11 @@
       initLifecycle(vm);
       initEvents(vm);
       initRender(vm);
-      callHook(vm, 'beforeCreate');
+      callHook$1(vm, 'beforeCreate');
       initInjections(vm); // resolve injections before data/props
       initState(vm);
       initProvide(vm); // resolve provide after data/props
-      callHook(vm, 'created');
+      callHook$1(vm, 'created');
 
       /* istanbul ignore if */
       if (config.performance && mark) {
@@ -5083,7 +5075,7 @@
     this._init(options);
   }
 
-  initMixin(Vue);
+  initMixin$1(Vue);
   stateMixin(Vue);
   eventsMixin(Vue);
   lifecycleMixin(Vue);
@@ -5113,7 +5105,7 @@
 
   /*  */
 
-  function initMixin$1 (Vue) {
+  function initMixin (Vue) {
     Vue.mixin = function (mixin) {
       this.options = mergeOptions(this.options, mixin);
       return this
@@ -5164,10 +5156,10 @@
       // the Vue instances at extension time, on the extended prototype. This
       // avoids Object.defineProperty calls for each instance created.
       if (Sub.options.props) {
-        initProps$1(Sub);
+        initProps(Sub);
       }
       if (Sub.options.computed) {
-        initComputed$1(Sub);
+        initComputed(Sub);
       }
 
       // allow further extension/mixin/plugin usage
@@ -5198,14 +5190,14 @@
     };
   }
 
-  function initProps$1 (Comp) {
+  function initProps (Comp) {
     var props = Comp.options.props;
     for (var key in props) {
       proxy(Comp.prototype, "_props", key);
     }
   }
 
-  function initComputed$1 (Comp) {
+  function initComputed (Comp) {
     var computed = Comp.options.computed;
     for (var key in computed) {
       defineComputed(Comp.prototype, key, computed[key]);
@@ -5292,7 +5284,7 @@
       entry.componentInstance.$destroy();
     }
     cache[key] = null;
-    remove(keys, key);
+    remove$2(keys, key);
   }
 
   var patternTypes = [String, RegExp, Array];
@@ -5345,14 +5337,14 @@
     },
 
     mounted: function mounted () {
-      var this$1 = this;
+      var this$1$1 = this;
 
       this.cacheVNode();
       this.$watch('include', function (val) {
-        pruneCache(this$1, function (name) { return matches(val, name); });
+        pruneCache(this$1$1, function (name) { return matches(val, name); });
       });
       this.$watch('exclude', function (val) {
-        pruneCache(this$1, function (name) { return !matches(val, name); });
+        pruneCache(this$1$1, function (name) { return !matches(val, name); });
       });
     },
 
@@ -5390,7 +5382,7 @@
         if (cache[key]) {
           vnode.componentInstance = cache[key].componentInstance;
           // make current key freshest
-          remove(keys, key);
+          remove$2(keys, key);
           keys.push(key);
         } else {
           // delay setting the cache until update
@@ -5430,7 +5422,7 @@
       warn: warn,
       extend: extend,
       mergeOptions: mergeOptions,
-      defineReactive: defineReactive$$1
+      defineReactive: defineReactive
     };
 
     Vue.set = set;
@@ -5455,7 +5447,7 @@
     extend(Vue.options.components, builtInComponents);
 
     initUse(Vue);
-    initMixin$1(Vue);
+    initMixin(Vue);
     initExtend(Vue);
     initAssetRegisters(Vue);
   }
@@ -5709,7 +5701,7 @@
 
   /*  */
 
-  function createElement$1 (tagName, vnode) {
+  function createElement (tagName, vnode) {
     var elm = document.createElement(tagName);
     if (tagName !== 'select') {
       return elm
@@ -5766,7 +5758,8 @@
   }
 
   var nodeOps = /*#__PURE__*/Object.freeze({
-    createElement: createElement$1,
+    __proto__: null,
+    createElement: createElement,
     createElementNS: createElementNS,
     createTextNode: createTextNode,
     createComment: createComment,
@@ -5806,7 +5799,7 @@
     var refs = vm.$refs;
     if (isRemoval) {
       if (Array.isArray(refs[key])) {
-        remove(refs[key], ref);
+        remove$2(refs[key], ref);
       } else if (refs[key] === ref) {
         refs[key] = undefined;
       }
@@ -5896,13 +5889,13 @@
     }
 
     function createRmCb (childElm, listeners) {
-      function remove$$1 () {
-        if (--remove$$1.listeners === 0) {
+      function remove () {
+        if (--remove.listeners === 0) {
           removeNode(childElm);
         }
       }
-      remove$$1.listeners = listeners;
-      return remove$$1
+      remove.listeners = listeners;
+      return remove
     }
 
     function removeNode (el) {
@@ -5913,7 +5906,7 @@
       }
     }
 
-    function isUnknownElement$$1 (vnode, inVPre) {
+    function isUnknownElement (vnode, inVPre) {
       return (
         !inVPre &&
         !vnode.ns &&
@@ -5962,7 +5955,7 @@
           if (data && data.pre) {
             creatingElmInVPre++;
           }
-          if (isUnknownElement$$1(vnode, creatingElmInVPre)) {
+          if (isUnknownElement(vnode, creatingElmInVPre)) {
             warn(
               'Unknown custom element: <' + tag + '> - did you ' +
               'register the component correctly? For recursive components, ' +
@@ -6060,11 +6053,11 @@
       insert(parentElm, vnode.elm, refElm);
     }
 
-    function insert (parent, elm, ref$$1) {
+    function insert (parent, elm, ref) {
       if (isDef(parent)) {
-        if (isDef(ref$$1)) {
-          if (nodeOps.parentNode(ref$$1) === parent) {
-            nodeOps.insertBefore(parent, elm, ref$$1);
+        if (isDef(ref)) {
+          if (nodeOps.parentNode(ref) === parent) {
+            nodeOps.insertBefore(parent, elm, ref);
           }
         } else {
           nodeOps.appendChild(parent, elm);
@@ -6480,7 +6473,7 @@
     function assertNodeMatch (node, vnode, inVPre) {
       if (isDef(vnode.tag)) {
         return vnode.tag.indexOf('vue-component') === 0 || (
-          !isUnknownElement$$1(vnode, inVPre) &&
+          !isUnknownElement(vnode, inVPre) &&
           vnode.tag.toLowerCase() === (node.tagName && node.tagName.toLowerCase())
         )
       } else {
@@ -6612,8 +6605,8 @@
   function _update (oldVnode, vnode) {
     var isCreate = oldVnode === emptyNode;
     var isDestroy = vnode === emptyNode;
-    var oldDirs = normalizeDirectives$1(oldVnode.data.directives, oldVnode.context);
-    var newDirs = normalizeDirectives$1(vnode.data.directives, vnode.context);
+    var oldDirs = normalizeDirectives(oldVnode.data.directives, oldVnode.context);
+    var newDirs = normalizeDirectives(vnode.data.directives, vnode.context);
 
     var dirsWithInsert = [];
     var dirsWithPostpatch = [];
@@ -6624,7 +6617,7 @@
       dir = newDirs[key];
       if (!oldDir) {
         // new directive, bind
-        callHook$1(dir, 'bind', vnode, oldVnode);
+        callHook(dir, 'bind', vnode, oldVnode);
         if (dir.def && dir.def.inserted) {
           dirsWithInsert.push(dir);
         }
@@ -6632,7 +6625,7 @@
         // existing directive, update
         dir.oldValue = oldDir.value;
         dir.oldArg = oldDir.arg;
-        callHook$1(dir, 'update', vnode, oldVnode);
+        callHook(dir, 'update', vnode, oldVnode);
         if (dir.def && dir.def.componentUpdated) {
           dirsWithPostpatch.push(dir);
         }
@@ -6642,7 +6635,7 @@
     if (dirsWithInsert.length) {
       var callInsert = function () {
         for (var i = 0; i < dirsWithInsert.length; i++) {
-          callHook$1(dirsWithInsert[i], 'inserted', vnode, oldVnode);
+          callHook(dirsWithInsert[i], 'inserted', vnode, oldVnode);
         }
       };
       if (isCreate) {
@@ -6655,7 +6648,7 @@
     if (dirsWithPostpatch.length) {
       mergeVNodeHook(vnode, 'postpatch', function () {
         for (var i = 0; i < dirsWithPostpatch.length; i++) {
-          callHook$1(dirsWithPostpatch[i], 'componentUpdated', vnode, oldVnode);
+          callHook(dirsWithPostpatch[i], 'componentUpdated', vnode, oldVnode);
         }
       });
     }
@@ -6664,7 +6657,7 @@
       for (key in oldDirs) {
         if (!newDirs[key]) {
           // no longer present, unbind
-          callHook$1(oldDirs[key], 'unbind', oldVnode, oldVnode, isDestroy);
+          callHook(oldDirs[key], 'unbind', oldVnode, oldVnode, isDestroy);
         }
       }
     }
@@ -6672,7 +6665,7 @@
 
   var emptyModifiers = Object.create(null);
 
-  function normalizeDirectives$1 (
+  function normalizeDirectives (
     dirs,
     vm
   ) {
@@ -6699,7 +6692,7 @@
     return dir.rawName || ((dir.name) + "." + (Object.keys(dir.modifiers || {}).join('.')))
   }
 
-  function callHook$1 (dir, hook, vnode, oldVnode, isDestroy) {
+  function callHook (dir, hook, vnode, oldVnode, isDestroy) {
     var fn = dir.def && dir.def[hook];
     if (fn) {
       try {
@@ -6857,12 +6850,6 @@
 
   /*  */
 
-  /*  */
-
-  /*  */
-
-  /*  */
-
   // in some cases, the event used has to be determined at runtime
   // so we used some reserved tokens during compile.
   var RANGE_TOKEN = '__r';
@@ -6891,14 +6878,14 @@
     }
   }
 
-  var target$1;
+  var target;
 
-  function createOnceHandler$1 (event, handler, capture) {
-    var _target = target$1; // save current target element in closure
+  function createOnceHandler (event, handler, capture) {
+    var _target = target; // save current target element in closure
     return function onceHandler () {
       var res = handler.apply(null, arguments);
       if (res !== null) {
-        remove$2(event, onceHandler, capture, _target);
+        remove(event, onceHandler, capture, _target);
       }
     }
   }
@@ -6908,7 +6895,7 @@
   // safe to exclude.
   var useMicrotaskFix = isUsingMicroTask && !(isFF && Number(isFF[1]) <= 53);
 
-  function add$1 (
+  function add (
     name,
     handler,
     capture,
@@ -6944,7 +6931,7 @@
         }
       };
     }
-    target$1.addEventListener(
+    target.addEventListener(
       name,
       handler,
       supportsPassive
@@ -6953,13 +6940,13 @@
     );
   }
 
-  function remove$2 (
+  function remove (
     name,
     handler,
     capture,
     _target
   ) {
-    (_target || target$1).removeEventListener(
+    (_target || target).removeEventListener(
       name,
       handler._wrapper || handler,
       capture
@@ -6972,15 +6959,18 @@
     }
     var on = vnode.data.on || {};
     var oldOn = oldVnode.data.on || {};
-    target$1 = vnode.elm;
+    // vnode is empty when removing all listeners,
+    // and use old vnode dom element
+    target = vnode.elm || oldVnode.elm;
     normalizeEvents(on);
-    updateListeners(on, oldOn, add$1, remove$2, createOnceHandler$1, vnode.context);
-    target$1 = undefined;
+    updateListeners(on, oldOn, add, remove, createOnceHandler, vnode.context);
+    target = undefined;
   }
 
   var events = {
     create: updateDOMListeners,
-    update: updateDOMListeners
+    update: updateDOMListeners,
+    destroy: function (vnode) { return updateDOMListeners(vnode, emptyNode); }
   };
 
   /*  */
@@ -7324,20 +7314,20 @@
 
   /*  */
 
-  function resolveTransition (def$$1) {
-    if (!def$$1) {
+  function resolveTransition (def) {
+    if (!def) {
       return
     }
     /* istanbul ignore else */
-    if (typeof def$$1 === 'object') {
+    if (typeof def === 'object') {
       var res = {};
-      if (def$$1.css !== false) {
-        extend(res, autoCssTransition(def$$1.name || 'v'));
+      if (def.css !== false) {
+        extend(res, autoCssTransition(def.name || 'v'));
       }
-      extend(res, def$$1);
+      extend(res, def);
       return res
-    } else if (typeof def$$1 === 'string') {
-      return autoCssTransition(def$$1)
+    } else if (typeof def === 'string') {
+      return autoCssTransition(def)
     }
   }
 
@@ -7400,7 +7390,7 @@
 
   function removeTransitionClass (el, cls) {
     if (el._transitionClasses) {
-      remove(el._transitionClasses, cls);
+      remove$2(el._transitionClasses, cls);
     }
     removeClass(el, cls);
   }
@@ -7817,7 +7807,7 @@
   var transition = inBrowser ? {
     create: _enter,
     activate: _enter,
-    remove: function remove$$1 (vnode, rm) {
+    remove: function remove (vnode, rm) {
       /* istanbul ignore else */
       if (vnode.data.show !== true) {
         leave(vnode, rm);
@@ -7997,10 +7987,10 @@
       var value = ref.value;
 
       vnode = locateNode(vnode);
-      var transition$$1 = vnode.data && vnode.data.transition;
+      var transition = vnode.data && vnode.data.transition;
       var originalDisplay = el.__vOriginalDisplay =
         el.style.display === 'none' ? '' : el.style.display;
-      if (value && transition$$1) {
+      if (value && transition) {
         vnode.data.show = true;
         enter(vnode, function () {
           el.style.display = originalDisplay;
@@ -8017,8 +8007,8 @@
       /* istanbul ignore if */
       if (!value === !oldValue) { return }
       vnode = locateNode(vnode);
-      var transition$$1 = vnode.data && vnode.data.transition;
-      if (transition$$1) {
+      var transition = vnode.data && vnode.data.transition;
+      if (transition) {
         vnode.data.show = true;
         if (value) {
           enter(vnode, function () {
@@ -8129,7 +8119,7 @@
     abstract: true,
 
     render: function render (h) {
-      var this$1 = this;
+      var this$1$1 = this;
 
       var children = this.$slots.default;
       if (!children) {
@@ -8221,8 +8211,8 @@
           // return placeholder node and queue update when leave finishes
           this._leaving = true;
           mergeVNodeHook(oldData, 'afterLeave', function () {
-            this$1._leaving = false;
-            this$1.$forceUpdate();
+            this$1$1._leaving = false;
+            this$1$1.$forceUpdate();
           });
           return placeholder(h, rawChild)
         } else if (mode === 'in-out') {
@@ -8254,21 +8244,21 @@
     props: props,
 
     beforeMount: function beforeMount () {
-      var this$1 = this;
+      var this$1$1 = this;
 
       var update = this._update;
       this._update = function (vnode, hydrating) {
-        var restoreActiveInstance = setActiveInstance(this$1);
+        var restoreActiveInstance = setActiveInstance(this$1$1);
         // force removing pass
-        this$1.__patch__(
-          this$1._vnode,
-          this$1.kept,
+        this$1$1.__patch__(
+          this$1$1._vnode,
+          this$1$1.kept,
           false, // hydrating
           true // removeOnly (!important, avoids unnecessary moves)
         );
-        this$1._vnode = this$1.kept;
+        this$1$1._vnode = this$1$1.kept;
         restoreActiveInstance();
-        update.call(this$1, vnode, hydrating);
+        update.call(this$1$1, vnode, hydrating);
       };
     },
 

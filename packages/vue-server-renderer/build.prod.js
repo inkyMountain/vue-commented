@@ -1,1 +1,8815 @@
-"use strict";function e(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}Object.defineProperty(exports,"__esModule",{value:!0});var t=e(require("he")),r=Object.freeze({});function n(e){return null==e}function i(e){return null!=e}function o(e){return!0===e}function a(e){return"string"==typeof e||"number"==typeof e||"symbol"==typeof e||"boolean"==typeof e}function s(e){return null!==e&&"object"==typeof e}var c=Object.prototype.toString;function u(e){return"[object Object]"===c.call(e)}function l(e){return null==e?"":Array.isArray(e)||u(e)&&e.toString===c?JSON.stringify(e,null,2):String(e)}function f(e){var t=parseFloat(e);return isNaN(t)?e:t}function p(e,t){for(var r=Object.create(null),n=e.split(","),i=0;i<n.length;i++)r[n[i]]=!0;return t?function(e){return r[e.toLowerCase()]}:function(e){return r[e]}}var d=p("slot,component",!0),v=p("key,ref,slot,slot-scope,is");var h=Object.prototype.hasOwnProperty;function m(e,t){return h.call(e,t)}function y(e){var t=Object.create(null);return function(r){return t[r]||(t[r]=e(r))}}var g=/-(\w)/g,b=y(function(e){return e.replace(g,function(e,t){return t?t.toUpperCase():""})}),_=y(function(e){return e.charAt(0).toUpperCase()+e.slice(1)}),w=/\B([A-Z])/g,x=y(function(e){return e.replace(w,"-$1").toLowerCase()});function S(e,t){for(var r in t)e[r]=t[r];return e}function $(e){for(var t={},r=0;r<e.length;r++)e[r]&&S(t,e[r]);return t}function A(e,t,r){}var k=function(e,t,r){return!1},O=function(e){return e};function C(e,t){if(e===t)return!0;var r=s(e),n=s(t);if(!r||!n)return!r&&!n&&String(e)===String(t);try{var i=Array.isArray(e),o=Array.isArray(t);if(i&&o)return e.length===t.length&&e.every(function(e,r){return C(e,t[r])});if(e instanceof Date&&t instanceof Date)return e.getTime()===t.getTime();if(i||o)return!1;var a=Object.keys(e),c=Object.keys(t);return a.length===c.length&&a.every(function(r){return C(e[r],t[r])})}catch(e){return!1}}function T(e,t){for(var r=0;r<e.length;r++)if(C(e[r],t))return r;return-1}var F=p("accept,accept-charset,accesskey,action,align,alt,async,autocomplete,autofocus,autoplay,autosave,bgcolor,border,buffered,challenge,charset,checked,cite,class,code,codebase,color,cols,colspan,content,contenteditable,contextmenu,controls,coords,data,datetime,default,defer,dir,dirname,disabled,download,draggable,dropzone,enctype,for,form,formaction,headers,height,hidden,high,href,hreflang,http-equiv,icon,id,ismap,itemprop,keytype,kind,label,lang,language,list,loop,low,manifest,max,maxlength,media,method,GET,POST,min,multiple,email,file,muted,name,novalidate,open,optimum,pattern,ping,placeholder,poster,preload,radiogroup,readonly,rel,required,reversed,rows,rowspan,sandbox,scope,scoped,seamless,selected,shape,size,type,text,password,sizes,span,spellcheck,src,srcdoc,srclang,srcset,start,step,style,summary,tabindex,target,title,usemap,value,width,wrap"),j=/[>/="'\u0009\u000a\u000c\u0020]/,P=function(e){return j.test(e)},E=function(e){return F(e)||0===e.indexOf("data-")||0===e.indexOf("aria-")},N={acceptCharset:"accept-charset",className:"class",htmlFor:"for",httpEquiv:"http-equiv"},I={"<":"&lt;",">":"&gt;",'"':"&quot;","&":"&amp;"};function L(e){return e.replace(/[<>"&]/g,M)}function M(e){return I[e]||e}var R={"animation-iteration-count":!0,"border-image-outset":!0,"border-image-slice":!0,"border-image-width":!0,"box-flex":!0,"box-flex-group":!0,"box-ordinal-group":!0,"column-count":!0,columns:!0,flex:!0,"flex-grow":!0,"flex-positive":!0,"flex-shrink":!0,"flex-negative":!0,"flex-order":!0,"grid-row":!0,"grid-row-end":!0,"grid-row-span":!0,"grid-row-start":!0,"grid-column":!0,"grid-column-end":!0,"grid-column-span":!0,"grid-column-start":!0,"font-weight":!0,"line-clamp":!0,"line-height":!0,opacity:!0,order:!0,orphans:!0,"tab-size":!0,widows:!0,"z-index":!0,zoom:!0,"fill-opacity":!0,"flood-opacity":!0,"stop-opacity":!0,"stroke-dasharray":!0,"stroke-dashoffset":!0,"stroke-miterlimit":!0,"stroke-opacity":!0,"stroke-width":!0},D=p("input,textarea,option,select,progress"),z=p("contenteditable,draggable,spellcheck"),U=p("events,caret,typing,plaintext-only"),q=function(e,t){return J(t)||"false"===t?"false":"contenteditable"===e&&U(t)?t:"true"},B=p("allowfullscreen,async,autofocus,autoplay,checked,compact,controls,declare,default,defaultchecked,defaultmuted,defaultselected,defer,disabled,enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,muted,nohref,noresize,noshade,novalidate,nowrap,open,pauseonexit,readonly,required,reversed,scoped,seamless,selected,sortable,truespeed,typemustmatch,visible"),J=function(e){return null==e||!1===e};function H(e,t){if(B(e)){if(!J(t))return" "+e+'="'+e+'"'}else{if(z(e))return" "+e+'="'+L(q(e,t))+'"';if(!J(t))return" "+e+'="'+L(String(t))+'"'}return""}var K=function(e,t,r,n,i,o,a,s){this.tag=e,this.data=t,this.children=r,this.text=n,this.elm=i,this.ns=void 0,this.context=o,this.fnContext=void 0,this.fnOptions=void 0,this.fnScopeId=void 0,this.key=t&&t.key,this.componentOptions=a,this.componentInstance=void 0,this.parent=void 0,this.raw=!1,this.isStatic=!1,this.isRootInsert=!0,this.isComment=!1,this.isCloned=!1,this.isOnce=!1,this.asyncFactory=s,this.asyncMeta=void 0,this.isAsyncPlaceholder=!1},V={child:{configurable:!0}};V.child.get=function(){return this.componentInstance},Object.defineProperties(K.prototype,V);var W=function(e){void 0===e&&(e="");var t=new K;return t.text=e,t.isComment=!0,t};function Z(e){return new K(void 0,void 0,void 0,String(e))}function X(e,t,r){var n=new K(void 0,void 0,void 0,t);n.raw=r,e.children=[n]}function G(e,t,r,n){Object.defineProperty(e,t,{value:r,enumerable:!!n,writable:!0,configurable:!0})}var Q="__proto__"in{},Y="undefined"!=typeof window,ee="undefined"!=typeof WXEnvironment&&!!WXEnvironment.platform,te=(ee&&WXEnvironment.platform.toLowerCase(),Y&&window.navigator.userAgent.toLowerCase()),re=te&&/msie|trident/.test(te);te&&te.indexOf("msie 9.0");te&&te.indexOf("edge/");te&&te.indexOf("android"),te&&/iphone|ipad|ipod|ios/.test(te),te&&/chrome\/\d+/.test(te),te&&/phantomjs/.test(te),te&&te.match(/firefox\/(\d+)/);var ne,ie={}.watch;if(Y)try{var oe={};Object.defineProperty(oe,"passive",{get:function(){!0}}),window.addEventListener("test-passive",null,oe)}catch(e){}var ae=function(){return void 0===ne&&(ne=!Y&&!ee&&"undefined"!=typeof global&&(global.process&&"server"===global.process.env.VUE_ENV)),ne};function se(e){return"function"==typeof e&&/native code/.test(e.toString())}var ce,ue="undefined"!=typeof Symbol&&se(Symbol)&&"undefined"!=typeof Reflect&&se(Reflect.ownKeys);ce="undefined"!=typeof Set&&se(Set)?Set:function(){function e(){this.set=Object.create(null)}return e.prototype.has=function(e){return!0===this.set[e]},e.prototype.add=function(e){this.set[e]=!0},e.prototype.clear=function(){this.set=Object.create(null)},e}();var le="data-server-rendered",fe=["beforeCreate","created","beforeMount","mounted","beforeUpdate","updated","beforeDestroy","destroyed","activated","deactivated","errorCaptured","serverPrefetch"],pe={optionMergeStrategies:Object.create(null),silent:!1,productionTip:!1,devtools:!1,performance:!1,errorHandler:null,warnHandler:null,ignoredElements:[],keyCodes:Object.create(null),isReservedTag:k,isReservedAttr:k,isUnknownElement:k,getTagNamespace:A,parsePlatformTagName:O,mustUseProp:k,async:!0,_lifecycleHooks:fe},de=A,ve=0,he=function(){this.id=ve++,this.subs=[]};he.prototype.addSub=function(e){this.subs.push(e)},he.prototype.removeSub=function(e){!function(e,t){if(e.length){var r=e.indexOf(t);if(r>-1)e.splice(r,1)}}(this.subs,e)},he.prototype.depend=function(){he.target&&he.target.addDep(this)},he.prototype.notify=function(){for(var e=this.subs.slice(),t=0,r=e.length;t<r;t++)e[t].update()},he.target=null;var me=[];function ye(e){me.push(e),he.target=e}function ge(){me.pop(),he.target=me[me.length-1]}var be=Array.prototype,_e=Object.create(be);["push","pop","shift","unshift","splice","sort","reverse"].forEach(function(e){var t=be[e];G(_e,e,function(){for(var r=[],n=arguments.length;n--;)r[n]=arguments[n];var i,o=t.apply(this,r),a=this.__ob__;switch(e){case"push":case"unshift":i=r;break;case"splice":i=r.slice(2)}return i&&a.observeArray(i),a.dep.notify(),o})});var we=Object.getOwnPropertyNames(_e),xe=!0;function Se(e){xe=e}var $e=function(e){var t;this.value=e,this.dep=new he,this.vmCount=0,G(e,"__ob__",this),Array.isArray(e)?(Q?(t=_e,e.__proto__=t):function(e,t,r){for(var n=0,i=r.length;n<i;n++){var o=r[n];G(e,o,t[o])}}(e,_e,we),this.observeArray(e)):this.walk(e)};function Ae(e,t){var r;if(s(e)&&!(e instanceof K))return m(e,"__ob__")&&e.__ob__ instanceof $e?r=e.__ob__:xe&&!ae()&&(Array.isArray(e)||u(e))&&Object.isExtensible(e)&&!e._isVue&&(r=new $e(e)),t&&r&&r.vmCount++,r}function ke(e,t,r,n,i){var o=new he,a=Object.getOwnPropertyDescriptor(e,t);if(!a||!1!==a.configurable){var s=a&&a.get,c=a&&a.set;s&&!c||2!==arguments.length||(r=e[t]);var u=!i&&Ae(r);Object.defineProperty(e,t,{enumerable:!0,configurable:!0,get:function(){var t=s?s.call(e):r;return he.target&&(o.depend(),u&&(u.dep.depend(),Array.isArray(t)&&function e(t){for(var r=void 0,n=0,i=t.length;n<i;n++)(r=t[n])&&r.__ob__&&r.__ob__.dep.depend(),Array.isArray(r)&&e(r)}(t))),t},set:function(t){var n=s?s.call(e):r;t===n||t!=t&&n!=n||s&&!c||(c?c.call(e,t):r=t,u=!i&&Ae(t),o.notify())}})}}function Oe(e,t,r){if(Array.isArray(e)&&function(e){var t=parseFloat(String(e));return t>=0&&Math.floor(t)===t&&isFinite(e)}(t))return e.length=Math.max(e.length,t),e.splice(t,1,r),r;if(t in e&&!(t in Object.prototype))return e[t]=r,r;var n=e.__ob__;return e._isVue||n&&n.vmCount?r:n?(ke(n.value,t,r),n.dep.notify(),r):(e[t]=r,r)}$e.prototype.walk=function(e){for(var t=Object.keys(e),r=0;r<t.length;r++)ke(e,t[r])},$e.prototype.observeArray=function(e){for(var t=0,r=e.length;t<r;t++)Ae(e[t])};var Ce=pe.optionMergeStrategies;function Te(e,t){if(!t)return e;for(var r,n,i,o=ue?Reflect.ownKeys(t):Object.keys(t),a=0;a<o.length;a++)"__ob__"!==(r=o[a])&&(n=e[r],i=t[r],m(e,r)?n!==i&&u(n)&&u(i)&&Te(n,i):Oe(e,r,i));return e}function Fe(e,t,r){return r?function(){var n="function"==typeof t?t.call(r,r):t,i="function"==typeof e?e.call(r,r):e;return n?Te(n,i):i}:t?e?function(){return Te("function"==typeof t?t.call(this,this):t,"function"==typeof e?e.call(this,this):e)}:t:e}function je(e,t){var r=t?e?e.concat(t):Array.isArray(t)?t:[t]:e;return r?function(e){for(var t=[],r=0;r<e.length;r++)-1===t.indexOf(e[r])&&t.push(e[r]);return t}(r):r}function Pe(e,t,r,n){var i=Object.create(e||null);return t?S(i,t):i}Ce.data=function(e,t,r){return r?Fe(e,t,r):t&&"function"!=typeof t?e:Fe(e,t)},fe.forEach(function(e){Ce[e]=je}),["component","directive","filter"].forEach(function(e){Ce[e+"s"]=Pe}),Ce.watch=function(e,t,r,n){if(e===ie&&(e=void 0),t===ie&&(t=void 0),!t)return Object.create(e||null);if(!e)return t;var i={};for(var o in S(i,e),t){var a=i[o],s=t[o];a&&!Array.isArray(a)&&(a=[a]),i[o]=a?a.concat(s):Array.isArray(s)?s:[s]}return i},Ce.props=Ce.methods=Ce.inject=Ce.computed=function(e,t,r,n){if(!e)return t;var i=Object.create(null);return S(i,e),t&&S(i,t),i},Ce.provide=Fe;var Ee=function(e,t){return void 0===t?e:t};function Ne(e,t,r){if("function"==typeof t&&(t=t.options),function(e,t){var r=e.props;if(r){var n,i,o={};if(Array.isArray(r))for(n=r.length;n--;)"string"==typeof(i=r[n])&&(o[b(i)]={type:null});else if(u(r))for(var a in r)i=r[a],o[b(a)]=u(i)?i:{type:i};e.props=o}}(t),function(e,t){var r=e.inject;if(r){var n=e.inject={};if(Array.isArray(r))for(var i=0;i<r.length;i++)n[r[i]]={from:r[i]};else if(u(r))for(var o in r){var a=r[o];n[o]=u(a)?S({from:o},a):{from:a}}}}(t),function(e){var t=e.directives;if(t)for(var r in t){var n=t[r];"function"==typeof n&&(t[r]={bind:n,update:n})}}(t),!t._base&&(t.extends&&(e=Ne(e,t.extends,r)),t.mixins))for(var n=0,i=t.mixins.length;n<i;n++)e=Ne(e,t.mixins[n],r);var o,a={};for(o in e)s(o);for(o in t)m(e,o)||s(o);function s(n){var i=Ce[n]||Ee;a[n]=i(e[n],t[n],r,n)}return a}function Ie(e,t,r,n){if("string"==typeof r){var i=e[t];if(m(i,r))return i[r];var o=b(r);if(m(i,o))return i[o];var a=_(o);return m(i,a)?i[a]:i[r]||i[o]||i[a]}}function Le(e,t,r,n){var i=t[e],o=!m(r,e),a=r[e],s=ze(Boolean,i.type);if(s>-1)if(o&&!m(i,"default"))a=!1;else if(""===a||a===x(e)){var c=ze(String,i.type);(c<0||s<c)&&(a=!0)}if(void 0===a){a=function(e,t,r){if(!m(t,"default"))return;var n=t.default;if(e&&e.$options.propsData&&void 0===e.$options.propsData[r]&&void 0!==e._props[r])return e._props[r];return"function"==typeof n&&"Function"!==Re(t.type)?n.call(e):n}(n,i,e);var u=xe;Se(!0),Ae(a),Se(u)}return a}var Me=/^\s*function (\w+)/;function Re(e){var t=e&&e.toString().match(Me);return t?t[1]:""}function De(e,t){return Re(e)===Re(t)}function ze(e,t){if(!Array.isArray(t))return De(t,e)?0:-1;for(var r=0,n=t.length;r<n;r++)if(De(t[r],e))return r;return-1}function Ue(e,t,r){ye();try{if(t)for(var n=t;n=n.$parent;){var i=n.$options.errorCaptured;if(i)for(var o=0;o<i.length;o++)try{if(!1===i[o].call(n,e,t,r))return}catch(e){Be(e,n,"errorCaptured hook")}}Be(e,t,r)}finally{ge()}}function qe(e,t,r,n,o){var a,s;try{(a=r?e.apply(t,r):e.call(t))&&!a._isVue&&(i(s=a)&&"function"==typeof s.then&&"function"==typeof s.catch)&&!a._handled&&(a.catch(function(e){return Ue(e,n,o+" (Promise/async)")}),a._handled=!0)}catch(e){Ue(e,n,o)}return a}function Be(e,t,r){!function(e,t,r){if(!Y&&!ee||"undefined"==typeof console)throw e;console.error(e)}(e)}var Je=[];if("undefined"!=typeof Promise&&se(Promise))Promise.resolve();else if(re||"undefined"==typeof MutationObserver||!se(MutationObserver)&&"[object MutationObserverConstructor]"!==MutationObserver.toString())"undefined"!=typeof setImmediate&&se(setImmediate);else{var He=new MutationObserver(function(){var e=Je.slice(0);Je.length=0;for(var t=0;t<e.length;t++)e[t]()}),Ke=document.createTextNode(String(1));He.observe(Ke,{characterData:!0})}function Ve(e,t){return{staticClass:Ze(e.staticClass,t.staticClass),class:i(e.class)?[e.class,t.class]:t.class}}function We(e,t){return i(e)||i(t)?Ze(e,Xe(t)):""}function Ze(e,t){return e?t?e+" "+t:e:t||""}function Xe(e){return Array.isArray(e)?function(e){for(var t,r="",n=0,o=e.length;n<o;n++)i(t=Xe(e[n]))&&""!==t&&(r&&(r+=" "),r+=t);return r}(e):s(e)?function(e){var t="";for(var r in e)e[r]&&(t&&(t+=" "),t+=r);return t}(e):"string"==typeof e?e:""}var Ge=p("html,body,base,head,link,meta,style,title,address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,s,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,embed,object,param,source,canvas,script,noscript,del,ins,caption,col,colgroup,table,thead,tbody,td,th,tr,button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,output,progress,select,textarea,details,dialog,menu,menuitem,summary,content,element,shadow,template,blockquote,iframe,tfoot"),Qe=p("svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,foreignobject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view",!0);var Ye=y(function(e){var t={},r=/:(.+)/;return e.split(/;(?![^(]*\))/g).forEach(function(e){if(e){var n=e.split(r);n.length>1&&(t[n[0].trim()]=n[1].trim())}}),t});function et(e){var t=tt(e.style);return e.staticStyle?S(e.staticStyle,t):t}function tt(e){return Array.isArray(e)?$(e):"string"==typeof e?Ye(e):e}function rt(e){var t="";for(var r in e){var n=e[r],i=x(r);if(Array.isArray(n))for(var o=0,a=n.length;o<a;o++)t+=nt(i,n[o]);else t+=nt(i,n)}return t}function nt(e,t){return"string"==typeof t||"number"==typeof t&&R[e]||0===t?e+":"+t+";":""}var it=[function(e){var t=e.data.attrs,r="",o=e.parent&&e.parent.componentOptions;if(n(o)||!1!==o.Ctor.options.inheritAttrs)for(var a=e.parent;i(a)&&(!a.componentOptions||!1!==a.componentOptions.Ctor.options.inheritAttrs);)i(a.data)&&i(a.data.attrs)&&(t=S(S({},t),a.data.attrs)),a=a.parent;if(n(t))return r;for(var s in t)P(s)||"style"!==s&&(r+=H(s,t[s]));return r},function(e){for(var t=e.data.domProps,r="",o=e.parent;i(o);)o.data&&o.data.domProps&&(t=S(S({},t),o.data.domProps)),o=o.parent;if(n(t))return r;var a=e.data.attrs;for(var s in t)if("innerHTML"===s)X(e,t[s],!0);else if("textContent"===s)X(e,t[s],!1);else if("value"===s&&"textarea"===e.tag)X(e,l(t[s]),!1);else{var c=N[s]||s.toLowerCase();!E(c)||i(a)&&i(a[c])||(r+=H(c,t[s]))}return r},function(e){var t=function(e){for(var t=e.data,r=e,n=e;i(n.componentInstance);)(n=n.componentInstance._vnode)&&n.data&&(t=Ve(n.data,t));for(;i(r=r.parent);)r&&r.data&&(t=Ve(t,r.data));return We(t.staticClass,t.class)}(e);if(""!==t)return' class="'+L(t)+'"'},function(e){var t=rt(function(e,t){var r,n={};if(t)for(var i=e;i.componentInstance;)(i=i.componentInstance._vnode)&&i.data&&(r=et(i.data))&&S(n,r);(r=et(e.data))&&S(n,r);for(var o=e;o=o.parent;)o.data&&(r=et(o.data))&&S(n,r);return n}(e,!1));if(""!==t)return" style="+JSON.stringify(L(t))}];function ot(e){var t=e.data||{};return t.attrs&&t.attrs.value||t.domProps&&t.domProps.value||e.children&&e.children[0]&&e.children[0].text}function at(e){var t=e.data||(e.data={});(t.attrs||(t.attrs={})).selected=""}var st={show:function(e,t){if(!t.value){var r=e.data.style||(e.data.style={});Array.isArray(r)?r.push({display:"none"}):r.display="none"}},model:function(e,t){if(e.children)for(var r=t.value,n=e.data.attrs&&e.data.attrs.multiple,i=0,o=e.children.length;i<o;i++){var a=e.children[i];if("option"===a.tag)if(n)Array.isArray(r)&&T(r,ot(a))>-1&&at(a);else if(C(r,ot(a)))return void at(a)}}},ct=p("area,base,br,col,embed,frame,hr,img,input,isindex,keygen,link,meta,param,source,track,wbr"),ut=p("colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr,source"),lt=p("address,article,aside,base,blockquote,body,caption,col,colgroup,dd,details,dialog,div,dl,dt,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,head,header,hgroup,hr,html,legend,li,menuitem,meta,optgroup,option,param,rp,rt,source,style,summary,tbody,td,tfoot,th,thead,title,tr,track"),ft=800,pt=function(e){return e},dt="undefined"!=typeof process&&process.nextTick?process.nextTick:"undefined"!=typeof Promise?function(e){return Promise.resolve().then(e)}:"undefined"!=typeof setTimeout?setTimeout:pt;if(dt===pt)throw new Error("Your JavaScript runtime does not support any asynchronous primitives that are required by vue-server-renderer. Please use a polyfill for either Promise or setTimeout.");function vt(e,t){var r=0,n=function(i,o){i&&n.caching&&(n.cacheBuffer[n.cacheBuffer.length-1]+=i),!0!==e(i,o)&&(r>=ft?dt(function(){try{o()}catch(e){t(e)}}):(r++,o(),r--))};return n.caching=!1,n.cacheBuffer=[],n.componentBuffer=[],n}var ht=function(e){function t(t){var r=this;e.call(this),this.buffer="",this.render=t,this.expectedSize=0,this.write=vt(function(e,t){var n=r.expectedSize;return r.buffer+=e,r.buffer.length>=n&&(r.next=t,r.pushBySize(n),!0)},function(e){r.emit("error",e)}),this.end=function(){r.emit("beforeEnd"),r.done=!0,r.push(r.buffer)}}return e&&(t.__proto__=e),t.prototype=Object.create(e&&e.prototype),t.prototype.constructor=t,t.prototype.pushBySize=function(e){var t=this.buffer.substring(0,e);this.buffer=this.buffer.substring(e),this.push(t)},t.prototype.tryRender=function(){try{this.render(this.write,this.end)}catch(e){this.emit("error",e)}},t.prototype.tryNext=function(){try{this.next()}catch(e){this.emit("error",e)}},t.prototype._read=function(e){this.expectedSize=e,o(this.done)?this.push(null):this.buffer.length>=e?this.pushBySize(e):n(this.next)?this.tryRender():this.tryNext()},t}(require("stream").Readable),mt=function(e){this.userContext=e.userContext,this.activeInstance=e.activeInstance,this.renderStates=[],this.write=e.write,this.done=e.done,this.renderNode=e.renderNode,this.isUnaryTag=e.isUnaryTag,this.modules=e.modules,this.directives=e.directives;var t=e.cache;if(t&&(!t.get||!t.set))throw new Error("renderer cache must implement at least get & set.");this.cache=t,this.get=t&&yt(t,"get"),this.has=t&&yt(t,"has"),this.next=this.next.bind(this)};function yt(e,t){var r=e[t];return n(r)?void 0:r.length>1?function(t,n){return r.call(e,t,n)}:function(t,n){return n(r.call(e,t))}}mt.prototype.next=function(){for(;;){var e=this.renderStates[this.renderStates.length-1];if(n(e))return this.done();switch(e.type){case"Element":case"Fragment":var t=e.children,r=e.total,i=e.rendered++;if(i<r)return this.renderNode(t[i],!1,this);if(this.renderStates.pop(),"Element"===e.type)return this.write(e.endTag,this.next);break;case"Component":this.renderStates.pop(),this.activeInstance=e.prevActive;break;case"ComponentWithCache":this.renderStates.pop();var o=e.buffer,a=e.bufferIndex,s=e.componentBuffer,c=e.key,u={html:o[a],components:s[a]};if(this.cache.set(c,u),0===a)this.write.caching=!1;else{o[a-1]+=u.html;var l=s[a-1];u.components.forEach(function(e){return l.add(e)})}o.length=a,s.length=a}}};var gt=/[\w).+\-_$\]]/;function bt(e){var t,r,n,i,o,a=!1,s=!1,c=!1,u=!1,l=0,f=0,p=0,d=0;for(n=0;n<e.length;n++)if(r=t,t=e.charCodeAt(n),a)39===t&&92!==r&&(a=!1);else if(s)34===t&&92!==r&&(s=!1);else if(c)96===t&&92!==r&&(c=!1);else if(u)47===t&&92!==r&&(u=!1);else if(124!==t||124===e.charCodeAt(n+1)||124===e.charCodeAt(n-1)||l||f||p){switch(t){case 34:s=!0;break;case 39:a=!0;break;case 96:c=!0;break;case 40:p++;break;case 41:p--;break;case 91:f++;break;case 93:f--;break;case 123:l++;break;case 125:l--}if(47===t){for(var v=n-1,h=void 0;v>=0&&" "===(h=e.charAt(v));v--);h&&gt.test(h)||(u=!0)}}else void 0===i?(d=n+1,i=e.slice(0,n).trim()):m();function m(){(o||(o=[])).push(e.slice(d,n).trim()),d=n+1}if(void 0===i?i=e.slice(0,n).trim():0!==d&&m(),o)for(n=0;n<o.length;n++)i=_t(i,o[n]);return i}function _t(e,t){var r=t.indexOf("(");if(r<0)return'_f("'+t+'")('+e+")";var n=t.slice(0,r),i=t.slice(r+1);return'_f("'+n+'")('+e+(")"!==i?","+i:i)}var wt=/\{\{((?:.|\r?\n)+?)\}\}/g,xt=/[-.*+?^${}()|[\]\/\\]/g,St=y(function(e){var t=e[0].replace(xt,"\\$&"),r=e[1].replace(xt,"\\$&");return new RegExp(t+"((?:.|\\n)+?)"+r,"g")});function $t(e,t){console.error("[Vue compiler]: "+e)}function At(e,t){return e?e.map(function(e){return e[t]}).filter(function(e){return e}):[]}function kt(e,t,r,n,i){(e.props||(e.props=[])).push(It({name:t,value:r,dynamic:i},n)),e.plain=!1}function Ot(e,t,r,n,i){(i?e.dynamicAttrs||(e.dynamicAttrs=[]):e.attrs||(e.attrs=[])).push(It({name:t,value:r,dynamic:i},n)),e.plain=!1}function Ct(e,t,r,n){e.attrsMap[t]=r,e.attrsList.push(It({name:t,value:r},n))}function Tt(e,t,r,n,i,o,a,s){(e.directives||(e.directives=[])).push(It({name:t,rawName:r,value:n,arg:i,isDynamicArg:o,modifiers:a},s)),e.plain=!1}function Ft(e,t,r){return r?"_p("+t+',"'+e+'")':e+t}function jt(e,t,n,i,o,a,s,c){var u;(i=i||r).right?c?t="("+t+")==='click'?'contextmenu':("+t+")":"click"===t&&(t="contextmenu",delete i.right):i.middle&&(c?t="("+t+")==='click'?'mouseup':("+t+")":"click"===t&&(t="mouseup")),i.capture&&(delete i.capture,t=Ft("!",t,c)),i.once&&(delete i.once,t=Ft("~",t,c)),i.passive&&(delete i.passive,t=Ft("&",t,c)),i.native?(delete i.native,u=e.nativeEvents||(e.nativeEvents={})):u=e.events||(e.events={});var l=It({value:n.trim(),dynamic:c},s);i!==r&&(l.modifiers=i);var f=u[t];Array.isArray(f)?o?f.unshift(l):f.push(l):u[t]=f?o?[l,f]:[f,l]:l,e.plain=!1}function Pt(e,t,r){var n=Et(e,":"+t)||Et(e,"v-bind:"+t);if(null!=n)return bt(n);if(!1!==r){var i=Et(e,t);if(null!=i)return JSON.stringify(i)}}function Et(e,t,r){var n;if(null!=(n=e.attrsMap[t]))for(var i=e.attrsList,o=0,a=i.length;o<a;o++)if(i[o].name===t){i.splice(o,1);break}return r&&delete e.attrsMap[t],n}function Nt(e,t){for(var r=e.attrsList,n=0,i=r.length;n<i;n++){var o=r[n];if(t.test(o.name))return r.splice(n,1),o}}function It(e,t){return t&&(null!=t.start&&(e.start=t.start),null!=t.end&&(e.end=t.end)),e}var Lt={staticKeys:["staticClass"],transformNode:function(e,t){t.warn;var r=Et(e,"class");r&&(e.staticClass=JSON.stringify(r));var n=Pt(e,"class",!1);n&&(e.classBinding=n)},genData:function(e){var t="";return e.staticClass&&(t+="staticClass:"+e.staticClass+","),e.classBinding&&(t+="class:"+e.classBinding+","),t}};var Mt,Rt,Dt,zt,Ut,qt,Bt={staticKeys:["staticStyle"],transformNode:function(e,t){t.warn;var r=Et(e,"style");r&&(e.staticStyle=JSON.stringify(Ye(r)));var n=Pt(e,"style",!1);n&&(e.styleBinding=n)},genData:function(e){var t="";return e.staticStyle&&(t+="staticStyle:"+e.staticStyle+","),e.styleBinding&&(t+="style:("+e.styleBinding+"),"),t}},Jt=/^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/,Ht=/^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+?\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/,Kt="[a-zA-Z_][\\-\\.0-9_a-zA-Z"+/a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/.source+"]*",Vt="((?:"+Kt+"\\:)?"+Kt+")",Wt=new RegExp("^<"+Vt),Zt=/^\s*(\/?)>/,Xt=new RegExp("^<\\/"+Vt+"[^>]*>"),Gt=/^<!DOCTYPE [^>]+>/i,Qt=/^<!\--/,Yt=/^<!\[/,er=p("script,style,textarea",!0),tr={},rr={"&lt;":"<","&gt;":">","&quot;":'"',"&amp;":"&","&#10;":"\n","&#9;":"\t","&#39;":"'"},nr=/&(?:lt|gt|quot|amp|#39);/g,ir=/&(?:lt|gt|quot|amp|#39|#10|#9);/g,or=p("pre,textarea",!0),ar=function(e,t){return e&&or(e)&&"\n"===t[0]};function sr(e,t){var r=t?ir:nr;return e.replace(r,function(e){return rr[e]})}function cr(e,t,r){var n=r||{},i=n.number,o="$$v";n.trim&&(o="(typeof $$v === 'string'? $$v.trim(): $$v)"),i&&(o="_n("+o+")");var a=ur(t,o);e.model={value:"("+t+")",expression:JSON.stringify(t),callback:"function ($$v) {"+a+"}"}}function ur(e,t){var r=function(e){if(e=e.trim(),Mt=e.length,e.indexOf("[")<0||e.lastIndexOf("]")<Mt-1)return(zt=e.lastIndexOf("."))>-1?{exp:e.slice(0,zt),key:'"'+e.slice(zt+1)+'"'}:{exp:e,key:null};Rt=e,zt=Ut=qt=0;for(;!fr();)pr(Dt=lr())?vr(Dt):91===Dt&&dr(Dt);return{exp:e.slice(0,Ut),key:e.slice(Ut+1,qt)}}(e);return null===r.key?e+"="+t:"$set("+r.exp+", "+r.key+", "+t+")"}function lr(){return Rt.charCodeAt(++zt)}function fr(){return zt>=Mt}function pr(e){return 34===e||39===e}function dr(e){var t=1;for(Ut=zt;!fr();)if(pr(e=lr()))vr(e);else if(91===e&&t++,93===e&&t--,0===t){qt=zt;break}}function vr(e){for(var t=e;!fr()&&(e=lr())!==t;);}var hr,mr,yr,gr,br,_r,wr,xr,Sr=/^@|^v-on:/,$r=/^v-|^@|^:|^#/,Ar=/([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/,kr=/,([^,\}\]]*)(?:,([^,\}\]]*))?$/,Or=/^\(|\)$/g,Cr=/^\[.*\]$/,Tr=/:(.*)$/,Fr=/^:|^\.|^v-bind:/,jr=/\.[^.\]]+(?=[^\]]*$)/g,Pr=/^v-slot(:|$)|^#/,Er=/[\r\n]/,Nr=/[ \f\t\r\n]+/g,Ir=y(t.default.decode),Lr="_empty_";function Mr(e,t,r){return{type:1,tag:e,attrsList:t,attrsMap:Jr(t),rawAttrsMap:{},parent:r,children:[]}}function Rr(e,t){hr=t.warn||$t,_r=t.isPreTag||k,wr=t.mustUseProp||k,xr=t.getTagNamespace||k,t.isReservedTag,yr=At(t.modules,"transformNode"),gr=At(t.modules,"preTransformNode"),br=At(t.modules,"postTransformNode"),mr=t.delimiters;var r,n,i=[],o=!1!==t.preserveWhitespace,a=t.whitespace,s=!1,c=!1;function u(e){if(l(e),s||e.processed||(e=Dr(e,t)),i.length||e===r||r.if&&(e.elseif||e.else)&&Ur(r,{exp:e.elseif,block:e}),n&&!e.forbidden)if(e.elseif||e.else)a=e,(u=function(e){var t=e.length;for(;t--;){if(1===e[t].type)return e[t];e.pop()}}(n.children))&&u.if&&Ur(u,{exp:a.elseif,block:a});else{if(e.slotScope){var o=e.slotTarget||'"default"';(n.scopedSlots||(n.scopedSlots={}))[o]=e}n.children.push(e),e.parent=n}var a,u;e.children=e.children.filter(function(e){return!e.slotScope}),l(e),e.pre&&(s=!1),_r(e.tag)&&(c=!1);for(var f=0;f<br.length;f++)br[f](e,t)}function l(e){if(!c)for(var t;(t=e.children[e.children.length-1])&&3===t.type&&" "===t.text;)e.children.pop()}return function(e,t){for(var r,n,i=[],o=t.expectHTML,a=t.isUnaryTag||k,s=t.canBeLeftOpenTag||k,c=0;e;){if(r=e,n&&er(n)){var u=0,l=n.toLowerCase(),f=tr[l]||(tr[l]=new RegExp("([\\s\\S]*?)(</"+l+"[^>]*>)","i")),p=e.replace(f,function(e,r,n){return u=n.length,er(l)||"noscript"===l||(r=r.replace(/<!\--([\s\S]*?)-->/g,"$1").replace(/<!\[CDATA\[([\s\S]*?)]]>/g,"$1")),ar(l,r)&&(r=r.slice(1)),t.chars&&t.chars(r),""});c+=e.length-p.length,e=p,O(l,c-u,c)}else{var d=e.indexOf("<");if(0===d){if(Qt.test(e)){var v=e.indexOf("--\x3e");if(v>=0){t.shouldKeepComment&&t.comment(e.substring(4,v),c,c+v+3),S(v+3);continue}}if(Yt.test(e)){var h=e.indexOf("]>");if(h>=0){S(h+2);continue}}var m=e.match(Gt);if(m){S(m[0].length);continue}var y=e.match(Xt);if(y){var g=c;S(y[0].length),O(y[1],g,c);continue}var b=$();if(b){A(b),ar(b.tagName,e)&&S(1);continue}}var _=void 0,w=void 0,x=void 0;if(d>=0){for(w=e.slice(d);!(Xt.test(w)||Wt.test(w)||Qt.test(w)||Yt.test(w)||(x=w.indexOf("<",1))<0);)d+=x,w=e.slice(d);_=e.substring(0,d)}d<0&&(_=e),_&&S(_.length),t.chars&&_&&t.chars(_,c-_.length,c)}if(e===r){t.chars&&t.chars(e);break}}function S(t){c+=t,e=e.substring(t)}function $(){var t=e.match(Wt);if(t){var r,n,i={tagName:t[1],attrs:[],start:c};for(S(t[0].length);!(r=e.match(Zt))&&(n=e.match(Ht)||e.match(Jt));)n.start=c,S(n[0].length),n.end=c,i.attrs.push(n);if(r)return i.unarySlash=r[1],S(r[0].length),i.end=c,i}}function A(e){var r=e.tagName,c=e.unarySlash;o&&("p"===n&&lt(r)&&O(n),s(r)&&n===r&&O(r));for(var u=a(r)||!!c,l=e.attrs.length,f=new Array(l),p=0;p<l;p++){var d=e.attrs[p],v=d[3]||d[4]||d[5]||"",h="a"===r&&"href"===d[1]?t.shouldDecodeNewlinesForHref:t.shouldDecodeNewlines;f[p]={name:d[1],value:sr(v,h)}}u||(i.push({tag:r,lowerCasedTag:r.toLowerCase(),attrs:f,start:e.start,end:e.end}),n=r),t.start&&t.start(r,f,u,e.start,e.end)}function O(e,r,o){var a,s;if(null==r&&(r=c),null==o&&(o=c),e)for(s=e.toLowerCase(),a=i.length-1;a>=0&&i[a].lowerCasedTag!==s;a--);else a=0;if(a>=0){for(var u=i.length-1;u>=a;u--)t.end&&t.end(i[u].tag,r,o);i.length=a,n=a&&i[a-1].tag}else"br"===s?t.start&&t.start(e,[],!0,r,o):"p"===s&&(t.start&&t.start(e,[],!1,r,o),t.end&&t.end(e,r,o))}O()}(e,{warn:hr,expectHTML:t.expectHTML,isUnaryTag:t.isUnaryTag,canBeLeftOpenTag:t.canBeLeftOpenTag,shouldDecodeNewlines:t.shouldDecodeNewlines,shouldDecodeNewlinesForHref:t.shouldDecodeNewlinesForHref,shouldKeepComment:t.comments,outputSourceRange:t.outputSourceRange,start:function(e,o,a,l,f){var p=n&&n.ns||xr(e);re&&"svg"===p&&(o=function(e){for(var t=[],r=0;r<e.length;r++){var n=e[r];Hr.test(n.name)||(n.name=n.name.replace(Kr,""),t.push(n))}return t}(o));var d,v=Mr(e,o,n);p&&(v.ns=p),"style"!==(d=v).tag&&("script"!==d.tag||d.attrsMap.type&&"text/javascript"!==d.attrsMap.type)||ae()||(v.forbidden=!0);for(var h=0;h<gr.length;h++)v=gr[h](v,t)||v;s||(!function(e){null!=Et(e,"v-pre")&&(e.pre=!0)}(v),v.pre&&(s=!0)),_r(v.tag)&&(c=!0),s?function(e){var t=e.attrsList,r=t.length;if(r)for(var n=e.attrs=new Array(r),i=0;i<r;i++)n[i]={name:t[i].name,value:JSON.stringify(t[i].value)},null!=t[i].start&&(n[i].start=t[i].start,n[i].end=t[i].end);else e.pre||(e.plain=!0)}(v):v.processed||(zr(v),function(e){var t=Et(e,"v-if");if(t)e.if=t,Ur(e,{exp:t,block:e});else{null!=Et(e,"v-else")&&(e.else=!0);var r=Et(e,"v-else-if");r&&(e.elseif=r)}}(v),function(e){null!=Et(e,"v-once")&&(e.once=!0)}(v)),r||(r=v),a?u(v):(n=v,i.push(v))},end:function(e,t,r){var o=i[i.length-1];i.length-=1,n=i[i.length-1],u(o)},chars:function(e,t,r){if(n&&(!re||"textarea"!==n.tag||n.attrsMap.placeholder!==e)){var i,u,l,f=n.children;if(e=c||e.trim()?"script"===(i=n).tag||"style"===i.tag?e:Ir(e):f.length?a?"condense"===a&&Er.test(e)?"":" ":o?" ":"":"")c||"condense"!==a||(e=e.replace(Nr," ")),!s&&" "!==e&&(u=function(e,t){var r=t?St(t):wt;if(r.test(e)){for(var n,i,o,a=[],s=[],c=r.lastIndex=0;n=r.exec(e);){(i=n.index)>c&&(s.push(o=e.slice(c,i)),a.push(JSON.stringify(o)));var u=bt(n[1].trim());a.push("_s("+u+")"),s.push({"@binding":u}),c=i+n[0].length}return c<e.length&&(s.push(o=e.slice(c)),a.push(JSON.stringify(o))),{expression:a.join("+"),tokens:s}}}(e,mr))?l={type:2,expression:u.expression,tokens:u.tokens,text:e}:" "===e&&f.length&&" "===f[f.length-1].text||(l={type:3,text:e}),l&&f.push(l)}},comment:function(e,t,r){if(n){var i={type:3,text:e,isComment:!0};n.children.push(i)}}}),r}function Dr(e,t){var r,n;(n=Pt(r=e,"key"))&&(r.key=n),e.plain=!e.key&&!e.scopedSlots&&!e.attrsList.length,function(e){var t=Pt(e,"ref");t&&(e.ref=t,e.refInFor=function(e){var t=e;for(;t;){if(void 0!==t.for)return!0;t=t.parent}return!1}(e))}(e),function(e){var t;"template"===e.tag?(t=Et(e,"scope"),e.slotScope=t||Et(e,"slot-scope")):(t=Et(e,"slot-scope"))&&(e.slotScope=t);var r=Pt(e,"slot");r&&(e.slotTarget='""'===r?'"default"':r,e.slotTargetDynamic=!(!e.attrsMap[":slot"]&&!e.attrsMap["v-bind:slot"]),"template"===e.tag||e.slotScope||Ot(e,"slot",r,function(e,t){return e.rawAttrsMap[":"+t]||e.rawAttrsMap["v-bind:"+t]||e.rawAttrsMap[t]}(e,"slot")));if("template"===e.tag){var n=Nt(e,Pr);if(n){var i=qr(n),o=i.name,a=i.dynamic;e.slotTarget=o,e.slotTargetDynamic=a,e.slotScope=n.value||Lr}}else{var s=Nt(e,Pr);if(s){var c=e.scopedSlots||(e.scopedSlots={}),u=qr(s),l=u.name,f=u.dynamic,p=c[l]=Mr("template",[],e);p.slotTarget=l,p.slotTargetDynamic=f,p.children=e.children.filter(function(e){if(!e.slotScope)return e.parent=p,!0}),p.slotScope=s.value||Lr,e.children=[],e.plain=!1}}}(e),function(e){"slot"===e.tag&&(e.slotName=Pt(e,"name"))}(e),function(e){var t;(t=Pt(e,"is"))&&(e.component=t);null!=Et(e,"inline-template")&&(e.inlineTemplate=!0)}(e);for(var i=0;i<yr.length;i++)e=yr[i](e,t)||e;return function(e){var t,r,n,i,o,a,s,c,u=e.attrsList;for(t=0,r=u.length;t<r;t++)if(n=i=u[t].name,o=u[t].value,$r.test(n))if(e.hasBindings=!0,(a=Br(n.replace($r,"")))&&(n=n.replace(jr,"")),Fr.test(n))n=n.replace(Fr,""),o=bt(o),(c=Cr.test(n))&&(n=n.slice(1,-1)),a&&(a.prop&&!c&&"innerHtml"===(n=b(n))&&(n="innerHTML"),a.camel&&!c&&(n=b(n)),a.sync&&(s=ur(o,"$event"),c?jt(e,'"update:"+('+n+")",s,null,!1,0,u[t],!0):(jt(e,"update:"+b(n),s,null,!1,0,u[t]),x(n)!==b(n)&&jt(e,"update:"+x(n),s,null,!1,0,u[t])))),a&&a.prop||!e.component&&wr(e.tag,e.attrsMap.type,n)?kt(e,n,o,u[t],c):Ot(e,n,o,u[t],c);else if(Sr.test(n))n=n.replace(Sr,""),(c=Cr.test(n))&&(n=n.slice(1,-1)),jt(e,n,o,a,!1,0,u[t],c);else{var l=(n=n.replace($r,"")).match(Tr),f=l&&l[1];c=!1,f&&(n=n.slice(0,-(f.length+1)),Cr.test(f)&&(f=f.slice(1,-1),c=!0)),Tt(e,n,i,o,f,c,a,u[t])}else Ot(e,n,JSON.stringify(o),u[t]),!e.component&&"muted"===n&&wr(e.tag,e.attrsMap.type,n)&&kt(e,n,"true",u[t])}(e),e}function zr(e){var t;if(t=Et(e,"v-for")){var r=function(e){var t=e.match(Ar);if(!t)return;var r={};r.for=t[2].trim();var n=t[1].trim().replace(Or,""),i=n.match(kr);i?(r.alias=n.replace(kr,"").trim(),r.iterator1=i[1].trim(),i[2]&&(r.iterator2=i[2].trim())):r.alias=n;return r}(t);r&&S(e,r)}}function Ur(e,t){e.ifConditions||(e.ifConditions=[]),e.ifConditions.push(t)}function qr(e){var t=e.name.replace(Pr,"");return t||"#"!==e.name[0]&&(t="default"),Cr.test(t)?{name:t.slice(1,-1),dynamic:!0}:{name:'"'+t+'"',dynamic:!1}}function Br(e){var t=e.match(jr);if(t){var r={};return t.forEach(function(e){r[e.slice(1)]=!0}),r}}function Jr(e){for(var t={},r=0,n=e.length;r<n;r++)t[e[r].name]=e[r].value;return t}var Hr=/^xmlns:NS\d+/,Kr=/^NS\d+:/;function Vr(e){return Mr(e.tag,e.attrsList.slice(),e.parent)}var Wr=[Lt,Bt,{preTransformNode:function(e,t){if("input"===e.tag){var r,n=e.attrsMap;if(!n["v-model"])return;if((n[":type"]||n["v-bind:type"])&&(r=Pt(e,"type")),n.type||r||!n["v-bind"]||(r="("+n["v-bind"]+").type"),r){var i=Et(e,"v-if",!0),o=i?"&&("+i+")":"",a=null!=Et(e,"v-else",!0),s=Et(e,"v-else-if",!0),c=Vr(e);zr(c),Ct(c,"type","checkbox"),Dr(c,t),c.processed=!0,c.if="("+r+")==='checkbox'"+o,Ur(c,{exp:c.if,block:c});var u=Vr(e);Et(u,"v-for",!0),Ct(u,"type","radio"),Dr(u,t),Ur(c,{exp:"("+r+")==='radio'"+o,block:u});var l=Vr(e);return Et(l,"v-for",!0),Ct(l,":type",r),Dr(l,t),Ur(c,{exp:i,block:l}),a?c.else=!0:s&&(c.elseif=s),c}}}}],Zr="__r";var Xr={expectHTML:!0,modules:Wr,directives:{model:function(e,t,r){var n=t.value,i=t.modifiers,o=e.tag,a=e.attrsMap.type;if(e.component)return cr(e,n,i),!1;if("select"===o)!function(e,t,r){var n='var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return '+(r&&r.number?"_n(val)":"val")+"});";n=n+" "+ur(t,"$event.target.multiple ? $$selectedVal : $$selectedVal[0]"),jt(e,"change",n,null,!0)}(e,n,i);else if("input"===o&&"checkbox"===a)!function(e,t,r){var n=r&&r.number,i=Pt(e,"value")||"null",o=Pt(e,"true-value")||"true",a=Pt(e,"false-value")||"false";kt(e,"checked","Array.isArray("+t+")?_i("+t+","+i+")>-1"+("true"===o?":("+t+")":":_q("+t+","+o+")")),jt(e,"change","var $$a="+t+",$$el=$event.target,$$c=$$el.checked?("+o+"):("+a+");if(Array.isArray($$a)){var $$v="+(n?"_n("+i+")":i)+",$$i=_i($$a,$$v);if($$el.checked){$$i<0&&("+ur(t,"$$a.concat([$$v])")+")}else{$$i>-1&&("+ur(t,"$$a.slice(0,$$i).concat($$a.slice($$i+1))")+")}}else{"+ur(t,"$$c")+"}",null,!0)}(e,n,i);else if("input"===o&&"radio"===a)!function(e,t,r){var n=r&&r.number,i=Pt(e,"value")||"null";kt(e,"checked","_q("+t+","+(i=n?"_n("+i+")":i)+")"),jt(e,"change",ur(t,i),null,!0)}(e,n,i);else{if("input"!==o&&"textarea"!==o)return cr(e,n,i),!1;!function(e,t,r){var n=e.attrsMap.type,i=r||{},o=i.lazy,a=i.number,s=i.trim,c=!o&&"range"!==n,u=o?"change":"range"===n?Zr:"input",l="$event.target.value";s&&(l="$event.target.value.trim()"),a&&(l="_n("+l+")");var f=ur(t,l);c&&(f="if($event.target.composing)return;"+f),kt(e,"value","("+t+")"),jt(e,u,f,null,!0),(s||a)&&jt(e,"blur","$forceUpdate()")}(e,n,i)}return!0},text:function(e,t){t.value&&kt(e,"textContent","_s("+t.value+")",t)},html:function(e,t){t.value&&kt(e,"innerHTML","_s("+t.value+")",t)}},isPreTag:function(e){return"pre"===e},isUnaryTag:ct,mustUseProp:function(e,t,r){return"value"===r&&D(e)&&"button"!==t||"selected"===r&&"option"===e||"checked"===r&&"input"===e||"muted"===r&&"video"===e},canBeLeftOpenTag:ut,isReservedTag:function(e){return Ge(e)||Qe(e)},getTagNamespace:function(e){return Qe(e)?"svg":"math"===e?"math":void 0},staticKeys:function(e){return e.reduce(function(e,t){return e.concat(t.staticKeys||[])},[]).join(",")}(Wr)},Gr=/^([\w$_]+|\([^)]*?\))\s*=>|^function(?:\s+[\w$]+)?\s*\(/,Qr=/\([^)]*?\);*$/,Yr=/^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/,en={esc:27,tab:9,enter:13,space:32,up:38,left:37,right:39,down:40,delete:[8,46]},tn={esc:["Esc","Escape"],tab:"Tab",enter:"Enter",space:[" ","Spacebar"],up:["Up","ArrowUp"],left:["Left","ArrowLeft"],right:["Right","ArrowRight"],down:["Down","ArrowDown"],delete:["Backspace","Delete","Del"]},rn=function(e){return"if("+e+")return null;"},nn={stop:"$event.stopPropagation();",prevent:"$event.preventDefault();",self:rn("$event.target !== $event.currentTarget"),ctrl:rn("!$event.ctrlKey"),shift:rn("!$event.shiftKey"),alt:rn("!$event.altKey"),meta:rn("!$event.metaKey"),left:rn("'button' in $event && $event.button !== 0"),middle:rn("'button' in $event && $event.button !== 1"),right:rn("'button' in $event && $event.button !== 2")};function on(e,t){var r=t?"nativeOn:":"on:",n="",i="";for(var o in e){var a=an(e[o]);e[o]&&e[o].dynamic?i+=o+","+a+",":n+='"'+o+'":'+a+","}return n="{"+n.slice(0,-1)+"}",i?r+"_d("+n+",["+i.slice(0,-1)+"])":r+n}function an(e){if(!e)return"function(){}";if(Array.isArray(e))return"["+e.map(function(e){return an(e)}).join(",")+"]";var t=Yr.test(e.value),r=Gr.test(e.value),n=Yr.test(e.value.replace(Qr,""));if(e.modifiers){var i="",o="",a=[];for(var s in e.modifiers)if(nn[s])o+=nn[s],en[s]&&a.push(s);else if("exact"===s){var c=e.modifiers;o+=rn(["ctrl","shift","alt","meta"].filter(function(e){return!c[e]}).map(function(e){return"$event."+e+"Key"}).join("||"))}else a.push(s);return a.length&&(i+=function(e){return"if(!$event.type.indexOf('key')&&"+e.map(sn).join("&&")+")return null;"}(a)),o&&(i+=o),"function($event){"+i+(t?"return "+e.value+".apply(null, arguments)":r?"return ("+e.value+").apply(null, arguments)":n?"return "+e.value:e.value)+"}"}return t||r?e.value:"function($event){"+(n?"return "+e.value:e.value)+"}"}function sn(e){var t=parseInt(e,10);if(t)return"$event.keyCode!=="+t;var r=en[e],n=tn[e];return"_k($event.keyCode,"+JSON.stringify(e)+","+JSON.stringify(r)+",$event.key,"+JSON.stringify(n)+")"}var cn={on:function(e,t){e.wrapListeners=function(e){return"_g("+e+","+t.value+")"}},bind:function(e,t){e.wrapData=function(r){return"_b("+r+",'"+e.tag+"',"+t.value+","+(t.modifiers&&t.modifiers.prop?"true":"false")+(t.modifiers&&t.modifiers.sync?",true":"")+")"}},cloak:A},un=function(e){this.options=e,this.warn=e.warn||$t,this.transforms=At(e.modules,"transformCode"),this.dataGenFns=At(e.modules,"genData"),this.directives=S(S({},cn),e.directives);var t=e.isReservedTag||k;this.maybeComponent=function(e){return!!e.component||!t(e.tag)},this.onceId=0,this.staticRenderFns=[],this.pre=!1};function ln(e,t){if(e.parent&&(e.pre=e.pre||e.parent.pre),e.staticRoot&&!e.staticProcessed)return fn(e,t);if(e.once&&!e.onceProcessed)return pn(e,t);if(e.for&&!e.forProcessed)return vn(e,t);if(e.if&&!e.ifProcessed)return dn(e,t);if("template"!==e.tag||e.slotTarget||t.pre){if("slot"===e.tag)return function(e,t){var r=e.slotName||'"default"',n=gn(e,t),i="_t("+r+(n?",function(){return "+n+"}":""),o=e.attrs||e.dynamicAttrs?xn((e.attrs||[]).concat(e.dynamicAttrs||[]).map(function(e){return{name:b(e.name),value:e.value,dynamic:e.dynamic}})):null,a=e.attrsMap["v-bind"];!o&&!a||n||(i+=",null");o&&(i+=","+o);a&&(i+=(o?"":",null")+","+a);return i+")"}(e,t);var r;if(e.component)r=function(e,t,r){var n=t.inlineTemplate?null:gn(t,r,!0);return"_c("+e+","+hn(t,r)+(n?","+n:"")+")"}(e.component,e,t);else{var n;(!e.plain||e.pre&&t.maybeComponent(e))&&(n=hn(e,t));var i=e.inlineTemplate?null:gn(e,t,!0);r="_c('"+e.tag+"'"+(n?","+n:"")+(i?","+i:"")+")"}for(var o=0;o<t.transforms.length;o++)r=t.transforms[o](e,r);return r}return gn(e,t)||"void 0"}function fn(e,t){e.staticProcessed=!0;var r=t.pre;return e.pre&&(t.pre=e.pre),t.staticRenderFns.push("with(this){return "+ln(e,t)+"}"),t.pre=r,"_m("+(t.staticRenderFns.length-1)+(e.staticInFor?",true":"")+")"}function pn(e,t){if(e.onceProcessed=!0,e.if&&!e.ifProcessed)return dn(e,t);if(e.staticInFor){for(var r="",n=e.parent;n;){if(n.for){r=n.key;break}n=n.parent}return r?"_o("+ln(e,t)+","+t.onceId+++","+r+")":ln(e,t)}return fn(e,t)}function dn(e,t,r,n){return e.ifProcessed=!0,function e(t,r,n,i){if(!t.length)return i||"_e()";var o=t.shift();return o.exp?"("+o.exp+")?"+a(o.block)+":"+e(t,r,n,i):""+a(o.block);function a(e){return n?n(e,r):e.once?pn(e,r):ln(e,r)}}(e.ifConditions.slice(),t,r,n)}function vn(e,t,r,n){var i=e.for,o=e.alias,a=e.iterator1?","+e.iterator1:"",s=e.iterator2?","+e.iterator2:"";return e.forProcessed=!0,(n||"_l")+"(("+i+"),function("+o+a+s+"){return "+(r||ln)(e,t)+"})"}function hn(e,t){var r="{",n=function(e,t){var r=e.directives;if(!r)return;var n,i,o,a,s="directives:[",c=!1;for(n=0,i=r.length;n<i;n++){o=r[n],a=!0;var u=t.directives[o.name];u&&(a=!!u(e,o,t.warn)),a&&(c=!0,s+='{name:"'+o.name+'",rawName:"'+o.rawName+'"'+(o.value?",value:("+o.value+"),expression:"+JSON.stringify(o.value):"")+(o.arg?",arg:"+(o.isDynamicArg?o.arg:'"'+o.arg+'"'):"")+(o.modifiers?",modifiers:"+JSON.stringify(o.modifiers):"")+"},")}if(c)return s.slice(0,-1)+"]"}(e,t);n&&(r+=n+","),e.key&&(r+="key:"+e.key+","),e.ref&&(r+="ref:"+e.ref+","),e.refInFor&&(r+="refInFor:true,"),e.pre&&(r+="pre:true,"),e.component&&(r+='tag:"'+e.tag+'",');for(var i=0;i<t.dataGenFns.length;i++)r+=t.dataGenFns[i](e);if(e.attrs&&(r+="attrs:"+xn(e.attrs)+","),e.props&&(r+="domProps:"+xn(e.props)+","),e.events&&(r+=on(e.events,!1)+","),e.nativeEvents&&(r+=on(e.nativeEvents,!0)+","),e.slotTarget&&!e.slotScope&&(r+="slot:"+e.slotTarget+","),e.scopedSlots&&(r+=function(e,t,r){var n=e.for||Object.keys(t).some(function(e){var r=t[e];return r.slotTargetDynamic||r.if||r.for||mn(r)}),i=!!e.if;if(!n)for(var o=e.parent;o;){if(o.slotScope&&o.slotScope!==Lr||o.for){n=!0;break}o.if&&(i=!0),o=o.parent}var a=Object.keys(t).map(function(e){return yn(t[e],r)}).join(",");return"scopedSlots:_u(["+a+"]"+(n?",null,true":"")+(!n&&i?",null,false,"+function(e){var t=5381,r=e.length;for(;r;)t=33*t^e.charCodeAt(--r);return t>>>0}(a):"")+")"}(e,e.scopedSlots,t)+","),e.model&&(r+="model:{value:"+e.model.value+",callback:"+e.model.callback+",expression:"+e.model.expression+"},"),e.inlineTemplate){var o=function(e,t){var r=e.children[0];if(r&&1===r.type){var n=function(e,t){var r=new un(t);return{render:"with(this){return "+(e?"script"===e.tag?"null":ln(e,r):'_c("div")')+"}",staticRenderFns:r.staticRenderFns}}(r,t.options);return"inlineTemplate:{render:function(){"+n.render+"},staticRenderFns:["+n.staticRenderFns.map(function(e){return"function(){"+e+"}"}).join(",")+"]}"}}(e,t);o&&(r+=o+",")}return r=r.replace(/,$/,"")+"}",e.dynamicAttrs&&(r="_b("+r+',"'+e.tag+'",'+xn(e.dynamicAttrs)+")"),e.wrapData&&(r=e.wrapData(r)),e.wrapListeners&&(r=e.wrapListeners(r)),r}function mn(e){return 1===e.type&&("slot"===e.tag||e.children.some(mn))}function yn(e,t){var r=e.attrsMap["slot-scope"];if(e.if&&!e.ifProcessed&&!r)return dn(e,t,yn,"null");if(e.for&&!e.forProcessed)return vn(e,t,yn);var n=e.slotScope===Lr?"":String(e.slotScope),i="function("+n+"){return "+("template"===e.tag?e.if&&r?"("+e.if+")?"+(gn(e,t)||"undefined")+":undefined":gn(e,t)||"undefined":ln(e,t))+"}",o=n?"":",proxy:true";return"{key:"+(e.slotTarget||'"default"')+",fn:"+i+o+"}"}function gn(e,t,r,n,i){var o=e.children;if(o.length){var a=o[0];if(1===o.length&&a.for&&"template"!==a.tag&&"slot"!==a.tag){var s=r?t.maybeComponent(a)?",1":",0":"";return""+(n||ln)(a,t)+s}var c=r?function(e,t){for(var r=0,n=0;n<e.length;n++){var i=e[n];if(1===i.type){if(bn(i)||i.ifConditions&&i.ifConditions.some(function(e){return bn(e.block)})){r=2;break}(t(i)||i.ifConditions&&i.ifConditions.some(function(e){return t(e.block)}))&&(r=1)}}return r}(o,t.maybeComponent):0,u=i||_n;return"["+o.map(function(e){return u(e,t)}).join(",")+"]"+(c?","+c:"")}}function bn(e){return void 0!==e.for||"template"===e.tag||"slot"===e.tag}function _n(e,t){return 1===e.type?ln(e,t):3===e.type&&e.isComment?(r=e,"_e("+JSON.stringify(r.text)+")"):wn(e);var r}function wn(e){return"_v("+(2===e.type?e.expression:Sn(JSON.stringify(e.text)))+")"}function xn(e){for(var t="",r="",n=0;n<e.length;n++){var i=e[n],o=Sn(i.value);i.dynamic?r+=i.name+","+o+",":t+='"'+i.name+'":'+o+","}return t="{"+t.slice(0,-1)+"}",r?"_d("+t+",["+r.slice(0,-1)+"])":t}function Sn(e){return e.replace(/\u2028/g,"\\u2028").replace(/\u2029/g,"\\u2029")}var $n=/^"(?:[^"\\]|\\.)*"$|^'(?:[^'\\]|\\.)*'$/;function An(e,t){return $n.test(t)?(t=t.replace(/^'|'$/g,'"'),z(e)&&'"false"'!==t&&(t='"true"'),{type:Fn,value:B(e)?" "+e+'="'+e+'"':'""'===t?" "+e:" "+e+'="'+JSON.parse(t)+'"'}):{type:Pn,value:"_ssrAttr("+JSON.stringify(e)+","+t+")"}}var kn,On={FALSE:0,FULL:1,SELF:2,CHILDREN:3,PARTIAL:4};function Cn(e,t){e&&(kn=t.isReservedTag||k,function e(t,r){if(function(e){if(2===e.type||3===e.type)return!1;return d(e.tag)||!kn(e.tag)||!!e.component||function(e){return 1===e.type&&"select"===e.tag&&null!=e.directives&&e.directives.some(function(e){return"model"===e.name})}(e)}(t))return void(t.ssrOptimizability=On.FALSE);var n=r||function(e){return 1===e.type&&e.directives&&e.directives.some(function(e){return!Tn(e.name)})}(t);var i=function(e){e.ssrOptimizability!==On.FULL&&(t.ssrOptimizability=n?On.PARTIAL:On.SELF)};n&&(t.ssrOptimizability=On.CHILDREN);if(1===t.type){for(var o=0,a=t.children.length;o<a;o++){var s=t.children[o];e(s),i(s)}if(t.ifConditions)for(var c=1,u=t.ifConditions.length;c<u;c++){var l=t.ifConditions[c].block;e(l,r),i(l)}null==t.ssrOptimizability||!r&&(t.attrsMap["v-html"]||t.attrsMap["v-text"])?t.ssrOptimizability=On.FULL:t.children=function(e){for(var t=e.children,r=[],n=[],i=function(){n.length&&r.push({type:1,parent:e,tag:"template",attrsList:[],attrsMap:{},rawAttrsMap:{},children:n,ssrOptimizability:On.FULL}),n=[]},o=0;o<t.length;o++){var a=t[o];a.ssrOptimizability===On.FULL?n.push(a):(i(),r.push(a))}return i(),r}(t)}else t.ssrOptimizability=On.FULL}(e,!0))}var Tn=p("text,html,show,on,bind,model,pre,cloak,once");var Fn=0,jn=1,Pn=2;function En(e,t){if(e.for&&!e.forProcessed)return vn(e,t,En);if(e.if&&!e.ifProcessed)return dn(e,t,En);if("template"===e.tag&&!e.slotTarget)return e.ssrOptimizability===On.FULL?Mn(e,t):In(e,t)||"void 0";switch(e.ssrOptimizability){case On.FULL:return function(e,t){return"_ssrNode("+Rn(e,t)+")"}(e,t);case On.SELF:return function(e,t){var r=In(e,t,!0);return"_ssrNode("+qn(zn(e,t))+',"</'+e.tag+'>"'+(r?","+r:"")+")"}(e,t);case On.CHILDREN:return Nn(e,t,!0);case On.PARTIAL:return Nn(e,t,!1);default:return ln(e,t)}}function Nn(e,t,r){var n=e.plain?void 0:hn(e,t),i=r?"["+Mn(e,t)+"]":In(e,t,!0);return"_c('"+e.tag+"'"+(n?","+n:"")+(i?","+i:"")+")"}function In(e,t,r){return gn(e,t,r,En,Ln)}function Ln(e,t){return 1===e.type?En(e,t):wn(e)}function Mn(e,t){return e.children.length?"_ssrNode("+qn(Un(e,t))+")":""}function Rn(e,t){return"("+qn(Dn(e,t))+")"}function Dn(e,t){if(e.for&&!e.forProcessed)return e.forProcessed=!0,[{type:Pn,value:vn(e,t,Rn,"_ssrList")}];if(e.if&&!e.ifProcessed)return e.ifProcessed=!0,[{type:Pn,value:dn(e,t,Rn,'"\x3c!----\x3e"')}];if("template"===e.tag)return Un(e,t);var r=zn(e,t),n=Un(e,t),i=t.options.isUnaryTag,o=i&&i(e.tag)?[]:[{type:Fn,value:"</"+e.tag+">"}];return r.concat(n,o)}function zn(e,t){var r;!function(e,t){if(e.directives)for(var r=0;r<e.directives.length;r++){var n=e.directives[r];if("model"===n.name){t.directives.model(e,n,t.warn),"textarea"===e.tag&&e.props&&(e.props=e.props.filter(function(e){return"value"!==e.name}));break}}}(e,t);var n,i,o,a,s,c,u=[{type:Fn,value:"<"+e.tag}];return e.attrs&&u.push.apply(u,e.attrs.map(function(e){return An(e.name,e.value)})),e.props&&u.push.apply(u,function(e,t){var r=[];return e.forEach(function(e){var n=e.name,i=e.value;n=N[n]||n.toLowerCase(),!E(n)||t&&t.some(function(e){return e.name===n})||r.push(An(n,i))}),r}(e.props,e.attrs)),(r=e.attrsMap["v-bind"])&&u.push({type:Pn,value:"_ssrAttrs("+r+")"}),(r=e.attrsMap["v-bind.prop"])&&u.push({type:Pn,value:"_ssrDOMProps("+r+")"}),(e.staticClass||e.classBinding)&&u.push.apply(u,(n=e.staticClass,i=e.classBinding,n&&!i?[{type:Fn,value:' class="'+JSON.parse(n)+'"'}]:[{type:Pn,value:"_ssrClass("+(n||"null")+","+(i||"null")+")"}])),(e.staticStyle||e.styleBinding||e.attrsMap["v-show"])&&u.push.apply(u,(o=e.attrsMap.style,a=e.staticStyle,s=e.styleBinding,c=e.attrsMap["v-show"],!o||s||c?[{type:Pn,value:"_ssrStyle("+(a||"null")+","+(s||"null")+", "+(c?"{ display: ("+c+") ? '' : 'none' }":"null")+")"}]:[{type:Fn,value:" style="+JSON.stringify(o)}])),t.options.scopeId&&u.push({type:Fn,value:" "+t.options.scopeId}),u.push({type:Fn,value:">"}),u}function Un(e,t){var r;return(r=e.attrsMap["v-html"])?[{type:Pn,value:"_s("+r+")"}]:(r=e.attrsMap["v-text"])?[{type:jn,value:"_s("+r+")"}]:"textarea"===e.tag&&(r=e.attrsMap["v-model"])?[{type:jn,value:"_s("+r+")"}]:e.children?function(e,t){for(var r=[],n=0;n<e.length;n++){var i=e[n];if(1===i.type)r.push.apply(r,Dn(i,t));else if(2===i.type)r.push({type:jn,value:i.expression});else if(3===i.type){var o=L(i.text);i.isComment&&(o="\x3c!--"+o+"--\x3e"),r.push({type:Fn,value:o})}}return r}(e.children,t):[]}function qn(e){for(var t=[],r="",n=function(){r&&(t.push(JSON.stringify(r)),r="")},i=0;i<e.length;i++){var o=e[i];o.type===Fn?r+=o.value:o.type===jn?(n(),t.push("_ssrEscape("+o.value+")")):o.type===Pn&&(n(),t.push("("+o.value+")"))}return n(),t.join("+")}function Bn(e,t){try{return new Function(e)}catch(r){return t.push({err:r,code:e}),A}}function Jn(e){var t=Object.create(null);return function(r,n,i){(n=S({},n)).warn,delete n.warn;var o=n.delimiters?String(n.delimiters)+r:r;if(t[o])return t[o];var a=e(r,n),s={},c=[];return s.render=Bn(a.render,c),s.staticRenderFns=a.staticRenderFns.map(function(e){return Bn(e,c)}),t[o]=s}}new RegExp("\\b"+"do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,super,throw,while,yield,delete,export,import,return,switch,default,extends,finally,continue,debugger,function,arguments".split(",").join("\\b|\\b")+"\\b"),new RegExp("\\b"+"delete,typeof,void".split(",").join("\\s*\\([^\\)]*\\)|\\b")+"\\s*\\([^\\)]*\\)");var Hn,Kn=(Hn=function(e,t){var r=Rr(e.trim(),t);Cn(r,t);var n=function(e,t){var r=new un(t);return{render:"with(this){return "+(e?En(e,r):'_c("div")')+"}",staticRenderFns:r.staticRenderFns}}(r,t);return{ast:r,render:n.render,staticRenderFns:n.staticRenderFns}},function(e){function t(t,r){var n=Object.create(e),i=[],o=[];if(r)for(var a in r.modules&&(n.modules=(e.modules||[]).concat(r.modules)),r.directives&&(n.directives=S(Object.create(e.directives||null),r.directives)),r)"modules"!==a&&"directives"!==a&&(n[a]=r[a]);n.warn=function(e,t,r){(r?o:i).push(e)};var s=Hn(t.trim(),n);return s.errors=i,s.tips=o,s}return{compile:t,compileToFunctions:Jn(t)}})(Xr).compileToFunctions;function Vn(e){for(var t=0;t<e.length;t++)if(Array.isArray(e[t]))return Array.prototype.concat.apply([],e);return e}function Wn(e){return a(e)?[Z(e)]:Array.isArray(e)?function e(t,r){var s=[];var c,u,l,f;for(c=0;c<t.length;c++)n(u=t[c])||"boolean"==typeof u||(l=s.length-1,f=s[l],Array.isArray(u)?u.length>0&&(Zn((u=e(u,(r||"")+"_"+c))[0])&&Zn(f)&&(s[l]=Z(f.text+u[0].text),u.shift()),s.push.apply(s,u)):a(u)?Zn(f)?s[l]=Z(f.text+u):""!==u&&s.push(Z(u)):Zn(u)&&Zn(f)?s[l]=Z(f.text+u.text):(o(t._isVList)&&i(u.tag)&&n(u.key)&&i(r)&&(u.key="__vlist"+r+"_"+c+"__"),s.push(u)));return s}(e):void 0}function Zn(e){return i(e)&&i(e.text)&&!1===e.isComment}var Xn={_ssrEscape:L,_ssrNode:function(e,t,r,n){return new Gn(e,t,r,n)},_ssrList:function(e,t){var r,n,i,o,a="";if(Array.isArray(e)||"string"==typeof e)for(r=0,n=e.length;r<n;r++)a+=t(e[r],r);else if("number"==typeof e)for(r=0;r<e;r++)a+=t(r+1,r);else if(s(e))for(i=Object.keys(e),r=0,n=i.length;r<n;r++)o=i[r],a+=t(e[o],o,r);return a},_ssrAttr:H,_ssrAttrs:function(e){var t="";for(var r in e)P(r)||(t+=H(r,e[r]));return t},_ssrDOMProps:function(e){var t="";for(var r in e){var n=N[r]||r.toLowerCase();E(n)&&(t+=H(n,e[r]))}return t},_ssrClass:function(e,t){var r=We(e,t);return""===r?r:' class="'+L(r)+'"'},_ssrStyle:function(e,t,r){var n={};e&&S(n,e);t&&S(n,tt(t));r&&S(n,r);var i=rt(n);return""===i?i:" style="+JSON.stringify(L(i))}};var Gn=function(e,t,r,n){this.isString=!0,this.open=e,this.close=t,this.children=r?1===n?Vn(r):2===n?Wn(r):r:void 0};var Qn=new ce;function Yn(e){!function e(t,r){var n,i;var o=Array.isArray(t);if(!o&&!s(t)||Object.isFrozen(t)||t instanceof K)return;if(t.__ob__){var a=t.__ob__.dep.id;if(r.has(a))return;r.add(a)}if(o)for(n=t.length;n--;)e(t[n],r);else for(i=Object.keys(t),n=i.length;n--;)e(t[i[n]],r)}(e,Qn),Qn.clear()}var ei=y(function(e){var t="&"===e.charAt(0),r="~"===(e=t?e.slice(1):e).charAt(0),n="!"===(e=r?e.slice(1):e).charAt(0);return{name:e=n?e.slice(1):e,once:r,capture:n,passive:t}});function ti(e,t){function r(){var e=arguments,n=r.fns;if(!Array.isArray(n))return qe(n,null,arguments,t,"v-on handler");for(var i=n.slice(),o=0;o<i.length;o++)qe(i[o],null,e,t,"v-on handler")}return r.fns=e,r}function ri(e,t,r,n,o){if(i(t)){if(m(t,r))return e[r]=t[r],o||delete t[r],!0;if(m(t,n))return e[r]=t[n],o||delete t[n],!0}return!1}var ni,ii=1,oi=2;function ai(e,t,r,c,u,l){return(Array.isArray(r)||a(r))&&(u=c,c=r,r=void 0),o(l)&&(u=oi),function(e,t,r,a,c){if(i(r)&&i(r.__ob__))return W();i(r)&&i(r.is)&&(t=r.is);if(!t)return W();Array.isArray(a)&&"function"==typeof a[0]&&((r=r||{}).scopedSlots={default:a[0]},a.length=0);c===oi?a=Wn(a):c===ii&&(a=Vn(a));var u,l;if("string"==typeof t){var f;l=e.$vnode&&e.$vnode.ns||pe.getTagNamespace(t),u=r&&r.pre||!i(f=Ie(e.$options,"components",t))?new K(t,r,a,void 0,void 0,e):Di(f,r,e,a,t)}else u=Di(t,r,e,a);return Array.isArray(u)?u:i(u)?(i(l)&&function e(t,r,a){t.ns=r;"foreignObject"===t.tag&&(r=void 0,a=!0);if(i(t.children))for(var s=0,c=t.children.length;s<c;s++){var u=t.children[s];i(u.tag)&&(n(u.ns)||o(a)&&"svg"!==u.tag)&&e(u,r,a)}}(u,l),i(r)&&function(e){s(e.style)&&Yn(e.style);s(e.class)&&Yn(e.class)}(r),u):W()}(e,t,r,c,u)}function si(e,t){var r,n,o,a,c;if(Array.isArray(e)||"string"==typeof e)for(r=new Array(e.length),n=0,o=e.length;n<o;n++)r[n]=t(e[n],n);else if("number"==typeof e)for(r=new Array(e),n=0;n<e;n++)r[n]=t(n+1,n);else if(s(e))if(ue&&e[Symbol.iterator]){r=[];for(var u=e[Symbol.iterator](),l=u.next();!l.done;)r.push(t(l.value,r.length)),l=u.next()}else for(a=Object.keys(e),r=new Array(a.length),n=0,o=a.length;n<o;n++)c=a[n],r[n]=t(e[c],c,n);return i(r)||(r=[]),r._isVList=!0,r}function ci(e,t,r,n){var i,o=this.$scopedSlots[e];o?(r=r||{},n&&(r=S(S({},n),r)),i=o(r)||("function"==typeof t?t():t)):i=this.$slots[e]||("function"==typeof t?t():t);var a=r&&r.slot;return a?this.$createElement("template",{slot:a},i):i}function ui(e){return Ie(this.$options,"filters",e)||O}function li(e,t){return Array.isArray(e)?-1===e.indexOf(t):e!==t}function fi(e,t,r,n,i){var o=pe.keyCodes[t]||r;return i&&n&&!pe.keyCodes[t]?li(i,n):o?li(o,e):n?x(n)!==t:void 0===e}function pi(e,t,r,n,i){if(r)if(s(r)){var o;Array.isArray(r)&&(r=$(r));var a=function(a){if("class"===a||"style"===a||v(a))o=e;else{var s=e.attrs&&e.attrs.type;o=n||pe.mustUseProp(t,s,a)?e.domProps||(e.domProps={}):e.attrs||(e.attrs={})}var c=b(a),u=x(a);c in o||u in o||(o[a]=r[a],i&&((e.on||(e.on={}))["update:"+a]=function(e){r[a]=e}))};for(var c in r)a(c)}else;return e}function di(e,t){var r=this._staticTrees||(this._staticTrees=[]),n=r[e];return n&&!t?n:(hi(n=r[e]=this.$options.staticRenderFns[e].call(this._renderProxy,null,this),"__static__"+e,!1),n)}function vi(e,t,r){return hi(e,"__once__"+t+(r?"_"+r:""),!0),e}function hi(e,t,r){if(Array.isArray(e))for(var n=0;n<e.length;n++)e[n]&&"string"!=typeof e[n]&&mi(e[n],t+"_"+n,r);else mi(e,t,r)}function mi(e,t,r){e.isStatic=!0,e.key=t,e.isOnce=r}function yi(e,t){if(t)if(u(t)){var r=e.on=e.on?S({},e.on):{};for(var n in t){var i=r[n],o=t[n];r[n]=i?[].concat(i,o):o}}else;return e}function gi(e,t,r,n){t=t||{$stable:!r};for(var i=0;i<e.length;i++){var o=e[i];Array.isArray(o)?gi(o,t,r):o&&(o.proxy&&(o.fn.proxy=!0),t[o.key]=o.fn)}return n&&(t.$key=n),t}function bi(e,t){for(var r=0;r<t.length;r+=2){var n=t[r];"string"==typeof n&&n&&(e[t[r]]=t[r+1])}return e}function _i(e,t){return"string"==typeof e?t+e:e}function wi(e,t){if(!e||!e.length)return{};for(var r={},n=0,i=e.length;n<i;n++){var o=e[n],a=o.data;if(a&&a.attrs&&a.attrs.slot&&delete a.attrs.slot,o.context!==t&&o.fnContext!==t||!a||null==a.slot)(r.default||(r.default=[])).push(o);else{var s=a.slot,c=r[s]||(r[s]=[]);"template"===o.tag?c.push.apply(c,o.children||[]):c.push(o)}}for(var u in r)r[u].every(xi)&&delete r[u];return r}function xi(e){return e.isComment&&!e.asyncFactory||" "===e.text}function Si(e,t,n){var i,o=Object.keys(t).length>0,a=e?!!e.$stable:!o,s=e&&e.$key;if(e){if(e._normalized)return e._normalized;if(a&&n&&n!==r&&s===n.$key&&!o&&!n.$hasNormal)return n;for(var c in i={},e)e[c]&&"$"!==c[0]&&(i[c]=$i(t,c,e[c]))}else i={};for(var u in t)u in i||(i[u]=Ai(t,u));return e&&Object.isExtensible(e)&&(e._normalized=i),G(i,"$stable",a),G(i,"$key",s),G(i,"$hasNormal",o),i}function $i(e,t,r){var n=function(){var e,t=arguments.length?r.apply(null,arguments):r({}),n=(t=t&&"object"==typeof t&&!Array.isArray(t)?[t]:Wn(t))&&t[0];return!t||n&&(1!==t.length||!n.isComment||(e=n).isComment&&e.asyncFactory)?t:void 0};return r.proxy&&Object.defineProperty(e,t,{get:n,enumerable:!0,configurable:!0}),n}function Ai(e,t){return function(){return e[t]}}function ki(e,t){ni.$on(e,t)}function Oi(e,t){ni.$off(e,t)}function Ci(e,t){var r=ni;return function n(){null!==t.apply(null,arguments)&&r.$off(e,n)}}function Ti(e,t,r){ni=e,function(e,t,r,i,a,s){var c,u,l,f;for(c in e)u=e[c],l=t[c],f=ei(c),n(u)||(n(l)?(n(u.fns)&&(u=e[c]=ti(u,s)),o(f.once)&&(u=e[c]=a(f.name,u,f.capture)),r(f.name,u,f.capture,f.passive,f.params)):u!==l&&(l.fns=u,e[c]=l));for(c in t)n(e[c])&&i((f=ei(c)).name,t[c],f.capture)}(t,r||{},ki,Oi,Ci,e),ni=void 0}function Fi(e){for(;e&&(e=e.$parent);)if(e._inactive)return!0;return!1}function ji(e,t){ye();var r=e.$options[t],n=t+" hook";if(r)for(var i=0,o=r.length;i<o;i++)qe(r[i],e,null,e,n);e._hasHookEvent&&e.$emit("hook:"+t),ge()}var Pi=Date.now;if(Y&&!re){var Ei=window.performance;Ei&&"function"==typeof Ei.now&&Pi()>document.createEvent("Event").timeStamp&&(Pi=function(){return Ei.now()})}function Ni(e,t,n,i,a){var s,c=this,u=a.options;m(i,"_uid")?(s=Object.create(i))._original=i:(s=i,i=i._original);var l=o(u._compiled),f=!l;this.data=e,this.props=t,this.children=n,this.parent=i,this.listeners=e.on||r,this.injections=function(e,t){if(e){for(var r=Object.create(null),n=ue?Reflect.ownKeys(e):Object.keys(e),i=0;i<n.length;i++){var o=n[i];if("__ob__"!==o){for(var a=e[o].from,s=t;s;){if(s._provided&&m(s._provided,a)){r[o]=s._provided[a];break}s=s.$parent}if(!s&&"default"in e[o]){var c=e[o].default;r[o]="function"==typeof c?c.call(t):c}}}return r}}(u.inject,i),this.slots=function(){return c.$slots||Si(e.scopedSlots,c.$slots=wi(n,i)),c.$slots},Object.defineProperty(this,"scopedSlots",{enumerable:!0,get:function(){return Si(e.scopedSlots,this.slots())}}),l&&(this.$options=u,this.$slots=this.slots(),this.$scopedSlots=Si(e.scopedSlots,this.$slots)),u._scopeId?this._c=function(e,t,r,n){var o=ai(s,e,t,r,n,f);return o&&!Array.isArray(o)&&(o.fnScopeId=u._scopeId,o.fnContext=i),o}:this._c=function(e,t,r,n){return ai(s,e,t,r,n,f)}}function Ii(e,t,r,n,i){var o=function(e){var t=new K(e.tag,e.data,e.children&&e.children.slice(),e.text,e.elm,e.context,e.componentOptions,e.asyncFactory);return t.ns=e.ns,t.isStatic=e.isStatic,t.key=e.key,t.isComment=e.isComment,t.fnContext=e.fnContext,t.fnOptions=e.fnOptions,t.fnScopeId=e.fnScopeId,t.asyncMeta=e.asyncMeta,t.isCloned=!0,t}(e);return o.fnContext=r,o.fnOptions=n,t.slot&&((o.data||(o.data={})).slot=t.slot),o}function Li(e,t){for(var r in t)e[b(r)]=t[r]}!function(e){e._o=vi,e._n=f,e._s=l,e._l=si,e._t=ci,e._q=C,e._i=T,e._m=di,e._f=ui,e._k=fi,e._b=pi,e._v=Z,e._e=W,e._u=gi,e._g=yi,e._d=bi,e._p=_i}(Ni.prototype);var Mi={init:function(e,t){if(e.componentInstance&&!e.componentInstance._isDestroyed&&e.data.keepAlive){var r=e;Mi.prepatch(r,r)}else{(e.componentInstance=zi(e,null)).$mount(t?e.elm:void 0,t)}},prepatch:function(e,t){var n=t.componentOptions;!function(e,t,n,i,o){var a=i.data.scopedSlots,s=e.$scopedSlots,c=!!(a&&!a.$stable||s!==r&&!s.$stable||a&&e.$scopedSlots.$key!==a.$key||!a&&e.$scopedSlots.$key),u=!!(o||e.$options._renderChildren||c);if(e.$options._parentVnode=i,e.$vnode=i,e._vnode&&(e._vnode.parent=i),e.$options._renderChildren=o,e.$attrs=i.data.attrs||r,e.$listeners=n||r,t&&e.$options.props){Se(!1);for(var l=e._props,f=e.$options._propKeys||[],p=0;p<f.length;p++){var d=f[p],v=e.$options.props;l[d]=Le(d,v,t,e)}Se(!0),e.$options.propsData=t}n=n||r;var h=e.$options._parentListeners;e.$options._parentListeners=n,Ti(e,n,h),u&&(e.$slots=wi(o,i.context),e.$forceUpdate())}(t.componentInstance=e.componentInstance,n.propsData,n.listeners,t,n.children)},insert:function(e){var t=e.context,r=e.componentInstance;r._isMounted||(r._isMounted=!0,ji(r,"mounted")),e.data.keepAlive&&(t._isMounted?r._inactive=!1:function e(t,r){if(r){if(t._directInactive=!1,Fi(t))return}else if(t._directInactive)return;if(t._inactive||null===t._inactive){t._inactive=!1;for(var n=0;n<t.$children.length;n++)e(t.$children[n]);ji(t,"activated")}}(r,!0))},destroy:function(e){var t=e.componentInstance;t._isDestroyed||(e.data.keepAlive?function e(t,r){if(!(r&&(t._directInactive=!0,Fi(t))||t._inactive)){t._inactive=!0;for(var n=0;n<t.$children.length;n++)e(t.$children[n]);ji(t,"deactivated")}}(t,!0):t.$destroy())}},Ri=Object.keys(Mi);function Di(e,t,a,c,u){if(!n(e)){var l=a.$options._base;if(s(e)&&(e=l.extend(e)),"function"==typeof e){var f,p;if(n(e.cid)&&void 0===(e=o((p=f=e).error)&&i(p.errorComp)?p.errorComp:i(p.resolved)?p.resolved:o(p.loading)&&i(p.loadingComp)?p.loadingComp:void 0))return function(e,t,r,n,i){var o=W();return o.asyncFactory=e,o.asyncMeta={data:t,context:r,children:n,tag:i},o}(f,t,a,c,u);t=t||{},function e(t){var r=t.options;if(t.super){var n=e(t.super);if(n!==t.superOptions){t.superOptions=n;var i=function(e){var t,r=e.options,n=e.sealedOptions;for(var i in r)r[i]!==n[i]&&(t||(t={}),t[i]=r[i]);return t}(t);i&&S(t.extendOptions,i),(r=t.options=Ne(n,t.extendOptions)).name&&(r.components[r.name]=t)}}return r}(e),i(t.model)&&function(e,t){var r=e.model&&e.model.prop||"value",n=e.model&&e.model.event||"input";(t.attrs||(t.attrs={}))[r]=t.model.value;var o=t.on||(t.on={}),a=o[n],s=t.model.callback;i(a)?(Array.isArray(a)?-1===a.indexOf(s):a!==s)&&(o[n]=[s].concat(a)):o[n]=s}(e.options,t);var d=function(e,t,r){var o=t.options.props;if(!n(o)){var a={},s=e.attrs,c=e.props;if(i(s)||i(c))for(var u in o){var l=x(u);ri(a,c,u,l,!0)||ri(a,s,u,l,!1)}return a}}(t,e);if(o(e.options.functional))return function(e,t,n,o,a){var s=e.options,c={},u=s.props;if(i(u))for(var l in u)c[l]=Le(l,u,t||r);else i(n.attrs)&&Li(c,n.attrs),i(n.props)&&Li(c,n.props);var f=new Ni(n,c,a,o,e),p=s.render.call(null,f._c,f);if(p instanceof K)return Ii(p,n,f.parent,s);if(Array.isArray(p)){for(var d=Wn(p)||[],v=new Array(d.length),h=0;h<d.length;h++)v[h]=Ii(d[h],n,f.parent,s);return v}}(e,d,t,a,c);var v=t.on;if(t.on=t.nativeOn,o(e.options.abstract)){var h=t.slot;t={},h&&(t.slot=h)}!function(e){for(var t=e.hook||(e.hook={}),r=0;r<Ri.length;r++){var n=Ri[r],i=t[n],o=Mi[n];i===o||i&&i._merged||(t[n]=i?Ui(o,i):o)}}(t);var m=e.options.name||u;return new K("vue-component-"+e.cid+(m?"-"+m:""),t,void 0,void 0,void 0,a,{Ctor:e,propsData:d,listeners:v,tag:u,children:c},f)}}}function zi(e,t){var r={_isComponent:!0,_parentVnode:e,parent:t},n=e.data.inlineTemplate;return i(n)&&(r.render=n.render,r.staticRenderFns=n.staticRenderFns),new e.componentOptions.Ctor(r)}function Ui(e,t){var r=function(r,n){e(r,n),t(r,n)};return r._merged=!0,r}var qi=Object.create(null),Bi=function(e){qi[e]||(qi[e]=!0,console.warn("\n\x1b[31m"+e+"\x1b[39m\n"))},Ji=function(e,t){var r=t?de():"";throw new Error("\n\x1b[31m"+e+r+"\x1b[39m\n")},Hi=function(e){var t=e.$options,r=t.render,i=t.template,o=t._scopeId;if(n(r)){if(!i)throw new Error("render function or template not defined in component: "+(e.$options.name||e.$options._componentTag||"anonymous"));var a=Kn(i,{scopeId:o,warn:Ji},e);e.$options.render=a.render,e.$options.staticRenderFns=a.staticRenderFns}};function Ki(e,t,r){var n=e.$options.serverPrefetch;if(i(n)){Array.isArray(n)||(n=[n]);try{for(var o=[],a=0,s=n.length;a<s;a++){var c=n[a].call(e,e);c&&"function"==typeof c.then&&o.push(c)}return void Promise.all(o).then(t).catch(r)}catch(e){r(e)}}t()}function Vi(e,t,r){e.isString?function(e,t){var r=t.write,i=t.next;if(n(e.children)||0===e.children.length)r(e.open+(e.close||""),i);else{var o=e.children;t.renderStates.push({type:"Element",children:o,rendered:0,total:o.length,endTag:e.close}),r(e.open,i)}}(e,r):i(e.componentOptions)?Zi(e,t,r):i(e.tag)?function(e,t,r){var a=r.write,s=r.next;o(t)&&(e.data||(e.data={}),e.data.attrs||(e.data.attrs={}),e.data.attrs[le]="true");e.fnOptions&&Wi(e.fnOptions,a);var c=function(e,t){var r,o="<"+e.tag,a=t.directives,s=t.modules;n(e.data)&&function e(t){var r=t.parent;return i(r)&&(i(r.data)||e(r))}(e)&&(e.data={});if(i(e.data)){var c=e.data.directives;if(c)for(var u=0;u<c.length;u++){var l=c[u].name;if("show"!==l){var f=Ie(t,"directives",l);f&&f(e,c[u])}}var p=function(e){var t,r;for(;i(e);)e.data&&e.data.directives&&(r=e.data.directives.find(function(e){return"show"===e.name}))&&(t=r),e=e.parent;return t}(e);p&&a.show(e,p);for(var d=0;d<s.length;d++){var v=s[d](e);v&&(o+=v)}}var h=t.activeInstance;i(h)&&h!==e.context&&i(r=h.$options._scopeId)&&(o+=" "+r);if(i(e.fnScopeId))o+=" "+e.fnScopeId;else for(;i(e);)i(r=e.context.$options._scopeId)&&(o+=" "+r),e=e.parent;return o+">"}(e,r),u="</"+e.tag+">";if(r.isUnaryTag(e.tag))a(c,s);else if(n(e.children)||0===e.children.length)a(c+u,s);else{var l=e.children;r.renderStates.push({type:"Element",children:l,rendered:0,total:l.length,endTag:u}),a(c,s)}}(e,t,r):o(e.isComment)?i(e.asyncFactory)?function(e,t,r){var n=e.asyncFactory,i=function(n){n.__esModule&&n.default&&(n=n.default);var i=e.asyncMeta,o=i.data,a=i.children,s=i.tag,c=e.asyncMeta.context,u=Di(n,o,c,a,s);u?u.componentOptions?Zi(u,t,r):Array.isArray(u)?(r.renderStates.push({type:"Fragment",children:u,rendered:0,total:u.length}),r.next()):Vi(u,t,r):r.write("\x3c!----\x3e",r.next)};if(n.resolved)return void i(n.resolved);var o,a=r.done;try{o=n(i,a)}catch(e){a(e)}if(o)if("function"==typeof o.then)o.then(i,a).catch(a);else{var s=o.component;s&&"function"==typeof s.then&&s.then(i,a).catch(a)}}(e,t,r):r.write("\x3c!--"+e.text+"--\x3e",r.next):r.write(e.raw?e.text:L(String(e.text)),r.next)}function Wi(e,t){var r=e._ssrRegister;return t.caching&&i(r)&&t.componentBuffer[t.componentBuffer.length-1].add(r),r}function Zi(e,t,r){var o=r.write,a=r.next,s=r.userContext,c=e.componentOptions.Ctor,u=c.options.serverCacheKey,l=c.options.name,f=r.cache,p=Wi(c.options,o);if(i(u)&&i(f)&&i(l)){var d=u(e.componentOptions.propsData);if(!1===d)return void Gi(e,t,r);var v=l+"::"+d,h=r.has,m=r.get;i(h)?h(v,function(n){!0===n&&i(m)?m(v,function(e){i(p)&&p(s),e.components.forEach(function(e){return e(s)}),o(e.html,a)}):Xi(e,t,v,r)}):i(m)&&m(v,function(n){i(n)?(i(p)&&p(s),n.components.forEach(function(e){return e(s)}),o(n.html,a)):Xi(e,t,v,r)})}else i(u)&&n(f)&&Bi("[vue-server-renderer] Component "+(c.options.name||"(anonymous)")+" implemented serverCacheKey, but no cache was provided to the renderer."),i(u)&&n(l)&&Bi('[vue-server-renderer] Components that implement "serverCacheKey" must also define a unique "name" option.'),Gi(e,t,r)}function Xi(e,t,r,n){var i=n.write;i.caching=!0;var o=i.cacheBuffer,a=o.push("")-1,s=i.componentBuffer;s.push(new Set),n.renderStates.push({type:"ComponentWithCache",key:r,buffer:o,bufferIndex:a,componentBuffer:s}),Gi(e,t,n)}function Gi(e,t,r){var n=r.activeInstance;e.ssrContext=r.userContext;var i=r.activeInstance=zi(e,r.activeInstance);Hi(i);var o=r.done;Ki(i,function(){var o=i._render();o.parent=e,r.renderStates.push({type:"Component",prevActive:n}),Vi(o,t,r)},o)}function Qi(e,t,r,n){return function(i,o,a,s){qi=Object.create(null);var c=new mt({activeInstance:i,userContext:a,write:o,done:s,renderNode:Vi,isUnaryTag:r,modules:e,directives:t,cache:n});!function(e){if(!e._ssrNode){for(var t=e.constructor;t.super;)t=t.super;S(t.prototype,Xn),t.FunctionalRenderContext&&S(t.FunctionalRenderContext.prototype,Xn)}}(i),Hi(i);Ki(i,function(){Vi(i._render(),!0,c)},s)}}var Yi=function(e){return/\.js(\?[^.]+)?$/.test(e)};function eo(){var e,t;return{promise:new Promise(function(r,n){e=r,t=n}),cb:function(r,n){if(r)return t(r);e(n||"")}}}var to=function(e){function t(t,r,n){e.call(this),this.started=!1,this.renderer=t,this.template=r,this.context=n||{},this.inject=t.inject}return e&&(t.__proto__=e),t.prototype=Object.create(e&&e.prototype),t.prototype.constructor=t,t.prototype._transform=function(e,t,r){this.started||(this.emit("beforeStart"),this.start()),this.push(e),r()},t.prototype.start=function(){if(this.started=!0,this.push(this.template.head(this.context)),this.inject){this.context.head&&this.push(this.context.head);var e=this.renderer.renderResourceHints(this.context);e&&this.push(e);var t=this.renderer.renderStyles(this.context);t&&this.push(t)}this.push(this.template.neck(this.context))},t.prototype._flush=function(e){if(this.emit("beforeEnd"),this.inject){var t=this.renderer.renderState(this.context);t&&this.push(t);var r=this.renderer.renderScripts(this.context);r&&this.push(r)}this.push(this.template.tail(this.context)),e()},t}(require("stream").Transform),ro=require("lodash.template"),no={escape:/{{([^{][\s\S]+?[^}])}}/g,interpolate:/{{{([\s\S]+?)}}}/g};function io(e){var t=function(e){var t=new Map;return Object.keys(e.modules).forEach(function(r){t.set(r,function(e,t){var r=[],n=t.modules[e];return n&&n.forEach(function(e){var n=t.all[e];n&&(t.async.indexOf(n)>-1||!/\.(js|css)($|\?)/.test(n))&&r.push(n)}),r}(r,e))}),t}(e);return function(e){for(var r=new Set,n=0;n<e.length;n++){var i=t.get(e[n]);if(i)for(var o=0;o<i.length;o++)r.add(i[o])}return Array.from(r)}}var oo=require("path"),ao=require("serialize-javascript"),so=function(e){this.options=e,this.inject=!1!==e.inject;var t=e.template;if(this.parsedTemplate=t?"string"==typeof t?function(e,t){if(void 0===t&&(t="\x3c!--vue-ssr-outlet--\x3e"),"object"==typeof e)return e;var r=e.indexOf("</head>"),n=e.indexOf(t);if(n<0)throw new Error("Content placeholder not found in template.");return r<0&&(r=e.indexOf("<body>"))<0&&(r=n),{head:ro(e.slice(0,r),no),neck:ro(e.slice(r,n),no),tail:ro(e.slice(n+t.length),no)}}(t):t:null,this.serialize=e.serializer||function(e){return ao(e,{isJSON:!0})},e.clientManifest){var r=this.clientManifest=e.clientManifest;this.publicPath=""===r.publicPath?"":r.publicPath.replace(/([^\/])$/,"$1/"),this.preloadFiles=(r.initial||[]).map(co),this.prefetchFiles=(r.async||[]).map(co),this.mapFiles=io(r)}};function co(e){var t=e.replace(/\?.*/,""),r=oo.extname(t).slice(1);return{file:e,extension:r,fileWithoutQuery:t,asType:uo(r)}}function uo(e){return"js"===e?"script":"css"===e?"style":/jpe?g|png|svg|gif|webp|ico/.test(e)?"image":/woff2?|ttf|otf|eot/.test(e)?"font":""}so.prototype.bindRenderFns=function(e){var t=this;["ResourceHints","State","Scripts","Styles"].forEach(function(r){e["render"+r]=t["render"+r].bind(t,e)}),e.getPreloadFiles=t.getPreloadFiles.bind(t,e)},so.prototype.render=function(e,t){var r=this.parsedTemplate;if(!r)throw new Error("render cannot be called without a template.");return t=t||{},"function"==typeof r?r(e,t):this.inject?r.head(t)+(t.head||"")+this.renderResourceHints(t)+this.renderStyles(t)+r.neck(t)+e+this.renderState(t)+this.renderScripts(t)+r.tail(t):r.head(t)+r.neck(t)+e+r.tail(t)},so.prototype.renderStyles=function(e){var t=this,r=this.preloadFiles||[],n=this.getUsedAsyncFiles(e)||[],i=r.concat(n).filter(function(e){return function(e){return/\.css(\?[^.]+)?$/.test(e)}(e.file)});return(i.length?i.map(function(e){var r=e.file;return'<link rel="stylesheet" href="'+t.publicPath+r+'">'}).join(""):"")+(e.styles||"")},so.prototype.renderResourceHints=function(e){return this.renderPreloadLinks(e)+this.renderPrefetchLinks(e)},so.prototype.getPreloadFiles=function(e){var t=this.getUsedAsyncFiles(e);return this.preloadFiles||t?(this.preloadFiles||[]).concat(t||[]):[]},so.prototype.renderPreloadLinks=function(e){var t=this,r=this.getPreloadFiles(e),n=this.options.shouldPreload;return r.length?r.map(function(e){var r=e.file,i=e.extension,o=e.fileWithoutQuery,a=e.asType,s="";return n||"script"===a||"style"===a?n&&!n(o,a)?"":("font"===a&&(s=' type="font/'+i+'" crossorigin'),'<link rel="preload" href="'+t.publicPath+r+'"'+(""!==a?' as="'+a+'"':"")+s+">"):""}).join(""):""},so.prototype.renderPrefetchLinks=function(e){var t=this,r=this.options.shouldPrefetch;if(this.prefetchFiles){var n=this.getUsedAsyncFiles(e);return this.prefetchFiles.map(function(e){var i=e.file,o=e.fileWithoutQuery,a=e.asType;return r&&!r(o,a)?"":function(e){return n&&n.some(function(t){return t.file===e})}(i)?"":'<link rel="prefetch" href="'+t.publicPath+i+'">'}).join("")}return""},so.prototype.renderState=function(e,t){var r=t||{},n=r.contextKey;void 0===n&&(n="state");var i=r.windowKey;void 0===i&&(i="__INITIAL_STATE__");var o=this.serialize(e[n]),a=e.nonce?' nonce="'+e.nonce+'"':"";return e[n]?"<script"+a+">window."+i+"="+o+";(function(){var s;(s=document.currentScript||document.scripts[document.scripts.length-1]).parentNode.removeChild(s);}());<\/script>":""},so.prototype.renderScripts=function(e){var t=this;if(this.clientManifest){var r=this.preloadFiles.filter(function(e){var t=e.file;return Yi(t)}),n=(this.getUsedAsyncFiles(e)||[]).filter(function(e){var t=e.file;return Yi(t)});return[r[0]].concat(n,r.slice(1)).map(function(e){var r=e.file;return'<script src="'+t.publicPath+r+'" defer><\/script>'}).join("")}return""},so.prototype.getUsedAsyncFiles=function(e){if(!e._mappedFiles&&e._registeredComponents&&this.mapFiles){var t=Array.from(e._registeredComponents);e._mappedFiles=this.mapFiles(t).map(co)}return e._mappedFiles},so.prototype.createStream=function(e){if(!this.parsedTemplate)throw new Error("createStream cannot be called without a template.");return new to(this,this.parsedTemplate,e||{})};var lo=require("vm"),fo=require("path"),po=require("resolve"),vo=require("module");function ho(e){var t={Buffer:Buffer,console:console,process:process,setTimeout:setTimeout,setInterval:setInterval,setImmediate:setImmediate,clearTimeout:clearTimeout,clearInterval:clearInterval,clearImmediate:clearImmediate,__VUE_SSR_CONTEXT__:e};return t.global=t,t}function mo(e,t,r){var n={},i={};return function o(a,s,c){if(void 0===c&&(c={}),c[a])return c[a];var u=function(t){if(n[t])return n[t];var r=e[t],i=vo.wrap(r),o=new lo.Script(i,{filename:t,displayErrors:!0});return n[t]=o,o}(a),l={exports:{}};(!1===r?u.runInThisContext():u.runInNewContext(s)).call(l.exports,l.exports,function(r){return r=fo.posix.join(".",r),e[r]?o(r,s,c):t?require(i[r]||(i[r]=po.sync(r,{basedir:t}))):require(r)},l);var f=Object.prototype.hasOwnProperty.call(l.exports,"default")?l.exports.default:l.exports;return c[a]=f,f}}function yo(e,t,r,n){var i,o,a=mo(t,r,n);return!1!==n&&"once"!==n?function(t){return void 0===t&&(t={}),new Promise(function(r){t._registeredComponents=new Set;var n=a(e,ho(t));r("function"==typeof n?n(t):n)})}:function(t){return void 0===t&&(t={}),new Promise(function(r){if(!i){var s="once"===n?ho():global;if(o=s.__VUE_SSR_CONTEXT__={},i=a(e,s),delete s.__VUE_SSR_CONTEXT__,"function"!=typeof i)throw new Error("bundle export should be a function when using { runInNewContext: false }.")}if(t._registeredComponents=new Set,o._styles){t._styles=function e(t){if(u(t)){var r={};for(var n in t)r[n]=e(t[n]);return r}return Array.isArray(t)?t.slice():t}(o._styles);var c=o._renderStyles;c&&Object.defineProperty(t,"styles",{enumerable:!0,get:function(){return c(t._styles)}})}r(i(t))})}}var go=require("source-map").SourceMapConsumer,bo=/\(([^)]+\.js):(\d+):(\d+)\)$/;function _o(e,t){e&&"string"==typeof e.stack&&(e.stack=e.stack.split("\n").map(function(e){return function(e,t){var r=e.match(bo),n=r&&t[r[1]];if(null!=r&&n){var i=n.originalPositionFor({line:Number(r[2]),column:Number(r[3])});if(null!=i.source){var o=i.source,a=i.line,s=i.column,c="("+o.replace(/^webpack:\/\/\//,"")+":"+String(a)+":"+String(s)+")";return e.replace(bo,c)}return e}return e}(e,t)}).join("\n"))}var wo=require("fs"),xo=require("path"),So=require("stream").PassThrough,$o="Invalid server-rendering bundle format. Should be a string or a bundle Object of type:\n\n{\n  entry: string;\n  files: { [filename: string]: string; };\n  maps: { [filename: string]: string; };\n}\n";process.env.VUE_ENV="server";var Ao=require("fs"),ko=require("path"),Oo=Ao.readFileSync(ko.resolve(__dirname,"go.wasm"));require("./tinygo_wasm_exec");var Co=new Go;function To(e){return void 0===e&&(e={}),function(e){void 0===e&&(e={});var t=e.modules;void 0===t&&(t=[]);var r=e.directives;void 0===r&&(r={});var n=e.isUnaryTag;void 0===n&&(n=function(){return!1});var i=e.template,o=e.inject,a=e.cache,s=e.shouldPreload,c=e.shouldPrefetch,u=e.clientManifest,l=e.serializer,f=Qi(t,r,n,a),p=new so({template:i,inject:o,shouldPreload:s,shouldPrefetch:c,clientManifest:u,serializer:l});return{renderToString:function(e,t,r){var n,o;"function"==typeof t&&(r=t,t={}),t&&p.bindRenderFns(t),r||(o=(n=eo()).promise,r=n.cb);var a="",s=vt(function(e){return a+=e,!1},r);try{f(e,s,t,function(e){if(e)return r(e);if(t&&t.rendered&&t.rendered(t),i)try{var n=p.render(a,t);"string"!=typeof n?n.then(function(e){return r(null,e)}).catch(r):r(null,n)}catch(e){r(e)}else r(null,a)})}catch(e){r(e)}return o},renderToStream:function(e,t){t&&p.bindRenderFns(t);var r=new ht(function(r,n){f(e,r,t,n)});if(i){if("function"==typeof i)throw new Error("function template is only supported in renderToString.");var n=p.createStream(t);if(r.on("error",function(e){n.emit("error",e)}),r.pipe(n),t&&t.rendered){var o=t.rendered;r.once("beforeEnd",function(){o(t)})}return n}if(t&&t.rendered){var a=t.rendered;r.once("beforeEnd",function(){a(t)})}return r}}}(S(S({},e),{isUnaryTag:ct,canBeLeftOpenTag:ut,modules:it,directives:S(st,e.directives)}))}WebAssembly.instantiate(Oo,Co.importObject).then(function(e){var t=e.instance;Co.run(t);var r=t.exports.add(1e4);console.log("go result",r)});var Fo=function(e){return function(t,r){var n,i,o;void 0===r&&(r={});var a=r.basedir;if("string"==typeof t&&/\.js(on)?$/.test(t)&&xo.isAbsolute(t)){if(!wo.existsSync(t))throw new Error("Cannot locate bundle file: "+t);var s=/\.json$/.test(t);if(a=a||xo.dirname(t),t=wo.readFileSync(t,"utf-8"),s)try{t=JSON.parse(t)}catch(e){throw new Error("Invalid JSON bundle file: "+t)}}if("object"==typeof t){if(i=t.entry,n=t.files,a=a||t.basedir,o=function(e){var t={};return Object.keys(e).forEach(function(r){t[r]=new go(e[r])}),t}(t.maps),"string"!=typeof i||"object"!=typeof n)throw new Error($o)}else{if("string"!=typeof t)throw new Error($o);i="__vue_ssr_bundle__",n={__vue_ssr_bundle__:t},o={}}var c=e(r),u=yo(i,n,a,r.runInNewContext);return{renderToString:function(e,t){var r,n;return"function"==typeof e&&(t=e,e={}),t||(n=(r=eo()).promise,t=r.cb),u(e).catch(function(e){_o(e,o),t(e)}).then(function(r){r&&c.renderToString(r,e,function(e,r){_o(e,o),t(e,r)})}),n},renderToStream:function(e){var t=new So;return u(e).catch(function(e){_o(e,o),process.nextTick(function(){t.emit("error",e)})}).then(function(n){if(n){var i=c.renderToStream(n,e);i.on("error",function(e){_o(e,o),t.emit("error",e)}),r&&r.template&&(i.on("beforeStart",function(){t.emit("beforeStart")}),i.on("beforeEnd",function(){t.emit("beforeEnd")})),i.pipe(t)}}),t}}}}(To);exports.createBundleRenderer=Fo,exports.createRenderer=To;
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var he = require('he');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var he__default = /*#__PURE__*/_interopDefaultLegacy(he);
+
+/*  */
+
+const emptyObject = Object.freeze({});
+
+// These helpers produce better VM code in JS engines due to their
+// explicitness and function inlining.
+function isUndef (v) {
+  return v === undefined || v === null
+}
+
+function isDef (v) {
+  return v !== undefined && v !== null
+}
+
+function isTrue (v) {
+  return v === true
+}
+
+function isFalse (v) {
+  return v === false
+}
+
+/**
+ * Check if value is primitive.
+ */
+function isPrimitive (value) {
+  return (
+    typeof value === 'string' ||
+    typeof value === 'number' ||
+    // $flow-disable-line
+    typeof value === 'symbol' ||
+    typeof value === 'boolean'
+  )
+}
+
+/**
+ * Quick object check - this is primarily used to tell
+ * Objects from primitive values when we know the value
+ * is a JSON-compliant type.
+ */
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+/**
+ * Get the raw type string of a value, e.g., [object Object].
+ */
+const _toString = Object.prototype.toString;
+
+function toRawType (value) {
+  return _toString.call(value).slice(8, -1)
+}
+
+/**
+ * Strict object type check. Only returns true
+ * for plain JavaScript objects.
+ */
+function isPlainObject (obj) {
+  return _toString.call(obj) === '[object Object]'
+}
+
+/**
+ * Check if val is a valid array index.
+ */
+function isValidArrayIndex (val) {
+  const n = parseFloat(String(val));
+  return n >= 0 && Math.floor(n) === n && isFinite(val)
+}
+
+function isPromise (val) {
+  return (
+    isDef(val) &&
+    typeof val.then === 'function' &&
+    typeof val.catch === 'function'
+  )
+}
+
+/**
+ * Convert a value to a string that is actually rendered.
+ */
+function toString (val) {
+  return val == null
+    ? ''
+    : Array.isArray(val) || (isPlainObject(val) && val.toString === _toString)
+      ? JSON.stringify(val, null, 2)
+      : String(val)
+}
+
+/**
+ * Convert an input value to a number for persistence.
+ * If the conversion fails, return original string.
+ */
+function toNumber (val) {
+  const n = parseFloat(val);
+  return isNaN(n) ? val : n
+}
+
+/**
+ * Make a map and return a function for checking if a key
+ * is in that map.
+ */
+function makeMap (
+  str,
+  expectsLowerCase
+) {
+  const map = Object.create(null);
+  const list = str.split(',');
+  for (let i = 0; i < list.length; i++) {
+    map[list[i]] = true;
+  }
+  return expectsLowerCase
+    ? val => map[val.toLowerCase()]
+    : val => map[val]
+}
+
+/**
+ * Check if a tag is a built-in tag.
+ */
+const isBuiltInTag = makeMap('slot,component', true);
+
+/**
+ * Check if an attribute is a reserved attribute.
+ */
+const isReservedAttribute = makeMap('key,ref,slot,slot-scope,is');
+
+/**
+ * Remove an item from an array.
+ */
+function remove$1 (arr, item) {
+  if (arr.length) {
+    const index = arr.indexOf(item);
+    if (index > -1) {
+      return arr.splice(index, 1)
+    }
+  }
+}
+
+/**
+ * Check whether an object has the property.
+ */
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+function hasOwn (obj, key) {
+  return hasOwnProperty.call(obj, key)
+}
+
+/**
+ * Create a cached version of a pure function.
+ */
+function cached (fn) {
+  const cache = Object.create(null);
+  return (function cachedFn (str) {
+    const hit = cache[str];
+    return hit || (cache[str] = fn(str))
+  })
+}
+
+/**
+ * Camelize a hyphen-delimited string.
+ */
+const camelizeRE = /-(\w)/g;
+const camelize = cached((str) => {
+  return str.replace(camelizeRE, (_, c) => c ? c.toUpperCase() : '')
+});
+
+/**
+ * Capitalize a string.
+ */
+const capitalize = cached((str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+});
+
+/**
+ * Hyphenate a camelCase string.
+ */
+const hyphenateRE = /\B([A-Z])/g;
+const hyphenate = cached((str) => {
+  return str.replace(hyphenateRE, '-$1').toLowerCase()
+});
+
+/**
+ * Mix properties into target object.
+ */
+function extend (to, _from) {
+  for (const key in _from) {
+    to[key] = _from[key];
+  }
+  return to
+}
+
+/**
+ * Merge an Array of Objects into a single Object.
+ */
+function toObject (arr) {
+  const res = {};
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i]) {
+      extend(res, arr[i]);
+    }
+  }
+  return res
+}
+
+/* eslint-disable no-unused-vars */
+
+/**
+ * Perform no operation.
+ * Stubbing args to make Flow happy without leaving useless transpiled code
+ * with ...rest (https://flow.org/blog/2017/05/07/Strict-Function-Call-Arity/).
+ */
+function noop$1 (a, b, c) {}
+
+/**
+ * Always return false.
+ */
+const no = (a, b, c) => false;
+
+/* eslint-enable no-unused-vars */
+
+/**
+ * Return the same value.
+ */
+const identity = (_) => _;
+
+/**
+ * Generate a string containing static keys from compiler modules.
+ */
+function genStaticKeys (modules) {
+  return modules.reduce((keys, m) => {
+    return keys.concat(m.staticKeys || [])
+  }, []).join(',')
+}
+
+/**
+ * Check if two values are loosely equal - that is,
+ * if they are plain objects, do they have the same shape?
+ */
+function looseEqual (a, b) {
+  if (a === b) return true
+  const isObjectA = isObject(a);
+  const isObjectB = isObject(b);
+  if (isObjectA && isObjectB) {
+    try {
+      const isArrayA = Array.isArray(a);
+      const isArrayB = Array.isArray(b);
+      if (isArrayA && isArrayB) {
+        return a.length === b.length && a.every((e, i) => {
+          return looseEqual(e, b[i])
+        })
+      } else if (a instanceof Date && b instanceof Date) {
+        return a.getTime() === b.getTime()
+      } else if (!isArrayA && !isArrayB) {
+        const keysA = Object.keys(a);
+        const keysB = Object.keys(b);
+        return keysA.length === keysB.length && keysA.every(key => {
+          return looseEqual(a[key], b[key])
+        })
+      } else {
+        /* istanbul ignore next */
+        return false
+      }
+    } catch (e) {
+      /* istanbul ignore next */
+      return false
+    }
+  } else if (!isObjectA && !isObjectB) {
+    return String(a) === String(b)
+  } else {
+    return false
+  }
+}
+
+/**
+ * Return the first index at which a loosely equal value can be
+ * found in the array (if value is a plain object, the array must
+ * contain an object of the same shape), or -1 if it is not present.
+ */
+function looseIndexOf (arr, val) {
+  for (let i = 0; i < arr.length; i++) {
+    if (looseEqual(arr[i], val)) return i
+  }
+  return -1
+}
+
+/*  */
+
+const isAttr = makeMap(
+  'accept,accept-charset,accesskey,action,align,alt,async,autocomplete,' +
+  'autofocus,autoplay,autosave,bgcolor,border,buffered,challenge,charset,' +
+  'checked,cite,class,code,codebase,color,cols,colspan,content,' +
+  'contenteditable,contextmenu,controls,coords,data,datetime,default,' +
+  'defer,dir,dirname,disabled,download,draggable,dropzone,enctype,for,' +
+  'form,formaction,headers,height,hidden,high,href,hreflang,http-equiv,' +
+  'icon,id,ismap,itemprop,keytype,kind,label,lang,language,list,loop,low,' +
+  'manifest,max,maxlength,media,method,GET,POST,min,multiple,email,file,' +
+  'muted,name,novalidate,open,optimum,pattern,ping,placeholder,poster,' +
+  'preload,radiogroup,readonly,rel,required,reversed,rows,rowspan,sandbox,' +
+  'scope,scoped,seamless,selected,shape,size,type,text,password,sizes,span,' +
+  'spellcheck,src,srcdoc,srclang,srcset,start,step,style,summary,tabindex,' +
+  'target,title,usemap,value,width,wrap'
+);
+
+const unsafeAttrCharRE = /[>/="'\u0009\u000a\u000c\u0020]/; // eslint-disable-line no-control-regex
+const isSSRUnsafeAttr = (name) => {
+  return unsafeAttrCharRE.test(name)
+};
+
+/* istanbul ignore next */
+const isRenderableAttr = (name) => {
+  return (
+    isAttr(name) ||
+    name.indexOf('data-') === 0 ||
+    name.indexOf('aria-') === 0
+  )
+};
+
+const propsToAttrMap = {
+  acceptCharset: 'accept-charset',
+  className: 'class',
+  htmlFor: 'for',
+  httpEquiv: 'http-equiv'
+};
+
+const ESC = {
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  '&': '&amp;'
+};
+
+function escape (s) {
+  return s.replace(/[<>"&]/g, escapeChar)
+}
+
+function escapeChar (a) {
+  return ESC[a] || a
+}
+
+const noUnitNumericStyleProps = {
+  "animation-iteration-count": true,
+  "border-image-outset": true,
+  "border-image-slice": true,
+  "border-image-width": true,
+  "box-flex": true,
+  "box-flex-group": true,
+  "box-ordinal-group": true,
+  "column-count": true,
+  "columns": true,
+  "flex": true,
+  "flex-grow": true,
+  "flex-positive": true,
+  "flex-shrink": true,
+  "flex-negative": true,
+  "flex-order": true,
+  "grid-row": true,
+  "grid-row-end": true,
+  "grid-row-span": true,
+  "grid-row-start": true,
+  "grid-column": true,
+  "grid-column-end": true,
+  "grid-column-span": true,
+  "grid-column-start": true,
+  "font-weight": true,
+  "line-clamp": true,
+  "line-height": true,
+  "opacity": true,
+  "order": true,
+  "orphans": true,
+  "tab-size": true,
+  "widows": true,
+  "z-index": true,
+  "zoom": true,
+  // SVG
+  "fill-opacity": true,
+  "flood-opacity": true,
+  "stop-opacity": true,
+  "stroke-dasharray": true,
+  "stroke-dashoffset": true,
+  "stroke-miterlimit": true,
+  "stroke-opacity": true,
+  "stroke-width": true
+};
+
+/*  */
+
+// these are reserved for web because they are directly compiled away
+// during template compilation
+makeMap('style,class');
+
+// attributes that should be using props for binding
+const acceptValue = makeMap('input,textarea,option,select,progress');
+const mustUseProp = (tag, type, attr) => {
+  return (
+    (attr === 'value' && acceptValue(tag)) && type !== 'button' ||
+    (attr === 'selected' && tag === 'option') ||
+    (attr === 'checked' && tag === 'input') ||
+    (attr === 'muted' && tag === 'video')
+  )
+};
+
+const isEnumeratedAttr = makeMap('contenteditable,draggable,spellcheck');
+
+const isValidContentEditableValue = makeMap('events,caret,typing,plaintext-only');
+
+const convertEnumeratedValue = (key, value) => {
+  return isFalsyAttrValue(value) || value === 'false'
+    ? 'false'
+    // allow arbitrary string value for contenteditable
+    : key === 'contenteditable' && isValidContentEditableValue(value)
+      ? value
+      : 'true'
+};
+
+const isBooleanAttr = makeMap(
+  'allowfullscreen,async,autofocus,autoplay,checked,compact,controls,declare,' +
+  'default,defaultchecked,defaultmuted,defaultselected,defer,disabled,' +
+  'enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,' +
+  'muted,nohref,noresize,noshade,novalidate,nowrap,open,pauseonexit,readonly,' +
+  'required,reversed,scoped,seamless,selected,sortable,' +
+  'truespeed,typemustmatch,visible'
+);
+
+const isFalsyAttrValue = (val) => {
+  return val == null || val === false
+};
+
+/*  */
+
+function renderAttrs$1 (node) {
+  let attrs = node.data.attrs;
+  let res = '';
+
+  const opts = node.parent && node.parent.componentOptions;
+  if (isUndef(opts) || opts.Ctor.options.inheritAttrs !== false) {
+    let parent = node.parent;
+    while (isDef(parent)) {
+      // Stop fallthrough in case parent has inheritAttrs option set to false
+      if (parent.componentOptions && parent.componentOptions.Ctor.options.inheritAttrs === false) {
+        break;
+      }
+      if (isDef(parent.data) && isDef(parent.data.attrs)) {
+        attrs = extend(extend({}, attrs), parent.data.attrs);
+      }
+      parent = parent.parent;
+    }
+  }
+
+  if (isUndef(attrs)) {
+    return res
+  }
+
+  for (const key in attrs) {
+    if (isSSRUnsafeAttr(key)) {
+      continue
+    }
+    if (key === 'style') {
+      // leave it to the style module
+      continue
+    }
+    res += renderAttr(key, attrs[key]);
+  }
+  return res
+}
+
+function renderAttr (key, value) {
+  if (isBooleanAttr(key)) {
+    if (!isFalsyAttrValue(value)) {
+      return ` ${key}="${key}"`
+    }
+  } else if (isEnumeratedAttr(key)) {
+    return ` ${key}="${escape(convertEnumeratedValue(key, value))}"`
+  } else if (!isFalsyAttrValue(value)) {
+    return ` ${key}="${escape(String(value))}"`
+  }
+  return ''
+}
+
+/*  */
+
+class VNode {
+  
+  
+  
+  
+  
+  
+   // rendered in this component's scope
+  
+  
+   // component instance
+   // component placeholder node
+
+  // strictly internal
+   // contains raw HTML? (server only)
+   // hoisted static node
+   // necessary for enter transition check
+   // empty comment placeholder?
+   // is a cloned node?
+   // is a v-once node?
+   // async component factory function
+  
+  
+  
+   // real context vm for functional nodes
+   // for SSR caching
+   // used to store functional render context for devtools
+   // functional scope id support
+
+  constructor (
+    tag,
+    data,
+    children,
+    text,
+    elm,
+    context,
+    componentOptions,
+    asyncFactory
+  ) {
+    this.tag = tag;
+    this.data = data;
+    this.children = children;
+    this.text = text;
+    this.elm = elm;
+    this.ns = undefined;
+    this.context = context;
+    this.fnContext = undefined;
+    this.fnOptions = undefined;
+    this.fnScopeId = undefined;
+    this.key = data && data.key;
+    this.componentOptions = componentOptions;
+    this.componentInstance = undefined;
+    this.parent = undefined;
+    this.raw = false;
+    this.isStatic = false;
+    this.isRootInsert = true;
+    this.isComment = false;
+    this.isCloned = false;
+    this.isOnce = false;
+    this.asyncFactory = asyncFactory;
+    this.asyncMeta = undefined;
+    this.isAsyncPlaceholder = false;
+  }
+
+  // DEPRECATED: alias for componentInstance for backwards compat.
+  /* istanbul ignore next */
+  get child () {
+    return this.componentInstance
+  }
+}
+
+const createEmptyVNode = (text = '') => {
+  const node = new VNode();
+  node.text = text;
+  node.isComment = true;
+  return node
+};
+
+function createTextVNode (val) {
+  return new VNode(undefined, undefined, undefined, String(val))
+}
+
+// optimized shallow clone
+// used for static nodes and slot nodes because they may be reused across
+// multiple renders, cloning them avoids errors when DOM manipulations rely
+// on their elm reference.
+function cloneVNode (vnode) {
+  const cloned = new VNode(
+    vnode.tag,
+    vnode.data,
+    // #7975
+    // clone children array to avoid mutating original in case of cloning
+    // a child.
+    vnode.children && vnode.children.slice(),
+    vnode.text,
+    vnode.elm,
+    vnode.context,
+    vnode.componentOptions,
+    vnode.asyncFactory
+  );
+  cloned.ns = vnode.ns;
+  cloned.isStatic = vnode.isStatic;
+  cloned.key = vnode.key;
+  cloned.isComment = vnode.isComment;
+  cloned.fnContext = vnode.fnContext;
+  cloned.fnOptions = vnode.fnOptions;
+  cloned.fnScopeId = vnode.fnScopeId;
+  cloned.asyncMeta = vnode.asyncMeta;
+  cloned.isCloned = true;
+  return cloned
+}
+
+/*  */
+
+function renderDOMProps$1 (node) {
+  let props = node.data.domProps;
+  let res = '';
+
+  let parent = node.parent;
+  while (isDef(parent)) {
+    if (parent.data && parent.data.domProps) {
+      props = extend(extend({}, props), parent.data.domProps);
+    }
+    parent = parent.parent;
+  }
+
+  if (isUndef(props)) {
+    return res
+  }
+
+  const attrs = node.data.attrs;
+  for (const key in props) {
+    if (key === 'innerHTML') {
+      setText(node, props[key], true);
+    } else if (key === 'textContent') {
+      setText(node, props[key], false);
+    } else if (key === 'value' && node.tag === 'textarea') {
+      setText(node, toString(props[key]), false);
+    } else {
+      // $flow-disable-line (WTF?)
+      const attr = propsToAttrMap[key] || key.toLowerCase();
+      if (isRenderableAttr(attr) &&
+        // avoid rendering double-bound props/attrs twice
+        !(isDef(attrs) && isDef(attrs[attr]))
+      ) {
+        res += renderAttr(attr, props[key]);
+      }
+    }
+  }
+  return res
+}
+
+function setText (node, text, raw) {
+  const child = new VNode(undefined, undefined, undefined, text);
+  child.raw = raw;
+  node.children = [child];
+}
+
+/*  */
+
+/**
+ * unicode letters used for parsing html tags, component names and property paths.
+ * using https://www.w3.org/TR/html53/semantics-scripting.html#potentialcustomelementname
+ * skipping \u10000-\uEFFFF due to it freezing up PhantomJS
+ */
+const unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/;
+
+/**
+ * Define a property.
+ */
+function def (obj, key, val, enumerable) {
+  Object.defineProperty(obj, key, {
+    value: val,
+    enumerable: !!enumerable,
+    writable: true,
+    configurable: true
+  });
+}
+
+/*  */
+
+// can we use __proto__?
+const hasProto = '__proto__' in {};
+
+// Browser environment sniffing
+const inBrowser = typeof window !== 'undefined';
+const inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform;
+const weexPlatform = inWeex && WXEnvironment.platform.toLowerCase();
+const UA = inBrowser && window.navigator.userAgent.toLowerCase();
+const isIE = UA && /msie|trident/.test(UA);
+UA && UA.indexOf('msie 9.0') > 0;
+const isEdge = UA && UA.indexOf('edge/') > 0;
+(UA && UA.indexOf('android') > 0) || (weexPlatform === 'android');
+(UA && /iphone|ipad|ipod|ios/.test(UA)) || (weexPlatform === 'ios');
+UA && /chrome\/\d+/.test(UA) && !isEdge;
+UA && /phantomjs/.test(UA);
+UA && UA.match(/firefox\/(\d+)/);
+
+// Firefox has a "watch" function on Object.prototype...
+const nativeWatch = ({}).watch;
+
+let supportsPassive = false;
+if (inBrowser) {
+  try {
+    const opts = {};
+    Object.defineProperty(opts, 'passive', ({
+      get () {
+        /* istanbul ignore next */
+        supportsPassive = true;
+      }
+    })); // https://github.com/facebook/flow/issues/285
+    window.addEventListener('test-passive', null, opts);
+  } catch (e) {}
+}
+
+// this needs to be lazy-evaled because vue may be required before
+// vue-server-renderer can set VUE_ENV
+let _isServer;
+const isServerRendering = () => {
+  if (_isServer === undefined) {
+    /* istanbul ignore if */
+    if (!inBrowser && !inWeex && typeof global !== 'undefined') {
+      // detect presence of vue-server-renderer and avoid
+      // Webpack shimming the process
+      _isServer = global['process'] && global['process'].env.VUE_ENV === 'server';
+    } else {
+      _isServer = false;
+    }
+  }
+  return _isServer
+};
+
+/* istanbul ignore next */
+function isNative (Ctor) {
+  return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
+}
+
+const hasSymbol =
+  typeof Symbol !== 'undefined' && isNative(Symbol) &&
+  typeof Reflect !== 'undefined' && isNative(Reflect.ownKeys);
+
+let _Set;
+/* istanbul ignore if */ // $flow-disable-line
+if (typeof Set !== 'undefined' && isNative(Set)) {
+  // use native Set when available.
+  _Set = Set;
+} else {
+  // a non-standard Set polyfill that only works with primitive keys.
+  _Set = class Set   {
+    
+    constructor () {
+      this.set = Object.create(null);
+    }
+    has (key) {
+      return this.set[key] === true
+    }
+    add (key) {
+      this.set[key] = true;
+    }
+    clear () {
+      this.set = Object.create(null);
+    }
+  };
+}
+
+const SSR_ATTR = 'data-server-rendered';
+
+const ASSET_TYPES = [
+  'component',
+  'directive',
+  'filter'
+];
+
+const LIFECYCLE_HOOKS = [
+  'beforeCreate',
+  'created',
+  'beforeMount',
+  'mounted',
+  'beforeUpdate',
+  'updated',
+  'beforeDestroy',
+  'destroyed',
+  'activated',
+  'deactivated',
+  'errorCaptured',
+  'serverPrefetch'
+];
+
+/*  */
+
+
+
+var config = ({
+  /**
+   * Option merge strategies (used in core/util/options)
+   */
+  // $flow-disable-line
+  optionMergeStrategies: Object.create(null),
+
+  /**
+   * Whether to suppress warnings.
+   */
+  silent: false,
+
+  /**
+   * Show production mode tip message on boot?
+   */
+  productionTip: "production" !== 'production',
+
+  /**
+   * Whether to enable devtools
+   */
+  devtools: "production" !== 'production',
+
+  /**
+   * Whether to record perf
+   */
+  performance: false,
+
+  /**
+   * Error handler for watcher errors
+   */
+  errorHandler: null,
+
+  /**
+   * Warn handler for watcher warns
+   */
+  warnHandler: null,
+
+  /**
+   * Ignore certain custom elements
+   */
+  ignoredElements: [],
+
+  /**
+   * Custom user key aliases for v-on
+   */
+  // $flow-disable-line
+  keyCodes: Object.create(null),
+
+  /**
+   * Check if a tag is reserved so that it cannot be registered as a
+   * component. This is platform-dependent and may be overwritten.
+   */
+  isReservedTag: no,
+
+  /**
+   * Check if an attribute is reserved so that it cannot be used as a component
+   * prop. This is platform-dependent and may be overwritten.
+   */
+  isReservedAttr: no,
+
+  /**
+   * Check if a tag is an unknown element.
+   * Platform-dependent.
+   */
+  isUnknownElement: no,
+
+  /**
+   * Get the namespace of an element
+   */
+  getTagNamespace: noop$1,
+
+  /**
+   * Parse the real tag name for the specific platform.
+   */
+  parsePlatformTagName: identity,
+
+  /**
+   * Check if an attribute must be bound using property, e.g. value
+   * Platform-dependent.
+   */
+  mustUseProp: no,
+
+  /**
+   * Perform updates asynchronously. Intended to be used by Vue Test Utils
+   * This will significantly reduce performance if set to false.
+   */
+  async: true,
+
+  /**
+   * Exposed for legacy reasons
+   */
+  _lifecycleHooks: LIFECYCLE_HOOKS
+});
+
+/*  */
+
+let warn$1 = noop$1;
+let generateComponentTrace = (noop$1); // work around flow check
+
+/*  */
+
+let uid = 0;
+
+/**
+ * A dep is an observable that can have multiple
+ * directives subscribing to it.
+ */
+class Dep {
+  
+  
+  
+
+  constructor () {
+    this.id = uid++;
+    this.subs = [];
+  }
+
+  addSub (sub) {
+    this.subs.push(sub);
+  }
+
+  removeSub (sub) {
+    remove$1(this.subs, sub);
+  }
+
+  depend () {
+    if (Dep.target) {
+      Dep.target.addDep(this);
+    }
+  }
+
+  notify () {
+    // stabilize the subscriber list first
+    const subs = this.subs.slice();
+    for (let i = 0, l = subs.length; i < l; i++) {
+      subs[i].update();
+    }
+  }
+}
+
+// The current target watcher being evaluated.
+// This is globally unique because only one watcher
+// can be evaluated at a time.
+Dep.target = null;
+const targetStack = [];
+
+function pushTarget (target) {
+  targetStack.push(target);
+  Dep.target = target;
+}
+
+function popTarget () {
+  targetStack.pop();
+  Dep.target = targetStack[targetStack.length - 1];
+}
+
+/*
+ * not type checking this file because flow doesn't play well with
+ * dynamically accessing methods on Array prototype
+ */
+
+const arrayProto = Array.prototype;
+const arrayMethods = Object.create(arrayProto);
+
+const methodsToPatch = [
+  'push',
+  'pop',
+  'shift',
+  'unshift',
+  'splice',
+  'sort',
+  'reverse'
+];
+
+/**
+ * Intercept mutating methods and emit events
+ */
+methodsToPatch.forEach(function (method) {
+  // cache original method
+  const original = arrayProto[method];
+  def(arrayMethods, method, function mutator (...args) {
+    const result = original.apply(this, args);
+    const ob = this.__ob__;
+    let inserted;
+    switch (method) {
+      case 'push':
+      case 'unshift':
+        inserted = args;
+        break
+      case 'splice':
+        inserted = args.slice(2);
+        break
+    }
+    if (inserted) ob.observeArray(inserted);
+    // notify change
+    ob.dep.notify();
+    return result
+  });
+});
+
+/*  */
+
+const arrayKeys = Object.getOwnPropertyNames(arrayMethods);
+
+/**
+ * In some cases we may want to disable observation inside a component's
+ * update computation.
+ */
+let shouldObserve = true;
+
+function toggleObserving (value) {
+  shouldObserve = value;
+}
+
+/**
+ * Observer class that is attached to each observed
+ * object. Once attached, the observer converts the target
+ * object's property keys into getter/setters that
+ * collect dependencies and dispatch updates.
+ */
+class Observer {
+  
+  
+   // number of vms that have this object as root $data
+
+  constructor (value) {
+    this.value = value;
+    this.dep = new Dep();
+    this.vmCount = 0;
+    def(value, '__ob__', this);
+    if (Array.isArray(value)) {
+      if (hasProto) {
+        protoAugment(value, arrayMethods);
+      } else {
+        copyAugment(value, arrayMethods, arrayKeys);
+      }
+      this.observeArray(value);
+    } else {
+      this.walk(value);
+    }
+  }
+
+  /**
+   * Walk through all properties and convert them into
+   * getter/setters. This method should only be called when
+   * value type is Object.
+   */
+  walk (obj) {
+    const keys = Object.keys(obj);
+    for (let i = 0; i < keys.length; i++) {
+      defineReactive(obj, keys[i]);
+    }
+  }
+
+  /**
+   * Observe a list of Array items.
+   */
+  observeArray (items) {
+    for (let i = 0, l = items.length; i < l; i++) {
+      observe(items[i]);
+    }
+  }
+}
+
+// helpers
+
+/**
+ * Augment a target Object or Array by intercepting
+ * the prototype chain using __proto__
+ */
+function protoAugment (target, src) {
+  /* eslint-disable no-proto */
+  target.__proto__ = src;
+  /* eslint-enable no-proto */
+}
+
+/**
+ * Augment a target Object or Array by defining
+ * hidden properties.
+ */
+/* istanbul ignore next */
+function copyAugment (target, src, keys) {
+  for (let i = 0, l = keys.length; i < l; i++) {
+    const key = keys[i];
+    def(target, key, src[key]);
+  }
+}
+
+/**
+ * Attempt to create an observer instance for a value,
+ * returns the new observer if successfully observed,
+ * or the existing observer if the value already has one.
+ */
+function observe (value, asRootData) {
+  if (!isObject(value) || value instanceof VNode) {
+    return
+  }
+  let ob;
+  if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
+    ob = value.__ob__;
+  } else if (
+    shouldObserve &&
+    !isServerRendering() &&
+    (Array.isArray(value) || isPlainObject(value)) &&
+    Object.isExtensible(value) &&
+    !value._isVue
+  ) {
+    ob = new Observer(value);
+  }
+  if (asRootData && ob) {
+    ob.vmCount++;
+  }
+  return ob
+}
+
+/**
+ * Define a reactive property on an Object.
+ */
+function defineReactive (
+  obj,
+  key,
+  val,
+  customSetter,
+  shallow
+) {
+  const dep = new Dep();
+
+  const property = Object.getOwnPropertyDescriptor(obj, key);
+  if (property && property.configurable === false) {
+    return
+  }
+
+  // cater for pre-defined getter/setters
+  const getter = property && property.get;
+  const setter = property && property.set;
+  if ((!getter || setter) && arguments.length === 2) {
+    val = obj[key];
+  }
+
+  let childOb = !shallow && observe(val);
+  Object.defineProperty(obj, key, {
+    enumerable: true,
+    configurable: true,
+    get: function reactiveGetter () {
+      const value = getter ? getter.call(obj) : val;
+      if (Dep.target) {
+        dep.depend();
+        if (childOb) {
+          childOb.dep.depend();
+          if (Array.isArray(value)) {
+            dependArray(value);
+          }
+        }
+      }
+      return value
+    },
+    set: function reactiveSetter (newVal) {
+      const value = getter ? getter.call(obj) : val;
+      /* eslint-disable no-self-compare */
+      if (newVal === value || (newVal !== newVal && value !== value)) {
+        return
+      }
+      // #7981: for accessor properties without setter
+      if (getter && !setter) return
+      if (setter) {
+        setter.call(obj, newVal);
+      } else {
+        val = newVal;
+      }
+      childOb = !shallow && observe(newVal);
+      dep.notify();
+    }
+  });
+}
+
+/**
+ * Set a property on an object. Adds the new property and
+ * triggers change notification if the property doesn't
+ * already exist.
+ */
+function set (target, key, val) {
+  if (Array.isArray(target) && isValidArrayIndex(key)) {
+    target.length = Math.max(target.length, key);
+    target.splice(key, 1, val);
+    return val
+  }
+  if (key in target && !(key in Object.prototype)) {
+    target[key] = val;
+    return val
+  }
+  const ob = (target).__ob__;
+  if (target._isVue || (ob && ob.vmCount)) {
+    return val
+  }
+  if (!ob) {
+    target[key] = val;
+    return val
+  }
+  defineReactive(ob.value, key, val);
+  ob.dep.notify();
+  return val
+}
+
+/**
+ * Collect dependencies on array elements when the array is touched, since
+ * we cannot intercept array element access like property getters.
+ */
+function dependArray (value) {
+  for (let e, i = 0, l = value.length; i < l; i++) {
+    e = value[i];
+    e && e.__ob__ && e.__ob__.dep.depend();
+    if (Array.isArray(e)) {
+      dependArray(e);
+    }
+  }
+}
+
+/*  */
+
+/**
+ * Option overwriting strategies are functions that handle
+ * how to merge a parent option value and a child option
+ * value into the final value.
+ */
+const strats = config.optionMergeStrategies;
+
+/**
+ * Helper that recursively merges two data objects together.
+ */
+function mergeData (to, from) {
+  if (!from) return to
+  let key, toVal, fromVal;
+
+  const keys = hasSymbol
+    ? Reflect.ownKeys(from)
+    : Object.keys(from);
+
+  for (let i = 0; i < keys.length; i++) {
+    key = keys[i];
+    // in case the object is already observed...
+    if (key === '__ob__') continue
+    toVal = to[key];
+    fromVal = from[key];
+    if (!hasOwn(to, key)) {
+      set(to, key, fromVal);
+    } else if (
+      toVal !== fromVal &&
+      isPlainObject(toVal) &&
+      isPlainObject(fromVal)
+    ) {
+      mergeData(toVal, fromVal);
+    }
+  }
+  return to
+}
+
+/**
+ * Data
+ */
+function mergeDataOrFn (
+  parentVal,
+  childVal,
+  vm
+) {
+  if (!vm) {
+    // in a Vue.extend merge, both should be functions
+    if (!childVal) {
+      return parentVal
+    }
+    if (!parentVal) {
+      return childVal
+    }
+    // when parentVal & childVal are both present,
+    // we need to return a function that returns the
+    // merged result of both functions... no need to
+    // check if parentVal is a function here because
+    // it has to be a function to pass previous merges.
+    return function mergedDataFn () {
+      return mergeData(
+        typeof childVal === 'function' ? childVal.call(this, this) : childVal,
+        typeof parentVal === 'function' ? parentVal.call(this, this) : parentVal
+      )
+    }
+  } else {
+    return function mergedInstanceDataFn () {
+      // instance merge
+      const instanceData = typeof childVal === 'function'
+        ? childVal.call(vm, vm)
+        : childVal;
+      const defaultData = typeof parentVal === 'function'
+        ? parentVal.call(vm, vm)
+        : parentVal;
+      if (instanceData) {
+        return mergeData(instanceData, defaultData)
+      } else {
+        return defaultData
+      }
+    }
+  }
+}
+
+strats.data = function (
+  parentVal,
+  childVal,
+  vm
+) {
+  if (!vm) {
+    if (childVal && typeof childVal !== 'function') {
+
+      return parentVal
+    }
+    return mergeDataOrFn(parentVal, childVal)
+  }
+
+  return mergeDataOrFn(parentVal, childVal, vm)
+};
+
+/**
+ * Hooks and props are merged as arrays.
+ */
+function mergeHook$1 (
+  parentVal,
+  childVal
+) {
+  const res = childVal
+    ? parentVal
+      ? parentVal.concat(childVal)
+      : Array.isArray(childVal)
+        ? childVal
+        : [childVal]
+    : parentVal;
+  return res
+    ? dedupeHooks(res)
+    : res
+}
+
+function dedupeHooks (hooks) {
+  const res = [];
+  for (let i = 0; i < hooks.length; i++) {
+    if (res.indexOf(hooks[i]) === -1) {
+      res.push(hooks[i]);
+    }
+  }
+  return res
+}
+
+LIFECYCLE_HOOKS.forEach(hook => {
+  strats[hook] = mergeHook$1;
+});
+
+/**
+ * Assets
+ *
+ * When a vm is present (instance creation), we need to do
+ * a three-way merge between constructor options, instance
+ * options and parent options.
+ */
+function mergeAssets (
+  parentVal,
+  childVal,
+  vm,
+  key
+) {
+  const res = Object.create(parentVal || null);
+  if (childVal) {
+    return extend(res, childVal)
+  } else {
+    return res
+  }
+}
+
+ASSET_TYPES.forEach(function (type) {
+  strats[type + 's'] = mergeAssets;
+});
+
+/**
+ * Watchers.
+ *
+ * Watchers hashes should not overwrite one
+ * another, so we merge them as arrays.
+ */
+strats.watch = function (
+  parentVal,
+  childVal,
+  vm,
+  key
+) {
+  // work around Firefox's Object.prototype.watch...
+  if (parentVal === nativeWatch) parentVal = undefined;
+  if (childVal === nativeWatch) childVal = undefined;
+  /* istanbul ignore if */
+  if (!childVal) return Object.create(parentVal || null)
+  if (!parentVal) return childVal
+  const ret = {};
+  extend(ret, parentVal);
+  for (const key in childVal) {
+    let parent = ret[key];
+    const child = childVal[key];
+    if (parent && !Array.isArray(parent)) {
+      parent = [parent];
+    }
+    ret[key] = parent
+      ? parent.concat(child)
+      : Array.isArray(child) ? child : [child];
+  }
+  return ret
+};
+
+/**
+ * Other object hashes.
+ */
+strats.props =
+strats.methods =
+strats.inject =
+strats.computed = function (
+  parentVal,
+  childVal,
+  vm,
+  key
+) {
+  if (childVal && "production" !== 'production') {
+    assertObjectType(key, childVal);
+  }
+  if (!parentVal) return childVal
+  const ret = Object.create(null);
+  extend(ret, parentVal);
+  if (childVal) extend(ret, childVal);
+  return ret
+};
+strats.provide = mergeDataOrFn;
+
+/**
+ * Default strategy.
+ */
+const defaultStrat = function (parentVal, childVal) {
+  return childVal === undefined
+    ? parentVal
+    : childVal
+};
+
+/**
+ * Ensure all props option syntax are normalized into the
+ * Object-based format.
+ */
+function normalizeProps (options, vm) {
+  const props = options.props;
+  if (!props) return
+  const res = {};
+  let i, val, name;
+  if (Array.isArray(props)) {
+    i = props.length;
+    while (i--) {
+      val = props[i];
+      if (typeof val === 'string') {
+        name = camelize(val);
+        res[name] = { type: null };
+      }
+    }
+  } else if (isPlainObject(props)) {
+    for (const key in props) {
+      val = props[key];
+      name = camelize(key);
+      res[name] = isPlainObject(val)
+        ? val
+        : { type: val };
+    }
+  } else ;
+  options.props = res;
+}
+
+/**
+ * Normalize all injections into Object-based format
+ */
+function normalizeInject (options, vm) {
+  const inject = options.inject;
+  if (!inject) return
+  const normalized = options.inject = {};
+  if (Array.isArray(inject)) {
+    for (let i = 0; i < inject.length; i++) {
+      normalized[inject[i]] = { from: inject[i] };
+    }
+  } else if (isPlainObject(inject)) {
+    for (const key in inject) {
+      const val = inject[key];
+      normalized[key] = isPlainObject(val)
+        ? extend({ from: key }, val)
+        : { from: val };
+    }
+  } else ;
+}
+
+/**
+ * Normalize raw function directives into object format.
+ */
+function normalizeDirectives (options) {
+  const dirs = options.directives;
+  if (dirs) {
+    for (const key in dirs) {
+      const def = dirs[key];
+      if (typeof def === 'function') {
+        dirs[key] = { bind: def, update: def };
+      }
+    }
+  }
+}
+
+function assertObjectType (name, value, vm) {
+  if (!isPlainObject(value)) {
+    warn$1(
+      `Invalid value for option "${name}": expected an Object, ` +
+      `but got ${toRawType(value)}.`);
+  }
+}
+
+/**
+ * Merge two option objects into a new one.
+ * Core utility used in both instantiation and inheritance.
+ */
+function mergeOptions (
+  parent,
+  child,
+  vm
+) {
+
+  if (typeof child === 'function') {
+    child = child.options;
+  }
+
+  normalizeProps(child);
+  normalizeInject(child);
+  normalizeDirectives(child);
+
+  // Apply extends and mixins on the child options,
+  // but only if it is a raw options object that isn't
+  // the result of another mergeOptions call.
+  // Only merged options has the _base property.
+  if (!child._base) {
+    if (child.extends) {
+      parent = mergeOptions(parent, child.extends, vm);
+    }
+    if (child.mixins) {
+      for (let i = 0, l = child.mixins.length; i < l; i++) {
+        parent = mergeOptions(parent, child.mixins[i], vm);
+      }
+    }
+  }
+
+  const options = {};
+  let key;
+  for (key in parent) {
+    mergeField(key);
+  }
+  for (key in child) {
+    if (!hasOwn(parent, key)) {
+      mergeField(key);
+    }
+  }
+  function mergeField (key) {
+    const strat = strats[key] || defaultStrat;
+    options[key] = strat(parent[key], child[key], vm, key);
+  }
+  return options
+}
+
+/**
+ * Resolve an asset.
+ * This function is used because child instances need access
+ * to assets defined in its ancestor chain.
+ */
+function resolveAsset (
+  options,
+  type,
+  id,
+  warnMissing
+) {
+  /* istanbul ignore if */
+  if (typeof id !== 'string') {
+    return
+  }
+  const assets = options[type];
+  // check local registration variations first
+  if (hasOwn(assets, id)) return assets[id]
+  const camelizedId = camelize(id);
+  if (hasOwn(assets, camelizedId)) return assets[camelizedId]
+  const PascalCaseId = capitalize(camelizedId);
+  if (hasOwn(assets, PascalCaseId)) return assets[PascalCaseId]
+  // fallback to prototype chain
+  const res = assets[id] || assets[camelizedId] || assets[PascalCaseId];
+  return res
+}
+
+/*  */
+
+
+
+function validateProp (
+  key,
+  propOptions,
+  propsData,
+  vm
+) {
+  const prop = propOptions[key];
+  const absent = !hasOwn(propsData, key);
+  let value = propsData[key];
+  // boolean casting
+  const booleanIndex = getTypeIndex(Boolean, prop.type);
+  if (booleanIndex > -1) {
+    if (absent && !hasOwn(prop, 'default')) {
+      value = false;
+    } else if (value === '' || value === hyphenate(key)) {
+      // only cast empty string / same name to boolean if
+      // boolean has higher priority
+      const stringIndex = getTypeIndex(String, prop.type);
+      if (stringIndex < 0 || booleanIndex < stringIndex) {
+        value = true;
+      }
+    }
+  }
+  // check default value
+  if (value === undefined) {
+    value = getPropDefaultValue(vm, prop, key);
+    // since the default value is a fresh copy,
+    // make sure to observe it.
+    const prevShouldObserve = shouldObserve;
+    toggleObserving(true);
+    observe(value);
+    toggleObserving(prevShouldObserve);
+  }
+  return value
+}
+
+/**
+ * Get the default value of a prop.
+ */
+function getPropDefaultValue (vm, prop, key) {
+  // no default, return undefined
+  if (!hasOwn(prop, 'default')) {
+    return undefined
+  }
+  const def = prop.default;
+  // the raw prop value was also undefined from previous render,
+  // return previous default value to avoid unnecessary watcher trigger
+  if (vm && vm.$options.propsData &&
+    vm.$options.propsData[key] === undefined &&
+    vm._props[key] !== undefined
+  ) {
+    return vm._props[key]
+  }
+  // call factory function for non-Function types
+  // a value is Function if its prototype is function even across different execution context
+  return typeof def === 'function' && getType(prop.type) !== 'Function'
+    ? def.call(vm)
+    : def
+}
+
+const functionTypeCheckRE = /^\s*function (\w+)/;
+
+/**
+ * Use function string name to check built-in types,
+ * because a simple equality check will fail when running
+ * across different vms / iframes.
+ */
+function getType (fn) {
+  const match = fn && fn.toString().match(functionTypeCheckRE);
+  return match ? match[1] : ''
+}
+
+function isSameType (a, b) {
+  return getType(a) === getType(b)
+}
+
+function getTypeIndex (type, expectedTypes) {
+  if (!Array.isArray(expectedTypes)) {
+    return isSameType(expectedTypes, type) ? 0 : -1
+  }
+  for (let i = 0, len = expectedTypes.length; i < len; i++) {
+    if (isSameType(expectedTypes[i], type)) {
+      return i
+    }
+  }
+  return -1
+}
+
+/*  */
+
+function handleError (err, vm, info) {
+  // Deactivate deps tracking while processing error handler to avoid possible infinite rendering.
+  // See: https://github.com/vuejs/vuex/issues/1505
+  pushTarget();
+  try {
+    if (vm) {
+      let cur = vm;
+      while ((cur = cur.$parent)) {
+        const hooks = cur.$options.errorCaptured;
+        if (hooks) {
+          for (let i = 0; i < hooks.length; i++) {
+            try {
+              const capture = hooks[i].call(cur, err, vm, info) === false;
+              if (capture) return
+            } catch (e) {
+              globalHandleError(e, cur, 'errorCaptured hook');
+            }
+          }
+        }
+      }
+    }
+    globalHandleError(err, vm, info);
+  } finally {
+    popTarget();
+  }
+}
+
+function invokeWithErrorHandling (
+  handler,
+  context,
+  args,
+  vm,
+  info
+) {
+  let res;
+  try {
+    res = args ? handler.apply(context, args) : handler.call(context);
+    if (res && !res._isVue && isPromise(res) && !res._handled) {
+      res.catch(e => handleError(e, vm, info + ` (Promise/async)`));
+      // issue #9511
+      // avoid catch triggering multiple times when nested calls
+      res._handled = true;
+    }
+  } catch (e) {
+    handleError(e, vm, info);
+  }
+  return res
+}
+
+function globalHandleError (err, vm, info) {
+  logError(err);
+}
+
+function logError (err, vm, info) {
+  /* istanbul ignore else */
+  if ((inBrowser || inWeex) && typeof console !== 'undefined') {
+    console.error(err);
+  } else {
+    throw err
+  }
+}
+
+/*  */
+
+const callbacks = [];
+
+function flushCallbacks () {
+  const copies = callbacks.slice(0);
+  callbacks.length = 0;
+  for (let i = 0; i < copies.length; i++) {
+    copies[i]();
+  }
+}
+
+// The nextTick behavior leverages the microtask queue, which can be accessed
+// via either native Promise.then or MutationObserver.
+// MutationObserver has wider support, however it is seriously bugged in
+// UIWebView in iOS >= 9.3.3 when triggered in touch event handlers. It
+// completely stops working after triggering a few times... so, if native
+// Promise is available, we will use it:
+/* istanbul ignore next, $flow-disable-line */
+if (typeof Promise !== 'undefined' && isNative(Promise)) {
+  Promise.resolve();
+} else if (!isIE && typeof MutationObserver !== 'undefined' && (
+  isNative(MutationObserver) ||
+  // PhantomJS and iOS 7.x
+  MutationObserver.toString() === '[object MutationObserverConstructor]'
+)) {
+  // Use MutationObserver where native Promise is not available,
+  // e.g. PhantomJS, iOS7, Android 4.4
+  // (#6466 MutationObserver is unreliable in IE11)
+  let counter = 1;
+  const observer = new MutationObserver(flushCallbacks);
+  const textNode = document.createTextNode(String(counter));
+  observer.observe(textNode, {
+    characterData: true
+  });
+} else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) ; else ;
+
+/*  */
+
+function genClassForVnode (vnode) {
+  let data = vnode.data;
+  let parentNode = vnode;
+  let childNode = vnode;
+  while (isDef(childNode.componentInstance)) {
+    childNode = childNode.componentInstance._vnode;
+    if (childNode && childNode.data) {
+      data = mergeClassData(childNode.data, data);
+    }
+  }
+  while (isDef(parentNode = parentNode.parent)) {
+    if (parentNode && parentNode.data) {
+      data = mergeClassData(data, parentNode.data);
+    }
+  }
+  return renderClass$1(data.staticClass, data.class)
+}
+
+function mergeClassData (child, parent) {
+  return {
+    staticClass: concat(child.staticClass, parent.staticClass),
+    class: isDef(child.class)
+      ? [child.class, parent.class]
+      : parent.class
+  }
+}
+
+function renderClass$1 (
+  staticClass,
+  dynamicClass
+) {
+  if (isDef(staticClass) || isDef(dynamicClass)) {
+    return concat(staticClass, stringifyClass(dynamicClass))
+  }
+  /* istanbul ignore next */
+  return ''
+}
+
+function concat (a, b) {
+  return a ? b ? (a + ' ' + b) : a : (b || '')
+}
+
+function stringifyClass (value) {
+  if (Array.isArray(value)) {
+    return stringifyArray(value)
+  }
+  if (isObject(value)) {
+    return stringifyObject(value)
+  }
+  if (typeof value === 'string') {
+    return value
+  }
+  /* istanbul ignore next */
+  return ''
+}
+
+function stringifyArray (value) {
+  let res = '';
+  let stringified;
+  for (let i = 0, l = value.length; i < l; i++) {
+    if (isDef(stringified = stringifyClass(value[i])) && stringified !== '') {
+      if (res) res += ' ';
+      res += stringified;
+    }
+  }
+  return res
+}
+
+function stringifyObject (value) {
+  let res = '';
+  for (const key in value) {
+    if (value[key]) {
+      if (res) res += ' ';
+      res += key;
+    }
+  }
+  return res
+}
+
+/*  */
+
+const isHTMLTag = makeMap(
+  'html,body,base,head,link,meta,style,title,' +
+  'address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,' +
+  'div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,' +
+  'a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,' +
+  's,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,' +
+  'embed,object,param,source,canvas,script,noscript,del,ins,' +
+  'caption,col,colgroup,table,thead,tbody,td,th,tr,' +
+  'button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,' +
+  'output,progress,select,textarea,' +
+  'details,dialog,menu,menuitem,summary,' +
+  'content,element,shadow,template,blockquote,iframe,tfoot'
+);
+
+// this map is intentionally selective, only covering SVG elements that may
+// contain child elements.
+const isSVG = makeMap(
+  'svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,' +
+  'foreignobject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' +
+  'polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view',
+  true
+);
+
+const isPreTag = (tag) => tag === 'pre';
+
+const isReservedTag = (tag) => {
+  return isHTMLTag(tag) || isSVG(tag)
+};
+
+function getTagNamespace (tag) {
+  if (isSVG(tag)) {
+    return 'svg'
+  }
+  // basic support for MathML
+  // note it doesn't support other MathML elements being component roots
+  if (tag === 'math') {
+    return 'math'
+  }
+}
+
+makeMap('text,number,password,search,email,tel,url');
+
+/*  */
+
+function renderClass (node) {
+  const classList = genClassForVnode(node);
+  if (classList !== '') {
+    return ` class="${escape(classList)}"`
+  }
+}
+
+/*  */
+
+const parseStyleText = cached(function (cssText) {
+  const res = {};
+  const listDelimiter = /;(?![^(]*\))/g;
+  const propertyDelimiter = /:(.+)/;
+  cssText.split(listDelimiter).forEach(function (item) {
+    if (item) {
+      const tmp = item.split(propertyDelimiter);
+      tmp.length > 1 && (res[tmp[0].trim()] = tmp[1].trim());
+    }
+  });
+  return res
+});
+
+// merge static and dynamic style data on the same vnode
+function normalizeStyleData (data) {
+  const style = normalizeStyleBinding(data.style);
+  // static style is pre-processed into an object during compilation
+  // and is always a fresh object, so it's safe to merge into it
+  return data.staticStyle
+    ? extend(data.staticStyle, style)
+    : style
+}
+
+// normalize possible array / string values into Object
+function normalizeStyleBinding (bindingStyle) {
+  if (Array.isArray(bindingStyle)) {
+    return toObject(bindingStyle)
+  }
+  if (typeof bindingStyle === 'string') {
+    return parseStyleText(bindingStyle)
+  }
+  return bindingStyle
+}
+
+/**
+ * parent component style should be after child's
+ * so that parent component's style could override it
+ */
+function getStyle (vnode, checkChild) {
+  const res = {};
+  let styleData;
+
+  if (checkChild) {
+    let childNode = vnode;
+    while (childNode.componentInstance) {
+      childNode = childNode.componentInstance._vnode;
+      if (
+        childNode && childNode.data &&
+        (styleData = normalizeStyleData(childNode.data))
+      ) {
+        extend(res, styleData);
+      }
+    }
+  }
+
+  if ((styleData = normalizeStyleData(vnode.data))) {
+    extend(res, styleData);
+  }
+
+  let parentNode = vnode;
+  while ((parentNode = parentNode.parent)) {
+    if (parentNode.data && (styleData = normalizeStyleData(parentNode.data))) {
+      extend(res, styleData);
+    }
+  }
+  return res
+}
+
+/*  */
+
+function genStyle (style) {
+  let styleText = '';
+  for (const key in style) {
+    const value = style[key];
+    const hyphenatedKey = hyphenate(key);
+    if (Array.isArray(value)) {
+      for (let i = 0, len = value.length; i < len; i++) {
+        styleText += normalizeValue(hyphenatedKey, value[i]);
+      }
+    } else {
+      styleText += normalizeValue(hyphenatedKey, value);
+    }
+  }
+  return styleText
+}
+
+function normalizeValue(key, value) {
+  if (
+    typeof value === 'string' ||
+    (typeof value === 'number' && noUnitNumericStyleProps[key]) ||
+    value === 0
+  ) {
+    return `${key}:${value};`
+  } else {
+    // invalid values
+    return ``
+  }
+}
+
+function renderStyle (vnode) {
+  const styleText = genStyle(getStyle(vnode, false));
+  if (styleText !== '') {
+    return ` style=${JSON.stringify(escape(styleText))}`
+  }
+}
+
+var modules$1 = [
+  renderAttrs$1,
+  renderDOMProps$1,
+  renderClass,
+  renderStyle
+];
+
+/*  */
+
+function show (node, dir) {
+  if (!dir.value) {
+    const style = node.data.style || (node.data.style = {});
+    if (Array.isArray(style)) {
+      style.push({ display: 'none' });
+    } else {
+      style.display = 'none';
+    }
+  }
+}
+
+/*  */
+
+// this is only applied for <select v-model> because it is the only edge case
+// that must be done at runtime instead of compile time.
+function model$2 (node, dir) {
+  if (!node.children) return
+  const value = dir.value;
+  const isMultiple = node.data.attrs && node.data.attrs.multiple;
+  for (let i = 0, l = node.children.length; i < l; i++) {
+    const option = node.children[i];
+    if (option.tag === 'option') {
+      if (isMultiple) {
+        const selected =
+          Array.isArray(value) &&
+          (looseIndexOf(value, getValue(option)) > -1);
+        if (selected) {
+          setSelected(option);
+        }
+      } else {
+        if (looseEqual(value, getValue(option))) {
+          setSelected(option);
+          return
+        }
+      }
+    }
+  }
+}
+
+function getValue (option) {
+  const data = option.data || {};
+  return (
+    (data.attrs && data.attrs.value) ||
+    (data.domProps && data.domProps.value) ||
+    (option.children && option.children[0] && option.children[0].text)
+  )
+}
+
+function setSelected (option) {
+  const data = option.data || (option.data = {});
+  const attrs = data.attrs || (data.attrs = {});
+  attrs.selected = '';
+}
+
+var baseDirectives$1 = {
+  show,
+  model: model$2
+};
+
+/*  */
+
+const isUnaryTag = makeMap(
+  'area,base,br,col,embed,frame,hr,img,input,isindex,keygen,' +
+  'link,meta,param,source,track,wbr'
+);
+
+
+// Elements that you can, intentionally, leave open
+// (and which close themselves)
+const canBeLeftOpenTag = makeMap(
+  'colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr,source'
+);
+
+// HTML5 tags https://html.spec.whatwg.org/multipage/indices.html#elements-3
+// Phrasing Content https://html.spec.whatwg.org/multipage/dom.html#phrasing-content
+const isNonPhrasingTag = makeMap(
+  'address,article,aside,base,blockquote,body,caption,col,colgroup,dd,' +
+  'details,dialog,div,dl,dt,fieldset,figcaption,figure,footer,form,' +
+  'h1,h2,h3,h4,h5,h6,head,header,hgroup,hr,html,legend,li,menuitem,meta,' +
+  'optgroup,option,param,rp,rt,source,style,summary,tbody,td,tfoot,th,thead,' +
+  'title,tr,track'
+);
+
+/*  */
+
+const MAX_STACK_DEPTH = 800;
+const noop = _ => _;
+
+const defer = typeof process !== 'undefined' && process.nextTick
+  ? process.nextTick
+  : typeof Promise !== 'undefined'
+    ? fn => Promise.resolve().then(fn)
+    : typeof setTimeout !== 'undefined'
+      ? setTimeout
+      : noop;
+
+if (defer === noop) {
+  throw new Error(
+    'Your JavaScript runtime does not support any asynchronous primitives ' +
+    'that are required by vue-server-renderer. Please use a polyfill for ' +
+    'either Promise or setTimeout.'
+  )
+}
+
+function createWriteFunction (
+  write,
+  onError
+) {
+  let stackDepth = 0;
+  const cachedWrite = (text, next) => {
+    // 如果 caching 标记为 true，那么每次调用 write 时，都把内容写入缓存。
+    if (text && cachedWrite.caching) {
+      cachedWrite.cacheBuffer[cachedWrite.cacheBuffer.length - 1] += text;
+    }
+    // waitForNext 在 write 结束后，是否主动调用 next 函数，在开启下一个节点的渲染。
+    const waitForNext = write(text, next);
+    if (waitForNext !== true) {
+      // 如果主动调用 next 函数，那么就会与 write 函数的调用方形成递归。
+      // 如果组件特别大，非常容易超出最大函数栈的限制。
+      // 所以在这里对最大递归调用做一个限制。
+      if (stackDepth >= MAX_STACK_DEPTH) {
+        // defer 是 nextTick 的 兼容写法
+        defer(() => {
+          try { next(); } catch (e) {
+            onError(e);
+          }
+        });
+      } else {
+        // 如果主动调用 next，那么就将栈层数统计 +1。
+        stackDepth++;
+        next();
+        // 在递归结束后，栈高度减少，所以将栈层数统计 -1。
+        stackDepth--;
+      }
+    }
+  };
+  cachedWrite.caching = false;
+  cachedWrite.cacheBuffer = [];
+  cachedWrite.componentBuffer = [];
+  return cachedWrite
+}
+
+/*  */
+
+/**
+ * Original RenderStream implementation by Sasha Aickin (@aickin)
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Modified by Evan You (@yyx990803)
+ */
+
+const stream = require('stream');
+
+class RenderStream extends stream.Readable {
+  
+  
+  
+  
+  
+  
+  
+
+  constructor (render) {
+    super();
+    this.buffer = '';
+    this.render = render;
+    this.expectedSize = 0;
+
+    this.write = createWriteFunction((text, next) => {
+      const n = this.expectedSize;
+      this.buffer += text;
+      if (this.buffer.length >= n) {
+        this.next = next;
+        this.pushBySize(n);
+        return true // we will decide when to call next
+      }
+      return false
+    }, err => {
+      this.emit('error', err);
+    });
+
+    this.end = () => {
+      this.emit('beforeEnd');
+      // the rendering is finished; we should push out the last of the buffer.
+      this.done = true;
+      this.push(this.buffer);
+    };
+  }
+
+  pushBySize (n) {
+    const bufferToPush = this.buffer.substring(0, n);
+    this.buffer = this.buffer.substring(n);
+    this.push(bufferToPush);
+  }
+
+  tryRender () {
+    try {
+      this.render(this.write, this.end);
+    } catch (e) {
+      this.emit('error', e);
+    }
+  }
+
+  tryNext () {
+    try {
+      this.next();
+    } catch (e) {
+      this.emit('error', e);
+    }
+  }
+
+  _read (n) {
+    this.expectedSize = n;
+    // it's possible that the last chunk added bumped the buffer up to > 2 * n,
+    // which means we will need to go through multiple read calls to drain it
+    // down to < n.
+    if (isTrue(this.done)) {
+      this.push(null);
+      return
+    }
+    if (this.buffer.length >= n) {
+      this.pushBySize(n);
+      return
+    }
+    if (isUndef(this.next)) {
+      // start the rendering chain.
+      this.tryRender();
+    } else {
+      // continue with the rendering.
+      this.tryNext();
+    }
+  }
+}
+
+/*  */
+
+
+
+
+class RenderContext {
+  // 用户模板中需要替换的变量
+  
+
+  // 当前正在处理的 vue component
+  
+
+  // 最为重要的变量：渲染栈
+  
+
+  // 由 createWriteFunction 创建的 write 函数
+  
+
+  // 节点渲染函数，内部对不同节点类型，采取不同的渲染策略。
+  
+
+  // 传递给 write 函数使用的 next 函数，用于触发下一次的渲染。
+  
+
+  // 在全部渲染工作完成后的回调函数。
+  
+
+  
+  
+  
+
+  
+  
+  
+
+  constructor (options) {
+    this.userContext = options.userContext;
+    this.activeInstance = options.activeInstance;
+    this.renderStates = [];
+
+    this.write = options.write;
+    this.done = options.done;
+    this.renderNode = options.renderNode;
+
+    this.isUnaryTag = options.isUnaryTag;
+    this.modules = options.modules;
+    this.directives = options.directives;
+
+    const cache = options.cache;
+    if (cache && (!cache.get || !cache.set)) {
+      throw new Error('renderer cache must implement at least get & set.')
+    }
+    this.cache = cache;
+    this.get = cache && normalizeAsync(cache, 'get');
+    this.has = cache && normalizeAsync(cache, 'has');
+
+    // 避免 next 函数传递给 write 以后，this 不再是 renderContext 的问题。
+    this.next = this.next.bind(this);
+  }
+
+  next () {
+    // eslint-disable-next-line
+    while (true) {
+      // 取出渲染栈中的最后一个需要渲染的元素
+      const lastState = this.renderStates[this.renderStates.length - 1];
+
+      // 当渲染栈中没有需要渲染的元素时，说明渲染完成，调用回调函数。
+      if (isUndef(lastState)) {
+        return this.done()
+      }
+      /* eslint-disable no-case-declarations */
+      switch (lastState.type) {
+        // Element 和 Fragment 渲染逻辑相同。
+        case 'Element':
+        case 'Fragment':
+          // Fragment means functional component
+          const { children, total } = lastState;
+          const rendered = lastState.rendered++;
+          // 如果 children 数据还没有渲染完，那么继续调用 renderNode。
+          if (rendered < total) {
+            return this.renderNode(children[rendered], false, this)
+          } 
+          else {
+            // 如果 children 数据已经渲染完了，那么将这个 Element 移除，
+            this.renderStates.pop();
+            if (lastState.type === 'Element') {
+              // 并写入它的结束标签，e.g. </div> </span> 等。
+              return this.write(lastState.endTag, this.next)
+            }
+          }
+          break
+        case 'Component':
+          this.renderStates.pop();
+          this.activeInstance = lastState.prevActive;
+          break
+        case 'ComponentWithCache':
+          this.renderStates.pop();
+          const { buffer, bufferIndex, componentBuffer, key } = lastState;
+          const result = {
+            html: buffer[bufferIndex],
+            components: componentBuffer[bufferIndex]
+          };
+          this.cache.set(key, result);
+          // 把有 serverCacheKey 的组件成为带缓存组件，
+          // 如果带缓存组件出现嵌套，bufferIndex 就会出现 > 0 的情况。
+          // 假设 A 套着 B，B 套着 C，那么 ABC 的 bufferIndex 分别是 0 1 2.
+          if (bufferIndex === 0) {
+            // this is a top-level cached component,
+            // exit caching mode.
+            this.write.caching = false;
+          } else {
+            // parent component is also being cached,
+            // merge self into parent's result
+            // 嵌套的缓存组件，被嵌套的组件渲染时，将渲染结果同时写入父组件缓存中。
+            buffer[bufferIndex - 1] += result.html;
+            const prev = componentBuffer[bufferIndex - 1];
+            result.components.forEach(c => prev.add(c));
+          }
+          buffer.length = bufferIndex;
+          componentBuffer.length = bufferIndex;
+          break
+      }
+    }
+  }
+}
+
+// 兼容 cache 对象的 get, has 方法调用方式。
+// const value = cache.get('cacheKey')
+// cache.get('cacheKey', (value) => {})
+function normalizeAsync (cache, method) {
+  const fn = cache[method];
+  if (isUndef(fn)) {
+    return
+  }
+  else if (fn.length > 1) {
+    return (key, cb) => fn.call(cache, key, cb)
+  }
+  else {
+    return (key, cb) => cb(fn.call(cache, key))
+  }
+}
+
+/*  */
+
+const validDivisionCharRE = /[\w).+\-_$\]]/;
+
+function parseFilters (exp) {
+  let inSingle = false;
+  let inDouble = false;
+  let inTemplateString = false;
+  let inRegex = false;
+  let curly = 0;
+  let square = 0;
+  let paren = 0;
+  let lastFilterIndex = 0;
+  let c, prev, i, expression, filters;
+
+  for (i = 0; i < exp.length; i++) {
+    prev = c;
+    c = exp.charCodeAt(i);
+    if (inSingle) {
+      if (c === 0x27 && prev !== 0x5C) inSingle = false;
+    } else if (inDouble) {
+      if (c === 0x22 && prev !== 0x5C) inDouble = false;
+    } else if (inTemplateString) {
+      if (c === 0x60 && prev !== 0x5C) inTemplateString = false;
+    } else if (inRegex) {
+      if (c === 0x2f && prev !== 0x5C) inRegex = false;
+    } else if (
+      c === 0x7C && // pipe
+      exp.charCodeAt(i + 1) !== 0x7C &&
+      exp.charCodeAt(i - 1) !== 0x7C &&
+      !curly && !square && !paren
+    ) {
+      if (expression === undefined) {
+        // first filter, end of expression
+        lastFilterIndex = i + 1;
+        expression = exp.slice(0, i).trim();
+      } else {
+        pushFilter();
+      }
+    } else {
+      switch (c) {
+        case 0x22: inDouble = true; break         // "
+        case 0x27: inSingle = true; break         // '
+        case 0x60: inTemplateString = true; break // `
+        case 0x28: paren++; break                 // (
+        case 0x29: paren--; break                 // )
+        case 0x5B: square++; break                // [
+        case 0x5D: square--; break                // ]
+        case 0x7B: curly++; break                 // {
+        case 0x7D: curly--; break                 // }
+      }
+      if (c === 0x2f) { // /
+        let j = i - 1;
+        let p;
+        // find first non-whitespace prev char
+        for (; j >= 0; j--) {
+          p = exp.charAt(j);
+          if (p !== ' ') break
+        }
+        if (!p || !validDivisionCharRE.test(p)) {
+          inRegex = true;
+        }
+      }
+    }
+  }
+
+  if (expression === undefined) {
+    expression = exp.slice(0, i).trim();
+  } else if (lastFilterIndex !== 0) {
+    pushFilter();
+  }
+
+  function pushFilter () {
+    (filters || (filters = [])).push(exp.slice(lastFilterIndex, i).trim());
+    lastFilterIndex = i + 1;
+  }
+
+  if (filters) {
+    for (i = 0; i < filters.length; i++) {
+      expression = wrapFilter(expression, filters[i]);
+    }
+  }
+
+  return expression
+}
+
+function wrapFilter (exp, filter) {
+  const i = filter.indexOf('(');
+  if (i < 0) {
+    // _f: resolveFilter
+    return `_f("${filter}")(${exp})`
+  } else {
+    const name = filter.slice(0, i);
+    const args = filter.slice(i + 1);
+    return `_f("${name}")(${exp}${args !== ')' ? ',' + args : args}`
+  }
+}
+
+/*  */
+
+const defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g;
+const regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
+
+const buildRegex = cached(delimiters => {
+  const open = delimiters[0].replace(regexEscapeRE, '\\$&');
+  const close = delimiters[1].replace(regexEscapeRE, '\\$&');
+  return new RegExp(open + '((?:.|\\n)+?)' + close, 'g')
+});
+
+
+
+function parseText (
+  text,
+  delimiters
+) {
+  const tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE;
+  if (!tagRE.test(text)) {
+    return
+  }
+  const tokens = [];
+  const rawTokens = [];
+  let lastIndex = tagRE.lastIndex = 0;
+  let match, index, tokenValue;
+  while ((match = tagRE.exec(text))) {
+    index = match.index;
+    // push text token
+    if (index > lastIndex) {
+      rawTokens.push(tokenValue = text.slice(lastIndex, index));
+      tokens.push(JSON.stringify(tokenValue));
+    }
+    // tag token
+    const exp = parseFilters(match[1].trim());
+    tokens.push(`_s(${exp})`);
+    rawTokens.push({ '@binding': exp });
+    lastIndex = index + match[0].length;
+  }
+  if (lastIndex < text.length) {
+    rawTokens.push(tokenValue = text.slice(lastIndex));
+    tokens.push(JSON.stringify(tokenValue));
+  }
+  return {
+    expression: tokens.join('+'),
+    tokens: rawTokens
+  }
+}
+
+/*  */
+
+
+
+/* eslint-disable no-unused-vars */
+function baseWarn (msg, range) {
+  console.error(`[Vue compiler]: ${msg}`);
+}
+/* eslint-enable no-unused-vars */
+
+function pluckModuleFunction (
+  modules,
+  key
+) {
+  return modules
+    ? modules.map(m => m[key]).filter(_ => _)
+    : []
+}
+
+function addProp (el, name, value, range, dynamic) {
+  (el.props || (el.props = [])).push(rangeSetItem({ name, value, dynamic }, range));
+  el.plain = false;
+}
+
+function addAttr (el, name, value, range, dynamic) {
+  const attrs = dynamic
+    ? (el.dynamicAttrs || (el.dynamicAttrs = []))
+    : (el.attrs || (el.attrs = []));
+  attrs.push(rangeSetItem({ name, value, dynamic }, range));
+  el.plain = false;
+}
+
+// add a raw attr (use this in preTransforms)
+function addRawAttr (el, name, value, range) {
+  el.attrsMap[name] = value;
+  el.attrsList.push(rangeSetItem({ name, value }, range));
+}
+
+function addDirective (
+  el,
+  name,
+  rawName,
+  value,
+  arg,
+  isDynamicArg,
+  modifiers,
+  range
+) {
+  (el.directives || (el.directives = [])).push(rangeSetItem({
+    name,
+    rawName,
+    value,
+    arg,
+    isDynamicArg,
+    modifiers
+  }, range));
+  el.plain = false;
+}
+
+function prependModifierMarker (symbol, name, dynamic) {
+  return dynamic
+    ? `_p(${name},"${symbol}")`
+    : symbol + name // mark the event as captured
+}
+
+function addHandler (
+  el,
+  name,
+  value,
+  modifiers,
+  important,
+  warn,
+  range,
+  dynamic
+) {
+  modifiers = modifiers || emptyObject;
+
+  // normalize click.right and click.middle since they don't actually fire
+  // this is technically browser-specific, but at least for now browsers are
+  // the only target envs that have right/middle clicks.
+  if (modifiers.right) {
+    if (dynamic) {
+      name = `(${name})==='click'?'contextmenu':(${name})`;
+    } else if (name === 'click') {
+      name = 'contextmenu';
+      delete modifiers.right;
+    }
+  } else if (modifiers.middle) {
+    if (dynamic) {
+      name = `(${name})==='click'?'mouseup':(${name})`;
+    } else if (name === 'click') {
+      name = 'mouseup';
+    }
+  }
+
+  // check capture modifier
+  if (modifiers.capture) {
+    delete modifiers.capture;
+    name = prependModifierMarker('!', name, dynamic);
+  }
+  if (modifiers.once) {
+    delete modifiers.once;
+    name = prependModifierMarker('~', name, dynamic);
+  }
+  /* istanbul ignore if */
+  if (modifiers.passive) {
+    delete modifiers.passive;
+    name = prependModifierMarker('&', name, dynamic);
+  }
+
+  let events;
+  if (modifiers.native) {
+    delete modifiers.native;
+    events = el.nativeEvents || (el.nativeEvents = {});
+  } else {
+    events = el.events || (el.events = {});
+  }
+
+  const newHandler = rangeSetItem({ value: value.trim(), dynamic }, range);
+  if (modifiers !== emptyObject) {
+    newHandler.modifiers = modifiers;
+  }
+
+  const handlers = events[name];
+  /* istanbul ignore if */
+  if (Array.isArray(handlers)) {
+    important ? handlers.unshift(newHandler) : handlers.push(newHandler);
+  } else if (handlers) {
+    events[name] = important ? [newHandler, handlers] : [handlers, newHandler];
+  } else {
+    events[name] = newHandler;
+  }
+
+  el.plain = false;
+}
+
+function getRawBindingAttr (
+  el,
+  name
+) {
+  return el.rawAttrsMap[':' + name] ||
+    el.rawAttrsMap['v-bind:' + name] ||
+    el.rawAttrsMap[name]
+}
+
+function getBindingAttr (
+  el,
+  name,
+  getStatic
+) {
+  const dynamicValue =
+    getAndRemoveAttr(el, ':' + name) ||
+    getAndRemoveAttr(el, 'v-bind:' + name);
+  if (dynamicValue != null) {
+    return parseFilters(dynamicValue)
+  } else if (getStatic !== false) {
+    const staticValue = getAndRemoveAttr(el, name);
+    if (staticValue != null) {
+      return JSON.stringify(staticValue)
+    }
+  }
+}
+
+// note: this only removes the attr from the Array (attrsList) so that it
+// doesn't get processed by processAttrs.
+// By default it does NOT remove it from the map (attrsMap) because the map is
+// needed during codegen.
+function getAndRemoveAttr (
+  el,
+  name,
+  removeFromMap
+) {
+  let val;
+  if ((val = el.attrsMap[name]) != null) {
+    const list = el.attrsList;
+    for (let i = 0, l = list.length; i < l; i++) {
+      if (list[i].name === name) {
+        list.splice(i, 1);
+        break
+      }
+    }
+  }
+  if (removeFromMap) {
+    delete el.attrsMap[name];
+  }
+  return val
+}
+
+function getAndRemoveAttrByRegex (
+  el,
+  name
+) {
+  const list = el.attrsList;
+  for (let i = 0, l = list.length; i < l; i++) {
+    const attr = list[i];
+    if (name.test(attr.name)) {
+      list.splice(i, 1);
+      return attr
+    }
+  }
+}
+
+function rangeSetItem (
+  item,
+  range
+) {
+  if (range) {
+    if (range.start != null) {
+      item.start = range.start;
+    }
+    if (range.end != null) {
+      item.end = range.end;
+    }
+  }
+  return item
+}
+
+/*  */
+
+function transformNode$1 (el, options) {
+  options.warn || baseWarn;
+  const staticClass = getAndRemoveAttr(el, 'class');
+  if (staticClass) {
+    el.staticClass = JSON.stringify(staticClass);
+  }
+  const classBinding = getBindingAttr(el, 'class', false /* getStatic */);
+  if (classBinding) {
+    el.classBinding = classBinding;
+  }
+}
+
+function genData$2 (el) {
+  let data = '';
+  if (el.staticClass) {
+    data += `staticClass:${el.staticClass},`;
+  }
+  if (el.classBinding) {
+    data += `class:${el.classBinding},`;
+  }
+  return data
+}
+
+var klass = {
+  staticKeys: ['staticClass'],
+  transformNode: transformNode$1,
+  genData: genData$2
+};
+
+/*  */
+
+function transformNode (el, options) {
+  options.warn || baseWarn;
+  const staticStyle = getAndRemoveAttr(el, 'style');
+  if (staticStyle) {
+    el.staticStyle = JSON.stringify(parseStyleText(staticStyle));
+  }
+
+  const styleBinding = getBindingAttr(el, 'style', false /* getStatic */);
+  if (styleBinding) {
+    el.styleBinding = styleBinding;
+  }
+}
+
+function genData$1 (el) {
+  let data = '';
+  if (el.staticStyle) {
+    data += `staticStyle:${el.staticStyle},`;
+  }
+  if (el.styleBinding) {
+    data += `style:(${el.styleBinding}),`;
+  }
+  return data
+}
+
+var style = {
+  staticKeys: ['staticStyle'],
+  transformNode,
+  genData: genData$1
+};
+
+/**
+ * Not type-checking this file because it's mostly vendor code.
+ */
+
+// Regular Expressions for parsing tags and attributes
+const attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
+const dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+?\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
+const ncname = `[a-zA-Z_][\\-\\.0-9_a-zA-Z${unicodeRegExp.source}]*`;
+const qnameCapture = `((?:${ncname}\\:)?${ncname})`;
+const startTagOpen = new RegExp(`^<${qnameCapture}`);
+const startTagClose = /^\s*(\/?)>/;
+const endTag = new RegExp(`^<\\/${qnameCapture}[^>]*>`);
+const doctype = /^<!DOCTYPE [^>]+>/i;
+// #7298: escape - to avoid being passed as HTML comment when inlined in page
+const comment = /^<!\--/;
+const conditionalComment = /^<!\[/;
+
+// Special Elements (can contain anything)
+const isPlainTextElement = makeMap('script,style,textarea', true);
+const reCache = {};
+
+const decodingMap = {
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&amp;': '&',
+  '&#10;': '\n',
+  '&#9;': '\t',
+  '&#39;': "'"
+};
+const encodedAttr = /&(?:lt|gt|quot|amp|#39);/g;
+const encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#39|#10|#9);/g;
+
+// #5992
+const isIgnoreNewlineTag = makeMap('pre,textarea', true);
+const shouldIgnoreFirstNewline = (tag, html) => tag && isIgnoreNewlineTag(tag) && html[0] === '\n';
+
+function decodeAttr (value, shouldDecodeNewlines) {
+  const re = shouldDecodeNewlines ? encodedAttrWithNewLines : encodedAttr;
+  return value.replace(re, match => decodingMap[match])
+}
+
+function parseHTML (html, options) {
+  const stack = [];
+  const expectHTML = options.expectHTML;
+  const isUnaryTag = options.isUnaryTag || no;
+  const canBeLeftOpenTag = options.canBeLeftOpenTag || no;
+  let index = 0;
+  let last, lastTag;
+  while (html) {
+    last = html;
+    // Make sure we're not in a plaintext content element like script/style
+    if (!lastTag || !isPlainTextElement(lastTag)) {
+      let textEnd = html.indexOf('<');
+      if (textEnd === 0) {
+        // Comment:
+        if (comment.test(html)) {
+          const commentEnd = html.indexOf('-->');
+
+          if (commentEnd >= 0) {
+            if (options.shouldKeepComment) {
+              options.comment(html.substring(4, commentEnd), index, index + commentEnd + 3);
+            }
+            advance(commentEnd + 3);
+            continue
+          }
+        }
+
+        // http://en.wikipedia.org/wiki/Conditional_comment#Downlevel-revealed_conditional_comment
+        if (conditionalComment.test(html)) {
+          const conditionalEnd = html.indexOf(']>');
+
+          if (conditionalEnd >= 0) {
+            advance(conditionalEnd + 2);
+            continue
+          }
+        }
+
+        // Doctype:
+        const doctypeMatch = html.match(doctype);
+        if (doctypeMatch) {
+          advance(doctypeMatch[0].length);
+          continue
+        }
+
+        // End tag:
+        const endTagMatch = html.match(endTag);
+        if (endTagMatch) {
+          const curIndex = index;
+          advance(endTagMatch[0].length);
+          parseEndTag(endTagMatch[1], curIndex, index);
+          continue
+        }
+
+        // Start tag:
+        const startTagMatch = parseStartTag();
+        if (startTagMatch) {
+          handleStartTag(startTagMatch);
+          if (shouldIgnoreFirstNewline(startTagMatch.tagName, html)) {
+            advance(1);
+          }
+          continue
+        }
+      }
+
+      let text, rest, next;
+      if (textEnd >= 0) {
+        rest = html.slice(textEnd);
+        while (
+          !endTag.test(rest) &&
+          !startTagOpen.test(rest) &&
+          !comment.test(rest) &&
+          !conditionalComment.test(rest)
+        ) {
+          // < in plain text, be forgiving and treat it as text
+          next = rest.indexOf('<', 1);
+          if (next < 0) break
+          textEnd += next;
+          rest = html.slice(textEnd);
+        }
+        text = html.substring(0, textEnd);
+      }
+
+      if (textEnd < 0) {
+        text = html;
+      }
+
+      if (text) {
+        advance(text.length);
+      }
+
+      if (options.chars && text) {
+        options.chars(text, index - text.length, index);
+      }
+    } else {
+      let endTagLength = 0;
+      const stackedTag = lastTag.toLowerCase();
+      const reStackedTag = reCache[stackedTag] || (reCache[stackedTag] = new RegExp('([\\s\\S]*?)(</' + stackedTag + '[^>]*>)', 'i'));
+      const rest = html.replace(reStackedTag, function (all, text, endTag) {
+        endTagLength = endTag.length;
+        if (!isPlainTextElement(stackedTag) && stackedTag !== 'noscript') {
+          text = text
+            .replace(/<!\--([\s\S]*?)-->/g, '$1') // #7298
+            .replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1');
+        }
+        if (shouldIgnoreFirstNewline(stackedTag, text)) {
+          text = text.slice(1);
+        }
+        if (options.chars) {
+          options.chars(text);
+        }
+        return ''
+      });
+      index += html.length - rest.length;
+      html = rest;
+      parseEndTag(stackedTag, index - endTagLength, index);
+    }
+
+    if (html === last) {
+      options.chars && options.chars(html);
+      break
+    }
+  }
+
+  // Clean up any remaining tags
+  parseEndTag();
+
+  function advance (n) {
+    index += n;
+    html = html.substring(n);
+  }
+
+  function parseStartTag () {
+    const start = html.match(startTagOpen);
+    if (start) {
+      const match = {
+        tagName: start[1],
+        attrs: [],
+        start: index
+      };
+      advance(start[0].length);
+      let end, attr;
+      while (!(end = html.match(startTagClose)) && (attr = html.match(dynamicArgAttribute) || html.match(attribute))) {
+        attr.start = index;
+        advance(attr[0].length);
+        attr.end = index;
+        match.attrs.push(attr);
+      }
+      if (end) {
+        match.unarySlash = end[1];
+        advance(end[0].length);
+        match.end = index;
+        return match
+      }
+    }
+  }
+
+  function handleStartTag (match) {
+    const tagName = match.tagName;
+    const unarySlash = match.unarySlash;
+
+    if (expectHTML) {
+      if (lastTag === 'p' && isNonPhrasingTag(tagName)) {
+        parseEndTag(lastTag);
+      }
+      if (canBeLeftOpenTag(tagName) && lastTag === tagName) {
+        parseEndTag(tagName);
+      }
+    }
+
+    const unary = isUnaryTag(tagName) || !!unarySlash;
+
+    const l = match.attrs.length;
+    const attrs = new Array(l);
+    for (let i = 0; i < l; i++) {
+      const args = match.attrs[i];
+      const value = args[3] || args[4] || args[5] || '';
+      const shouldDecodeNewlines = tagName === 'a' && args[1] === 'href'
+        ? options.shouldDecodeNewlinesForHref
+        : options.shouldDecodeNewlines;
+      attrs[i] = {
+        name: args[1],
+        value: decodeAttr(value, shouldDecodeNewlines)
+      };
+    }
+
+    if (!unary) {
+      stack.push({ tag: tagName, lowerCasedTag: tagName.toLowerCase(), attrs: attrs, start: match.start, end: match.end });
+      lastTag = tagName;
+    }
+
+    if (options.start) {
+      options.start(tagName, attrs, unary, match.start, match.end);
+    }
+  }
+
+  function parseEndTag (tagName, start, end) {
+    let pos, lowerCasedTagName;
+    if (start == null) start = index;
+    if (end == null) end = index;
+
+    // Find the closest opened tag of the same type
+    if (tagName) {
+      lowerCasedTagName = tagName.toLowerCase();
+      for (pos = stack.length - 1; pos >= 0; pos--) {
+        if (stack[pos].lowerCasedTag === lowerCasedTagName) {
+          break
+        }
+      }
+    } else {
+      // If no tag name is provided, clean shop
+      pos = 0;
+    }
+
+    if (pos >= 0) {
+      // Close all the open elements, up the stack
+      for (let i = stack.length - 1; i >= pos; i--) {
+        if (options.end) {
+          options.end(stack[i].tag, start, end);
+        }
+      }
+
+      // Remove the open elements from the stack
+      stack.length = pos;
+      lastTag = pos && stack[pos - 1].tag;
+    } else if (lowerCasedTagName === 'br') {
+      if (options.start) {
+        options.start(tagName, [], true, start, end);
+      }
+    } else if (lowerCasedTagName === 'p') {
+      if (options.start) {
+        options.start(tagName, [], false, start, end);
+      }
+      if (options.end) {
+        options.end(tagName, start, end);
+      }
+    }
+  }
+}
+
+/*  */
+
+/**
+ * Cross-platform code generation for component v-model
+ */
+function genComponentModel (
+  el,
+  value,
+  modifiers
+) {
+  const { number, trim } = modifiers || {};
+
+  const baseValueExpression = '$$v';
+  let valueExpression = baseValueExpression;
+  if (trim) {
+    valueExpression =
+      `(typeof ${baseValueExpression} === 'string'` +
+      `? ${baseValueExpression}.trim()` +
+      `: ${baseValueExpression})`;
+  }
+  if (number) {
+    valueExpression = `_n(${valueExpression})`;
+  }
+  const assignment = genAssignmentCode(value, valueExpression);
+
+  el.model = {
+    value: `(${value})`,
+    expression: JSON.stringify(value),
+    callback: `function (${baseValueExpression}) {${assignment}}`
+  };
+}
+
+/**
+ * Cross-platform codegen helper for generating v-model value assignment code.
+ */
+function genAssignmentCode (
+  value,
+  assignment
+) {
+  const res = parseModel(value);
+  if (res.key === null) {
+    return `${value}=${assignment}`
+  } else {
+    return `$set(${res.exp}, ${res.key}, ${assignment})`
+  }
+}
+
+/**
+ * Parse a v-model expression into a base path and a final key segment.
+ * Handles both dot-path and possible square brackets.
+ *
+ * Possible cases:
+ *
+ * - test
+ * - test[key]
+ * - test[test1[key]]
+ * - test["a"][key]
+ * - xxx.test[a[a].test1[key]]
+ * - test.xxx.a["asa"][test1[key]]
+ *
+ */
+
+let len, str, chr, index, expressionPos, expressionEndPos;
+
+
+
+function parseModel (val) {
+  // Fix https://github.com/vuejs/vue/pull/7730
+  // allow v-model="obj.val " (trailing whitespace)
+  val = val.trim();
+  len = val.length;
+
+  if (val.indexOf('[') < 0 || val.lastIndexOf(']') < len - 1) {
+    index = val.lastIndexOf('.');
+    if (index > -1) {
+      return {
+        exp: val.slice(0, index),
+        key: '"' + val.slice(index + 1) + '"'
+      }
+    } else {
+      return {
+        exp: val,
+        key: null
+      }
+    }
+  }
+
+  str = val;
+  index = expressionPos = expressionEndPos = 0;
+
+  while (!eof()) {
+    chr = next();
+    /* istanbul ignore if */
+    if (isStringStart(chr)) {
+      parseString(chr);
+    } else if (chr === 0x5B) {
+      parseBracket(chr);
+    }
+  }
+
+  return {
+    exp: val.slice(0, expressionPos),
+    key: val.slice(expressionPos + 1, expressionEndPos)
+  }
+}
+
+function next () {
+  return str.charCodeAt(++index)
+}
+
+function eof () {
+  return index >= len
+}
+
+function isStringStart (chr) {
+  return chr === 0x22 || chr === 0x27
+}
+
+function parseBracket (chr) {
+  let inBracket = 1;
+  expressionPos = index;
+  while (!eof()) {
+    chr = next();
+    if (isStringStart(chr)) {
+      parseString(chr);
+      continue
+    }
+    if (chr === 0x5B) inBracket++;
+    if (chr === 0x5D) inBracket--;
+    if (inBracket === 0) {
+      expressionEndPos = index;
+      break
+    }
+  }
+}
+
+function parseString (chr) {
+  const stringQuote = chr;
+  while (!eof()) {
+    chr = next();
+    if (chr === stringQuote) {
+      break
+    }
+  }
+}
+
+/*  */
+
+const onRE = /^@|^v-on:/;
+const dirRE = /^v-|^@|^:|^#/;
+const forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/;
+const forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
+const stripParensRE = /^\(|\)$/g;
+const dynamicArgRE = /^\[.*\]$/;
+
+const argRE = /:(.*)$/;
+const bindRE = /^:|^\.|^v-bind:/;
+const modifierRE = /\.[^.\]]+(?=[^\]]*$)/g;
+
+const slotRE = /^v-slot(:|$)|^#/;
+
+const lineBreakRE = /[\r\n]/;
+const whitespaceRE = /[ \f\t\r\n]+/g;
+
+const decodeHTMLCached = cached(he__default["default"].decode);
+
+const emptySlotScopeToken = `_empty_`;
+
+// configurable state
+let warn;
+let delimiters;
+let transforms;
+let preTransforms;
+let postTransforms;
+let platformIsPreTag;
+let platformMustUseProp;
+let platformGetTagNamespace;
+
+function createASTElement (
+  tag,
+  attrs,
+  parent
+) {
+  return {
+    type: 1,
+    tag,
+    attrsList: attrs,
+    attrsMap: makeAttrsMap(attrs),
+    rawAttrsMap: {},
+    parent,
+    children: []
+  }
+}
+
+/**
+ * Convert HTML string to AST.
+ */
+function parse (
+  template,
+  options
+) {
+  warn = options.warn || baseWarn;
+
+  platformIsPreTag = options.isPreTag || no;
+  platformMustUseProp = options.mustUseProp || no;
+  platformGetTagNamespace = options.getTagNamespace || no;
+  options.isReservedTag || no;
+  transforms = pluckModuleFunction(options.modules, 'transformNode');
+  preTransforms = pluckModuleFunction(options.modules, 'preTransformNode');
+  postTransforms = pluckModuleFunction(options.modules, 'postTransformNode');
+
+  delimiters = options.delimiters;
+
+  const stack = [];
+  const preserveWhitespace = options.preserveWhitespace !== false;
+  const whitespaceOption = options.whitespace;
+  let root;
+  let currentParent;
+  let inVPre = false;
+  let inPre = false;
+
+  function closeElement (element) {
+    trimEndingWhitespace(element);
+    if (!inVPre && !element.processed) {
+      element = processElement(element, options);
+    }
+    // tree management
+    if (!stack.length && element !== root) {
+      // allow root elements with v-if, v-else-if and v-else
+      if (root.if && (element.elseif || element.else)) {
+        addIfCondition(root, {
+          exp: element.elseif,
+          block: element
+        });
+      }
+    }
+    if (currentParent && !element.forbidden) {
+      if (element.elseif || element.else) {
+        processIfConditions(element, currentParent);
+      } else {
+        if (element.slotScope) {
+          // scoped slot
+          // keep it in the children list so that v-else(-if) conditions can
+          // find it as the prev node.
+          const name = element.slotTarget || '"default"'
+          ;(currentParent.scopedSlots || (currentParent.scopedSlots = {}))[name] = element;
+        }
+        currentParent.children.push(element);
+        element.parent = currentParent;
+      }
+    }
+
+    // final children cleanup
+    // filter out scoped slots
+    element.children = element.children.filter(c => !(c).slotScope);
+    // remove trailing whitespace node again
+    trimEndingWhitespace(element);
+
+    // check pre state
+    if (element.pre) {
+      inVPre = false;
+    }
+    if (platformIsPreTag(element.tag)) {
+      inPre = false;
+    }
+    // apply post-transforms
+    for (let i = 0; i < postTransforms.length; i++) {
+      postTransforms[i](element, options);
+    }
+  }
+
+  function trimEndingWhitespace (el) {
+    // remove trailing whitespace node
+    if (!inPre) {
+      let lastNode;
+      while (
+        (lastNode = el.children[el.children.length - 1]) &&
+        lastNode.type === 3 &&
+        lastNode.text === ' '
+      ) {
+        el.children.pop();
+      }
+    }
+  }
+
+  parseHTML(template, {
+    warn,
+    expectHTML: options.expectHTML,
+    isUnaryTag: options.isUnaryTag,
+    canBeLeftOpenTag: options.canBeLeftOpenTag,
+    shouldDecodeNewlines: options.shouldDecodeNewlines,
+    shouldDecodeNewlinesForHref: options.shouldDecodeNewlinesForHref,
+    shouldKeepComment: options.comments,
+    outputSourceRange: options.outputSourceRange,
+    start (tag, attrs, unary, start, end) {
+      // check namespace.
+      // inherit parent ns if there is one
+      const ns = (currentParent && currentParent.ns) || platformGetTagNamespace(tag);
+
+      // handle IE svg bug
+      /* istanbul ignore if */
+      if (isIE && ns === 'svg') {
+        attrs = guardIESVGBug(attrs);
+      }
+
+      let element = createASTElement(tag, attrs, currentParent);
+      if (ns) {
+        element.ns = ns;
+      }
+
+      if (isForbiddenTag(element) && !isServerRendering()) {
+        element.forbidden = true;
+      }
+
+      // apply pre-transforms
+      for (let i = 0; i < preTransforms.length; i++) {
+        element = preTransforms[i](element, options) || element;
+      }
+
+      if (!inVPre) {
+        processPre(element);
+        if (element.pre) {
+          inVPre = true;
+        }
+      }
+      if (platformIsPreTag(element.tag)) {
+        inPre = true;
+      }
+      if (inVPre) {
+        processRawAttrs(element);
+      } else if (!element.processed) {
+        // structural directives
+        processFor(element);
+        processIf(element);
+        processOnce(element);
+      }
+
+      if (!root) {
+        root = element;
+      }
+
+      if (!unary) {
+        currentParent = element;
+        stack.push(element);
+      } else {
+        closeElement(element);
+      }
+    },
+
+    end (tag, start, end) {
+      const element = stack[stack.length - 1];
+      // pop stack
+      stack.length -= 1;
+      currentParent = stack[stack.length - 1];
+      closeElement(element);
+    },
+
+    chars (text, start, end) {
+      if (!currentParent) {
+        return
+      }
+      // IE textarea placeholder bug
+      /* istanbul ignore if */
+      if (isIE &&
+        currentParent.tag === 'textarea' &&
+        currentParent.attrsMap.placeholder === text
+      ) {
+        return
+      }
+      const children = currentParent.children;
+      if (inPre || text.trim()) {
+        text = isTextTag(currentParent) ? text : decodeHTMLCached(text);
+      } else if (!children.length) {
+        // remove the whitespace-only node right after an opening tag
+        text = '';
+      } else if (whitespaceOption) {
+        if (whitespaceOption === 'condense') {
+          // in condense mode, remove the whitespace node if it contains
+          // line break, otherwise condense to a single space
+          text = lineBreakRE.test(text) ? '' : ' ';
+        } else {
+          text = ' ';
+        }
+      } else {
+        text = preserveWhitespace ? ' ' : '';
+      }
+      if (text) {
+        if (!inPre && whitespaceOption === 'condense') {
+          // condense consecutive whitespaces into single space
+          text = text.replace(whitespaceRE, ' ');
+        }
+        let res;
+        let child;
+        if (!inVPre && text !== ' ' && (res = parseText(text, delimiters))) {
+          child = {
+            type: 2,
+            expression: res.expression,
+            tokens: res.tokens,
+            text
+          };
+        } else if (text !== ' ' || !children.length || children[children.length - 1].text !== ' ') {
+          child = {
+            type: 3,
+            text
+          };
+        }
+        if (child) {
+          children.push(child);
+        }
+      }
+    },
+    comment (text, start, end) {
+      // adding anything as a sibling to the root node is forbidden
+      // comments should still be allowed, but ignored
+      if (currentParent) {
+        const child = {
+          type: 3,
+          text,
+          isComment: true
+        };
+        currentParent.children.push(child);
+      }
+    }
+  });
+  return root
+}
+
+function processPre (el) {
+  if (getAndRemoveAttr(el, 'v-pre') != null) {
+    el.pre = true;
+  }
+}
+
+function processRawAttrs (el) {
+  const list = el.attrsList;
+  const len = list.length;
+  if (len) {
+    const attrs = el.attrs = new Array(len);
+    for (let i = 0; i < len; i++) {
+      attrs[i] = {
+        name: list[i].name,
+        value: JSON.stringify(list[i].value)
+      };
+      if (list[i].start != null) {
+        attrs[i].start = list[i].start;
+        attrs[i].end = list[i].end;
+      }
+    }
+  } else if (!el.pre) {
+    // non root node in pre blocks with no attributes
+    el.plain = true;
+  }
+}
+
+function processElement (
+  element,
+  options
+) {
+  processKey(element);
+
+  // determine whether this is a plain element after
+  // removing structural attributes
+  element.plain = (
+    !element.key &&
+    !element.scopedSlots &&
+    !element.attrsList.length
+  );
+
+  processRef(element);
+  processSlotContent(element);
+  processSlotOutlet(element);
+  processComponent(element);
+  for (let i = 0; i < transforms.length; i++) {
+    element = transforms[i](element, options) || element;
+  }
+  processAttrs(element);
+  return element
+}
+
+function processKey (el) {
+  const exp = getBindingAttr(el, 'key');
+  if (exp) {
+    el.key = exp;
+  }
+}
+
+function processRef (el) {
+  const ref = getBindingAttr(el, 'ref');
+  if (ref) {
+    el.ref = ref;
+    el.refInFor = checkInFor(el);
+  }
+}
+
+function processFor (el) {
+  let exp;
+  if ((exp = getAndRemoveAttr(el, 'v-for'))) {
+    const res = parseFor(exp);
+    if (res) {
+      extend(el, res);
+    }
+  }
+}
+
+
+
+function parseFor (exp) {
+  const inMatch = exp.match(forAliasRE);
+  if (!inMatch) return
+  const res = {};
+  res.for = inMatch[2].trim();
+  const alias = inMatch[1].trim().replace(stripParensRE, '');
+  const iteratorMatch = alias.match(forIteratorRE);
+  if (iteratorMatch) {
+    res.alias = alias.replace(forIteratorRE, '').trim();
+    res.iterator1 = iteratorMatch[1].trim();
+    if (iteratorMatch[2]) {
+      res.iterator2 = iteratorMatch[2].trim();
+    }
+  } else {
+    res.alias = alias;
+  }
+  return res
+}
+
+function processIf (el) {
+  const exp = getAndRemoveAttr(el, 'v-if');
+  if (exp) {
+    el.if = exp;
+    addIfCondition(el, {
+      exp: exp,
+      block: el
+    });
+  } else {
+    if (getAndRemoveAttr(el, 'v-else') != null) {
+      el.else = true;
+    }
+    const elseif = getAndRemoveAttr(el, 'v-else-if');
+    if (elseif) {
+      el.elseif = elseif;
+    }
+  }
+}
+
+function processIfConditions (el, parent) {
+  const prev = findPrevElement(parent.children);
+  if (prev && prev.if) {
+    addIfCondition(prev, {
+      exp: el.elseif,
+      block: el
+    });
+  }
+}
+
+function findPrevElement (children) {
+  let i = children.length;
+  while (i--) {
+    if (children[i].type === 1) {
+      return children[i]
+    } else {
+      children.pop();
+    }
+  }
+}
+
+function addIfCondition (el, condition) {
+  if (!el.ifConditions) {
+    el.ifConditions = [];
+  }
+  el.ifConditions.push(condition);
+}
+
+function processOnce (el) {
+  const once = getAndRemoveAttr(el, 'v-once');
+  if (once != null) {
+    el.once = true;
+  }
+}
+
+// handle content being passed to a component as slot,
+// e.g. <template slot="xxx">, <div slot-scope="xxx">
+function processSlotContent (el) {
+  let slotScope;
+  if (el.tag === 'template') {
+    slotScope = getAndRemoveAttr(el, 'scope');
+    el.slotScope = slotScope || getAndRemoveAttr(el, 'slot-scope');
+  } else if ((slotScope = getAndRemoveAttr(el, 'slot-scope'))) {
+    el.slotScope = slotScope;
+  }
+
+  // slot="xxx"
+  const slotTarget = getBindingAttr(el, 'slot');
+  if (slotTarget) {
+    el.slotTarget = slotTarget === '""' ? '"default"' : slotTarget;
+    el.slotTargetDynamic = !!(el.attrsMap[':slot'] || el.attrsMap['v-bind:slot']);
+    // preserve slot as an attribute for native shadow DOM compat
+    // only for non-scoped slots.
+    if (el.tag !== 'template' && !el.slotScope) {
+      addAttr(el, 'slot', slotTarget, getRawBindingAttr(el, 'slot'));
+    }
+  }
+
+  // 2.6 v-slot syntax
+  {
+    if (el.tag === 'template') {
+      // v-slot on <template>
+      const slotBinding = getAndRemoveAttrByRegex(el, slotRE);
+      if (slotBinding) {
+        const { name, dynamic } = getSlotName(slotBinding);
+        el.slotTarget = name;
+        el.slotTargetDynamic = dynamic;
+        el.slotScope = slotBinding.value || emptySlotScopeToken; // force it into a scoped slot for perf
+      }
+    } else {
+      // v-slot on component, denotes default slot
+      const slotBinding = getAndRemoveAttrByRegex(el, slotRE);
+      if (slotBinding) {
+        // add the component's children to its default slot
+        const slots = el.scopedSlots || (el.scopedSlots = {});
+        const { name, dynamic } = getSlotName(slotBinding);
+        const slotContainer = slots[name] = createASTElement('template', [], el);
+        slotContainer.slotTarget = name;
+        slotContainer.slotTargetDynamic = dynamic;
+        slotContainer.children = el.children.filter((c) => {
+          if (!c.slotScope) {
+            c.parent = slotContainer;
+            return true
+          }
+        });
+        slotContainer.slotScope = slotBinding.value || emptySlotScopeToken;
+        // remove children as they are returned from scopedSlots now
+        el.children = [];
+        // mark el non-plain so data gets generated
+        el.plain = false;
+      }
+    }
+  }
+}
+
+function getSlotName (binding) {
+  let name = binding.name.replace(slotRE, '');
+  if (!name) {
+    if (binding.name[0] !== '#') {
+      name = 'default';
+    }
+  }
+  return dynamicArgRE.test(name)
+    // dynamic [name]
+    ? { name: name.slice(1, -1), dynamic: true }
+    // static name
+    : { name: `"${name}"`, dynamic: false }
+}
+
+// handle <slot/> outlets
+function processSlotOutlet (el) {
+  if (el.tag === 'slot') {
+    el.slotName = getBindingAttr(el, 'name');
+  }
+}
+
+function processComponent (el) {
+  let binding;
+  if ((binding = getBindingAttr(el, 'is'))) {
+    el.component = binding;
+  }
+  if (getAndRemoveAttr(el, 'inline-template') != null) {
+    el.inlineTemplate = true;
+  }
+}
+
+function processAttrs (el) {
+  const list = el.attrsList;
+  let i, l, name, rawName, value, modifiers, syncGen, isDynamic;
+  for (i = 0, l = list.length; i < l; i++) {
+    name = rawName = list[i].name;
+    value = list[i].value;
+    if (dirRE.test(name)) {
+      // mark element as dynamic
+      el.hasBindings = true;
+      // modifiers
+      modifiers = parseModifiers(name.replace(dirRE, ''));
+      // support .foo shorthand syntax for the .prop modifier
+      if (modifiers) {
+        name = name.replace(modifierRE, '');
+      }
+      if (bindRE.test(name)) { // v-bind
+        name = name.replace(bindRE, '');
+        value = parseFilters(value);
+        isDynamic = dynamicArgRE.test(name);
+        if (isDynamic) {
+          name = name.slice(1, -1);
+        }
+        if (modifiers) {
+          if (modifiers.prop && !isDynamic) {
+            name = camelize(name);
+            if (name === 'innerHtml') name = 'innerHTML';
+          }
+          if (modifiers.camel && !isDynamic) {
+            name = camelize(name);
+          }
+          if (modifiers.sync) {
+            syncGen = genAssignmentCode(value, `$event`);
+            if (!isDynamic) {
+              addHandler(
+                el,
+                `update:${camelize(name)}`,
+                syncGen,
+                null,
+                false,
+                warn,
+                list[i]
+              );
+              if (hyphenate(name) !== camelize(name)) {
+                addHandler(
+                  el,
+                  `update:${hyphenate(name)}`,
+                  syncGen,
+                  null,
+                  false,
+                  warn,
+                  list[i]
+                );
+              }
+            } else {
+              // handler w/ dynamic event name
+              addHandler(
+                el,
+                `"update:"+(${name})`,
+                syncGen,
+                null,
+                false,
+                warn,
+                list[i],
+                true // dynamic
+              );
+            }
+          }
+        }
+        if ((modifiers && modifiers.prop) || (
+          !el.component && platformMustUseProp(el.tag, el.attrsMap.type, name)
+        )) {
+          addProp(el, name, value, list[i], isDynamic);
+        } else {
+          addAttr(el, name, value, list[i], isDynamic);
+        }
+      } else if (onRE.test(name)) { // v-on
+        name = name.replace(onRE, '');
+        isDynamic = dynamicArgRE.test(name);
+        if (isDynamic) {
+          name = name.slice(1, -1);
+        }
+        addHandler(el, name, value, modifiers, false, warn, list[i], isDynamic);
+      } else { // normal directives
+        name = name.replace(dirRE, '');
+        // parse arg
+        const argMatch = name.match(argRE);
+        let arg = argMatch && argMatch[1];
+        isDynamic = false;
+        if (arg) {
+          name = name.slice(0, -(arg.length + 1));
+          if (dynamicArgRE.test(arg)) {
+            arg = arg.slice(1, -1);
+            isDynamic = true;
+          }
+        }
+        addDirective(el, name, rawName, value, arg, isDynamic, modifiers, list[i]);
+      }
+    } else {
+      addAttr(el, name, JSON.stringify(value), list[i]);
+      // #6887 firefox doesn't update muted state if set via attribute
+      // even immediately after element creation
+      if (!el.component &&
+          name === 'muted' &&
+          platformMustUseProp(el.tag, el.attrsMap.type, name)) {
+        addProp(el, name, 'true', list[i]);
+      }
+    }
+  }
+}
+
+function checkInFor (el) {
+  let parent = el;
+  while (parent) {
+    if (parent.for !== undefined) {
+      return true
+    }
+    parent = parent.parent;
+  }
+  return false
+}
+
+function parseModifiers (name) {
+  const match = name.match(modifierRE);
+  if (match) {
+    const ret = {};
+    match.forEach(m => { ret[m.slice(1)] = true; });
+    return ret
+  }
+}
+
+function makeAttrsMap (attrs) {
+  const map = {};
+  for (let i = 0, l = attrs.length; i < l; i++) {
+    map[attrs[i].name] = attrs[i].value;
+  }
+  return map
+}
+
+// for script (e.g. type="x/template") or style, do not decode content
+function isTextTag (el) {
+  return el.tag === 'script' || el.tag === 'style'
+}
+
+function isForbiddenTag (el) {
+  return (
+    el.tag === 'style' ||
+    (el.tag === 'script' && (
+      !el.attrsMap.type ||
+      el.attrsMap.type === 'text/javascript'
+    ))
+  )
+}
+
+const ieNSBug = /^xmlns:NS\d+/;
+const ieNSPrefix = /^NS\d+:/;
+
+/* istanbul ignore next */
+function guardIESVGBug (attrs) {
+  const res = [];
+  for (let i = 0; i < attrs.length; i++) {
+    const attr = attrs[i];
+    if (!ieNSBug.test(attr.name)) {
+      attr.name = attr.name.replace(ieNSPrefix, '');
+      res.push(attr);
+    }
+  }
+  return res
+}
+
+/*  */
+
+function preTransformNode (el, options) {
+  if (el.tag === 'input') {
+    const map = el.attrsMap;
+    if (!map['v-model']) {
+      return
+    }
+
+    let typeBinding;
+    if (map[':type'] || map['v-bind:type']) {
+      typeBinding = getBindingAttr(el, 'type');
+    }
+    if (!map.type && !typeBinding && map['v-bind']) {
+      typeBinding = `(${map['v-bind']}).type`;
+    }
+
+    if (typeBinding) {
+      const ifCondition = getAndRemoveAttr(el, 'v-if', true);
+      const ifConditionExtra = ifCondition ? `&&(${ifCondition})` : ``;
+      const hasElse = getAndRemoveAttr(el, 'v-else', true) != null;
+      const elseIfCondition = getAndRemoveAttr(el, 'v-else-if', true);
+      // 1. checkbox
+      const branch0 = cloneASTElement(el);
+      // process for on the main node
+      processFor(branch0);
+      addRawAttr(branch0, 'type', 'checkbox');
+      processElement(branch0, options);
+      branch0.processed = true; // prevent it from double-processed
+      branch0.if = `(${typeBinding})==='checkbox'` + ifConditionExtra;
+      addIfCondition(branch0, {
+        exp: branch0.if,
+        block: branch0
+      });
+      // 2. add radio else-if condition
+      const branch1 = cloneASTElement(el);
+      getAndRemoveAttr(branch1, 'v-for', true);
+      addRawAttr(branch1, 'type', 'radio');
+      processElement(branch1, options);
+      addIfCondition(branch0, {
+        exp: `(${typeBinding})==='radio'` + ifConditionExtra,
+        block: branch1
+      });
+      // 3. other
+      const branch2 = cloneASTElement(el);
+      getAndRemoveAttr(branch2, 'v-for', true);
+      addRawAttr(branch2, ':type', typeBinding);
+      processElement(branch2, options);
+      addIfCondition(branch0, {
+        exp: ifCondition,
+        block: branch2
+      });
+
+      if (hasElse) {
+        branch0.else = true;
+      } else if (elseIfCondition) {
+        branch0.elseif = elseIfCondition;
+      }
+
+      return branch0
+    }
+  }
+}
+
+function cloneASTElement (el) {
+  return createASTElement(el.tag, el.attrsList.slice(), el.parent)
+}
+
+var model$1 = {
+  preTransformNode
+};
+
+var modules = [
+  klass,
+  style,
+  model$1
+];
+
+/*  */
+
+// in some cases, the event used has to be determined at runtime
+// so we used some reserved tokens during compile.
+const RANGE_TOKEN = '__r';
+
+function model (
+  el,
+  dir,
+  _warn
+) {
+  const value = dir.value;
+  const modifiers = dir.modifiers;
+  const tag = el.tag;
+  const type = el.attrsMap.type;
+
+  if (el.component) {
+    genComponentModel(el, value, modifiers);
+    // component v-model doesn't need extra runtime
+    return false
+  } else if (tag === 'select') {
+    genSelect(el, value, modifiers);
+  } else if (tag === 'input' && type === 'checkbox') {
+    genCheckboxModel(el, value, modifiers);
+  } else if (tag === 'input' && type === 'radio') {
+    genRadioModel(el, value, modifiers);
+  } else if (tag === 'input' || tag === 'textarea') {
+    genDefaultModel(el, value, modifiers);
+  } else {
+    genComponentModel(el, value, modifiers);
+    // component v-model doesn't need extra runtime
+    return false
+  }
+
+  // ensure runtime directive metadata
+  return true
+}
+
+function genCheckboxModel (
+  el,
+  value,
+  modifiers
+) {
+  const number = modifiers && modifiers.number;
+  const valueBinding = getBindingAttr(el, 'value') || 'null';
+  const trueValueBinding = getBindingAttr(el, 'true-value') || 'true';
+  const falseValueBinding = getBindingAttr(el, 'false-value') || 'false';
+  addProp(el, 'checked',
+    `Array.isArray(${value})` +
+    `?_i(${value},${valueBinding})>-1` + (
+      trueValueBinding === 'true'
+        ? `:(${value})`
+        : `:_q(${value},${trueValueBinding})`
+    )
+  );
+  addHandler(el, 'change',
+    `var $$a=${value},` +
+        '$$el=$event.target,' +
+        `$$c=$$el.checked?(${trueValueBinding}):(${falseValueBinding});` +
+    'if(Array.isArray($$a)){' +
+      `var $$v=${number ? '_n(' + valueBinding + ')' : valueBinding},` +
+          '$$i=_i($$a,$$v);' +
+      `if($$el.checked){$$i<0&&(${genAssignmentCode(value, '$$a.concat([$$v])')})}` +
+      `else{$$i>-1&&(${genAssignmentCode(value, '$$a.slice(0,$$i).concat($$a.slice($$i+1))')})}` +
+    `}else{${genAssignmentCode(value, '$$c')}}`,
+    null, true
+  );
+}
+
+function genRadioModel (
+  el,
+  value,
+  modifiers
+) {
+  const number = modifiers && modifiers.number;
+  let valueBinding = getBindingAttr(el, 'value') || 'null';
+  valueBinding = number ? `_n(${valueBinding})` : valueBinding;
+  addProp(el, 'checked', `_q(${value},${valueBinding})`);
+  addHandler(el, 'change', genAssignmentCode(value, valueBinding), null, true);
+}
+
+function genSelect (
+  el,
+  value,
+  modifiers
+) {
+  const number = modifiers && modifiers.number;
+  const selectedVal = `Array.prototype.filter` +
+    `.call($event.target.options,function(o){return o.selected})` +
+    `.map(function(o){var val = "_value" in o ? o._value : o.value;` +
+    `return ${number ? '_n(val)' : 'val'}})`;
+
+  const assignment = '$event.target.multiple ? $$selectedVal : $$selectedVal[0]';
+  let code = `var $$selectedVal = ${selectedVal};`;
+  code = `${code} ${genAssignmentCode(value, assignment)}`;
+  addHandler(el, 'change', code, null, true);
+}
+
+function genDefaultModel (
+  el,
+  value,
+  modifiers
+) {
+  const type = el.attrsMap.type;
+
+  const { lazy, number, trim } = modifiers || {};
+  const needCompositionGuard = !lazy && type !== 'range';
+  const event = lazy
+    ? 'change'
+    : type === 'range'
+      ? RANGE_TOKEN
+      : 'input';
+
+  let valueExpression = '$event.target.value';
+  if (trim) {
+    valueExpression = `$event.target.value.trim()`;
+  }
+  if (number) {
+    valueExpression = `_n(${valueExpression})`;
+  }
+
+  let code = genAssignmentCode(value, valueExpression);
+  if (needCompositionGuard) {
+    code = `if($event.target.composing)return;${code}`;
+  }
+
+  addProp(el, 'value', `(${value})`);
+  addHandler(el, event, code, null, true);
+  if (trim || number) {
+    addHandler(el, 'blur', '$forceUpdate()');
+  }
+}
+
+/*  */
+
+function text (el, dir) {
+  if (dir.value) {
+    addProp(el, 'textContent', `_s(${dir.value})`, dir);
+  }
+}
+
+/*  */
+
+function html (el, dir) {
+  if (dir.value) {
+    addProp(el, 'innerHTML', `_s(${dir.value})`, dir);
+  }
+}
+
+var directives = {
+  model,
+  text,
+  html
+};
+
+/*  */
+
+const baseOptions = {
+  expectHTML: true,
+  modules,
+  directives,
+  isPreTag,
+  isUnaryTag,
+  mustUseProp,
+  canBeLeftOpenTag,
+  isReservedTag,
+  getTagNamespace,
+  staticKeys: genStaticKeys(modules)
+};
+
+/*  */
+
+const fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function(?:\s+[\w$]+)?\s*\(/;
+const fnInvokeRE = /\([^)]*?\);*$/;
+const simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
+
+// KeyboardEvent.keyCode aliases
+const keyCodes = {
+  esc: 27,
+  tab: 9,
+  enter: 13,
+  space: 32,
+  up: 38,
+  left: 37,
+  right: 39,
+  down: 40,
+  'delete': [8, 46]
+};
+
+// KeyboardEvent.key aliases
+const keyNames = {
+  // #7880: IE11 and Edge use `Esc` for Escape key name.
+  esc: ['Esc', 'Escape'],
+  tab: 'Tab',
+  enter: 'Enter',
+  // #9112: IE11 uses `Spacebar` for Space key name.
+  space: [' ', 'Spacebar'],
+  // #7806: IE11 uses key names without `Arrow` prefix for arrow keys.
+  up: ['Up', 'ArrowUp'],
+  left: ['Left', 'ArrowLeft'],
+  right: ['Right', 'ArrowRight'],
+  down: ['Down', 'ArrowDown'],
+  // #9112: IE11 uses `Del` for Delete key name.
+  'delete': ['Backspace', 'Delete', 'Del']
+};
+
+// #4868: modifiers that prevent the execution of the listener
+// need to explicitly return null so that we can determine whether to remove
+// the listener for .once
+const genGuard = condition => `if(${condition})return null;`;
+
+const modifierCode = {
+  stop: '$event.stopPropagation();',
+  prevent: '$event.preventDefault();',
+  self: genGuard(`$event.target !== $event.currentTarget`),
+  ctrl: genGuard(`!$event.ctrlKey`),
+  shift: genGuard(`!$event.shiftKey`),
+  alt: genGuard(`!$event.altKey`),
+  meta: genGuard(`!$event.metaKey`),
+  left: genGuard(`'button' in $event && $event.button !== 0`),
+  middle: genGuard(`'button' in $event && $event.button !== 1`),
+  right: genGuard(`'button' in $event && $event.button !== 2`)
+};
+
+function genHandlers (
+  events,
+  isNative
+) {
+  const prefix = isNative ? 'nativeOn:' : 'on:';
+  let staticHandlers = ``;
+  let dynamicHandlers = ``;
+  for (const name in events) {
+    const handlerCode = genHandler(events[name]);
+    if (events[name] && events[name].dynamic) {
+      dynamicHandlers += `${name},${handlerCode},`;
+    } else {
+      staticHandlers += `"${name}":${handlerCode},`;
+    }
+  }
+  staticHandlers = `{${staticHandlers.slice(0, -1)}}`;
+  if (dynamicHandlers) {
+    return prefix + `_d(${staticHandlers},[${dynamicHandlers.slice(0, -1)}])`
+  } else {
+    return prefix + staticHandlers
+  }
+}
+
+function genHandler (handler) {
+  if (!handler) {
+    return 'function(){}'
+  }
+
+  if (Array.isArray(handler)) {
+    return `[${handler.map(handler => genHandler(handler)).join(',')}]`
+  }
+
+  const isMethodPath = simplePathRE.test(handler.value);
+  const isFunctionExpression = fnExpRE.test(handler.value);
+  const isFunctionInvocation = simplePathRE.test(handler.value.replace(fnInvokeRE, ''));
+
+  if (!handler.modifiers) {
+    if (isMethodPath || isFunctionExpression) {
+      return handler.value
+    }
+    return `function($event){${
+      isFunctionInvocation ? `return ${handler.value}` : handler.value
+    }}` // inline statement
+  } else {
+    let code = '';
+    let genModifierCode = '';
+    const keys = [];
+    for (const key in handler.modifiers) {
+      if (modifierCode[key]) {
+        genModifierCode += modifierCode[key];
+        // left/right
+        if (keyCodes[key]) {
+          keys.push(key);
+        }
+      } else if (key === 'exact') {
+        const modifiers = (handler.modifiers);
+        genModifierCode += genGuard(
+          ['ctrl', 'shift', 'alt', 'meta']
+            .filter(keyModifier => !modifiers[keyModifier])
+            .map(keyModifier => `$event.${keyModifier}Key`)
+            .join('||')
+        );
+      } else {
+        keys.push(key);
+      }
+    }
+    if (keys.length) {
+      code += genKeyFilter(keys);
+    }
+    // Make sure modifiers like prevent and stop get executed after key filtering
+    if (genModifierCode) {
+      code += genModifierCode;
+    }
+    const handlerCode = isMethodPath
+      ? `return ${handler.value}.apply(null, arguments)`
+      : isFunctionExpression
+        ? `return (${handler.value}).apply(null, arguments)`
+        : isFunctionInvocation
+          ? `return ${handler.value}`
+          : handler.value;
+    return `function($event){${code}${handlerCode}}`
+  }
+}
+
+function genKeyFilter (keys) {
+  return (
+    // make sure the key filters only apply to KeyboardEvents
+    // #9441: can't use 'keyCode' in $event because Chrome autofill fires fake
+    // key events that do not have keyCode property...
+    `if(!$event.type.indexOf('key')&&` +
+    `${keys.map(genFilterCode).join('&&')})return null;`
+  )
+}
+
+function genFilterCode (key) {
+  const keyVal = parseInt(key, 10);
+  if (keyVal) {
+    return `$event.keyCode!==${keyVal}`
+  }
+  const keyCode = keyCodes[key];
+  const keyName = keyNames[key];
+  return (
+    `_k($event.keyCode,` +
+    `${JSON.stringify(key)},` +
+    `${JSON.stringify(keyCode)},` +
+    `$event.key,` +
+    `${JSON.stringify(keyName)}` +
+    `)`
+  )
+}
+
+/*  */
+
+function on (el, dir) {
+  el.wrapListeners = (code) => `_g(${code},${dir.value})`;
+}
+
+/*  */
+
+function bind (el, dir) {
+  el.wrapData = (code) => {
+    return `_b(${code},'${el.tag}',${dir.value},${
+      dir.modifiers && dir.modifiers.prop ? 'true' : 'false'
+    }${
+      dir.modifiers && dir.modifiers.sync ? ',true' : ''
+    })`
+  };
+}
+
+/*  */
+
+var baseDirectives = {
+  on,
+  bind,
+  cloak: noop$1
+};
+
+/*  */
+
+
+
+
+
+class CodegenState {
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  constructor (options) {
+    this.options = options;
+    this.warn = options.warn || baseWarn;
+    this.transforms = pluckModuleFunction(options.modules, 'transformCode');
+    this.dataGenFns = pluckModuleFunction(options.modules, 'genData');
+    this.directives = extend(extend({}, baseDirectives), options.directives);
+    const isReservedTag = options.isReservedTag || no;
+    this.maybeComponent = (el) => !!el.component || !isReservedTag(el.tag);
+    this.onceId = 0;
+    this.staticRenderFns = [];
+    this.pre = false;
+  }
+}
+
+
+
+function generate$1 (
+  ast,
+  options
+) {
+  const state = new CodegenState(options);
+  // fix #11483, Root level <script> tags should not be rendered.
+  const code = ast ? (ast.tag === 'script' ? 'null' : genElement(ast, state)) : '_c("div")';
+  return {
+    render: `with(this){return ${code}}`,
+    staticRenderFns: state.staticRenderFns
+  }
+}
+
+function genElement (el, state) {
+  if (el.parent) {
+    el.pre = el.pre || el.parent.pre;
+  }
+
+  if (el.staticRoot && !el.staticProcessed) {
+    return genStatic(el, state)
+  } else if (el.once && !el.onceProcessed) {
+    return genOnce(el, state)
+  } else if (el.for && !el.forProcessed) {
+    return genFor(el, state)
+  } else if (el.if && !el.ifProcessed) {
+    return genIf(el, state)
+  } else if (el.tag === 'template' && !el.slotTarget && !state.pre) {
+    return genChildren(el, state) || 'void 0'
+  } else if (el.tag === 'slot') {
+    return genSlot(el, state)
+  } else {
+    // component or element
+    let code;
+    if (el.component) {
+      code = genComponent(el.component, el, state);
+    } else {
+      let data;
+      if (!el.plain || (el.pre && state.maybeComponent(el))) {
+        data = genData(el, state);
+      }
+
+      const children = el.inlineTemplate ? null : genChildren(el, state, true);
+      code = `_c('${el.tag}'${
+        data ? `,${data}` : '' // data
+      }${
+        children ? `,${children}` : '' // children
+      })`;
+    }
+    // module transforms
+    for (let i = 0; i < state.transforms.length; i++) {
+      code = state.transforms[i](el, code);
+    }
+    return code
+  }
+}
+
+// hoist static sub-trees out
+function genStatic (el, state) {
+  el.staticProcessed = true;
+  // Some elements (templates) need to behave differently inside of a v-pre
+  // node.  All pre nodes are static roots, so we can use this as a location to
+  // wrap a state change and reset it upon exiting the pre node.
+  const originalPreState = state.pre;
+  if (el.pre) {
+    state.pre = el.pre;
+  }
+  state.staticRenderFns.push(`with(this){return ${genElement(el, state)}}`);
+  state.pre = originalPreState;
+  return `_m(${
+    state.staticRenderFns.length - 1
+  }${
+    el.staticInFor ? ',true' : ''
+  })`
+}
+
+// v-once
+function genOnce (el, state) {
+  el.onceProcessed = true;
+  if (el.if && !el.ifProcessed) {
+    return genIf(el, state)
+  } else if (el.staticInFor) {
+    let key = '';
+    let parent = el.parent;
+    while (parent) {
+      if (parent.for) {
+        key = parent.key;
+        break
+      }
+      parent = parent.parent;
+    }
+    if (!key) {
+      return genElement(el, state)
+    }
+    return `_o(${genElement(el, state)},${state.onceId++},${key})`
+  } else {
+    return genStatic(el, state)
+  }
+}
+
+function genIf (
+  el,
+  state,
+  altGen,
+  altEmpty
+) {
+  el.ifProcessed = true; // avoid recursion
+  return genIfConditions(el.ifConditions.slice(), state, altGen, altEmpty)
+}
+
+function genIfConditions (
+  conditions,
+  state,
+  altGen,
+  altEmpty
+) {
+  if (!conditions.length) {
+    return altEmpty || '_e()'
+  }
+
+  const condition = conditions.shift();
+  if (condition.exp) {
+    return `(${condition.exp})?${
+      genTernaryExp(condition.block)
+    }:${
+      genIfConditions(conditions, state, altGen, altEmpty)
+    }`
+  } else {
+    return `${genTernaryExp(condition.block)}`
+  }
+
+  // v-if with v-once should generate code like (a)?_m(0):_m(1)
+  function genTernaryExp (el) {
+    return altGen
+      ? altGen(el, state)
+      : el.once
+        ? genOnce(el, state)
+        : genElement(el, state)
+  }
+}
+
+function genFor (
+  el,
+  state,
+  altGen,
+  altHelper
+) {
+  const exp = el.for;
+  const alias = el.alias;
+  const iterator1 = el.iterator1 ? `,${el.iterator1}` : '';
+  const iterator2 = el.iterator2 ? `,${el.iterator2}` : '';
+
+  el.forProcessed = true; // avoid recursion
+  return `${altHelper || '_l'}((${exp}),` +
+    `function(${alias}${iterator1}${iterator2}){` +
+      `return ${(altGen || genElement)(el, state)}` +
+    '})'
+}
+
+function genData (el, state) {
+  let data = '{';
+
+  // directives first.
+  // directives may mutate the el's other properties before they are generated.
+  const dirs = genDirectives(el, state);
+  if (dirs) data += dirs + ',';
+
+  // key
+  if (el.key) {
+    data += `key:${el.key},`;
+  }
+  // ref
+  if (el.ref) {
+    data += `ref:${el.ref},`;
+  }
+  if (el.refInFor) {
+    data += `refInFor:true,`;
+  }
+  // pre
+  if (el.pre) {
+    data += `pre:true,`;
+  }
+  // record original tag name for components using "is" attribute
+  if (el.component) {
+    data += `tag:"${el.tag}",`;
+  }
+  // module data generation functions
+  for (let i = 0; i < state.dataGenFns.length; i++) {
+    data += state.dataGenFns[i](el);
+  }
+  // attributes
+  if (el.attrs) {
+    data += `attrs:${genProps(el.attrs)},`;
+  }
+  // DOM props
+  if (el.props) {
+    data += `domProps:${genProps(el.props)},`;
+  }
+  // event handlers
+  if (el.events) {
+    data += `${genHandlers(el.events, false)},`;
+  }
+  if (el.nativeEvents) {
+    data += `${genHandlers(el.nativeEvents, true)},`;
+  }
+  // slot target
+  // only for non-scoped slots
+  if (el.slotTarget && !el.slotScope) {
+    data += `slot:${el.slotTarget},`;
+  }
+  // scoped slots
+  if (el.scopedSlots) {
+    data += `${genScopedSlots(el, el.scopedSlots, state)},`;
+  }
+  // component v-model
+  if (el.model) {
+    data += `model:{value:${
+      el.model.value
+    },callback:${
+      el.model.callback
+    },expression:${
+      el.model.expression
+    }},`;
+  }
+  // inline-template
+  if (el.inlineTemplate) {
+    const inlineTemplate = genInlineTemplate(el, state);
+    if (inlineTemplate) {
+      data += `${inlineTemplate},`;
+    }
+  }
+  data = data.replace(/,$/, '') + '}';
+  // v-bind dynamic argument wrap
+  // v-bind with dynamic arguments must be applied using the same v-bind object
+  // merge helper so that class/style/mustUseProp attrs are handled correctly.
+  if (el.dynamicAttrs) {
+    data = `_b(${data},"${el.tag}",${genProps(el.dynamicAttrs)})`;
+  }
+  // v-bind data wrap
+  if (el.wrapData) {
+    data = el.wrapData(data);
+  }
+  // v-on data wrap
+  if (el.wrapListeners) {
+    data = el.wrapListeners(data);
+  }
+  return data
+}
+
+function genDirectives (el, state) {
+  const dirs = el.directives;
+  if (!dirs) return
+  let res = 'directives:[';
+  let hasRuntime = false;
+  let i, l, dir, needRuntime;
+  for (i = 0, l = dirs.length; i < l; i++) {
+    dir = dirs[i];
+    needRuntime = true;
+    const gen = state.directives[dir.name];
+    if (gen) {
+      // compile-time directive that manipulates AST.
+      // returns true if it also needs a runtime counterpart.
+      needRuntime = !!gen(el, dir, state.warn);
+    }
+    if (needRuntime) {
+      hasRuntime = true;
+      res += `{name:"${dir.name}",rawName:"${dir.rawName}"${
+        dir.value ? `,value:(${dir.value}),expression:${JSON.stringify(dir.value)}` : ''
+      }${
+        dir.arg ? `,arg:${dir.isDynamicArg ? dir.arg : `"${dir.arg}"`}` : ''
+      }${
+        dir.modifiers ? `,modifiers:${JSON.stringify(dir.modifiers)}` : ''
+      }},`;
+    }
+  }
+  if (hasRuntime) {
+    return res.slice(0, -1) + ']'
+  }
+}
+
+function genInlineTemplate (el, state) {
+  const ast = el.children[0];
+  if (ast && ast.type === 1) {
+    const inlineRenderFns = generate$1(ast, state.options);
+    return `inlineTemplate:{render:function(){${
+      inlineRenderFns.render
+    }},staticRenderFns:[${
+      inlineRenderFns.staticRenderFns.map(code => `function(){${code}}`).join(',')
+    }]}`
+  }
+}
+
+function genScopedSlots (
+  el,
+  slots,
+  state
+) {
+  // by default scoped slots are considered "stable", this allows child
+  // components with only scoped slots to skip forced updates from parent.
+  // but in some cases we have to bail-out of this optimization
+  // for example if the slot contains dynamic names, has v-if or v-for on them...
+  let needsForceUpdate = el.for || Object.keys(slots).some(key => {
+    const slot = slots[key];
+    return (
+      slot.slotTargetDynamic ||
+      slot.if ||
+      slot.for ||
+      containsSlotChild(slot) // is passing down slot from parent which may be dynamic
+    )
+  });
+
+  // #9534: if a component with scoped slots is inside a conditional branch,
+  // it's possible for the same component to be reused but with different
+  // compiled slot content. To avoid that, we generate a unique key based on
+  // the generated code of all the slot contents.
+  let needsKey = !!el.if;
+
+  // OR when it is inside another scoped slot or v-for (the reactivity may be
+  // disconnected due to the intermediate scope variable)
+  // #9438, #9506
+  // TODO: this can be further optimized by properly analyzing in-scope bindings
+  // and skip force updating ones that do not actually use scope variables.
+  if (!needsForceUpdate) {
+    let parent = el.parent;
+    while (parent) {
+      if (
+        (parent.slotScope && parent.slotScope !== emptySlotScopeToken) ||
+        parent.for
+      ) {
+        needsForceUpdate = true;
+        break
+      }
+      if (parent.if) {
+        needsKey = true;
+      }
+      parent = parent.parent;
+    }
+  }
+
+  const generatedSlots = Object.keys(slots)
+    .map(key => genScopedSlot(slots[key], state))
+    .join(',');
+
+  return `scopedSlots:_u([${generatedSlots}]${
+    needsForceUpdate ? `,null,true` : ``
+  }${
+    !needsForceUpdate && needsKey ? `,null,false,${hash(generatedSlots)}` : ``
+  })`
+}
+
+function hash(str) {
+  let hash = 5381;
+  let i = str.length;
+  while(i) {
+    hash = (hash * 33) ^ str.charCodeAt(--i);
+  }
+  return hash >>> 0
+}
+
+function containsSlotChild (el) {
+  if (el.type === 1) {
+    if (el.tag === 'slot') {
+      return true
+    }
+    return el.children.some(containsSlotChild)
+  }
+  return false
+}
+
+function genScopedSlot (
+  el,
+  state
+) {
+  const isLegacySyntax = el.attrsMap['slot-scope'];
+  if (el.if && !el.ifProcessed && !isLegacySyntax) {
+    return genIf(el, state, genScopedSlot, `null`)
+  }
+  if (el.for && !el.forProcessed) {
+    return genFor(el, state, genScopedSlot)
+  }
+  const slotScope = el.slotScope === emptySlotScopeToken
+    ? ``
+    : String(el.slotScope);
+  const fn = `function(${slotScope}){` +
+    `return ${el.tag === 'template'
+      ? el.if && isLegacySyntax
+        ? `(${el.if})?${genChildren(el, state) || 'undefined'}:undefined`
+        : genChildren(el, state) || 'undefined'
+      : genElement(el, state)
+    }}`;
+  // reverse proxy v-slot without scope on this.$slots
+  const reverseProxy = slotScope ? `` : `,proxy:true`;
+  return `{key:${el.slotTarget || `"default"`},fn:${fn}${reverseProxy}}`
+}
+
+function genChildren (
+  el,
+  state,
+  checkSkip,
+  altGenElement,
+  altGenNode
+) {
+  const children = el.children;
+  if (children.length) {
+    const el = children[0];
+    // optimize single v-for
+    if (children.length === 1 &&
+      el.for &&
+      el.tag !== 'template' &&
+      el.tag !== 'slot'
+    ) {
+      const normalizationType = checkSkip
+        ? state.maybeComponent(el) ? `,1` : `,0`
+        : ``;
+      return `${(altGenElement || genElement)(el, state)}${normalizationType}`
+    }
+    const normalizationType = checkSkip
+      ? getNormalizationType(children, state.maybeComponent)
+      : 0;
+    const gen = altGenNode || genNode;
+    return `[${children.map(c => gen(c, state)).join(',')}]${
+      normalizationType ? `,${normalizationType}` : ''
+    }`
+  }
+}
+
+// determine the normalization needed for the children array.
+// 0: no normalization needed
+// 1: simple normalization needed (possible 1-level deep nested array)
+// 2: full normalization needed
+function getNormalizationType (
+  children,
+  maybeComponent
+) {
+  let res = 0;
+  for (let i = 0; i < children.length; i++) {
+    const el = children[i];
+    if (el.type !== 1) {
+      continue
+    }
+    if (needsNormalization(el) ||
+        (el.ifConditions && el.ifConditions.some(c => needsNormalization(c.block)))) {
+      res = 2;
+      break
+    }
+    if (maybeComponent(el) ||
+        (el.ifConditions && el.ifConditions.some(c => maybeComponent(c.block)))) {
+      res = 1;
+    }
+  }
+  return res
+}
+
+function needsNormalization (el) {
+  return el.for !== undefined || el.tag === 'template' || el.tag === 'slot'
+}
+
+function genNode (node, state) {
+  if (node.type === 1) {
+    return genElement(node, state)
+  } else if (node.type === 3 && node.isComment) {
+    return genComment(node)
+  } else {
+    return genText(node)
+  }
+}
+
+function genText (text) {
+  return `_v(${text.type === 2
+    ? text.expression // no need for () because already wrapped in _s()
+    : transformSpecialNewlines(JSON.stringify(text.text))
+  })`
+}
+
+function genComment (comment) {
+  return `_e(${JSON.stringify(comment.text)})`
+}
+
+function genSlot (el, state) {
+  const slotName = el.slotName || '"default"';
+  const children = genChildren(el, state);
+  let res = `_t(${slotName}${children ? `,function(){return ${children}}` : ''}`;
+  const attrs = el.attrs || el.dynamicAttrs
+    ? genProps((el.attrs || []).concat(el.dynamicAttrs || []).map(attr => ({
+        // slot props are camelized
+        name: camelize(attr.name),
+        value: attr.value,
+        dynamic: attr.dynamic
+      })))
+    : null;
+  const bind = el.attrsMap['v-bind'];
+  if ((attrs || bind) && !children) {
+    res += `,null`;
+  }
+  if (attrs) {
+    res += `,${attrs}`;
+  }
+  if (bind) {
+    res += `${attrs ? '' : ',null'},${bind}`;
+  }
+  return res + ')'
+}
+
+// componentName is el.component, take it as argument to shun flow's pessimistic refinement
+function genComponent (
+  componentName,
+  el,
+  state
+) {
+  const children = el.inlineTemplate ? null : genChildren(el, state, true);
+  return `_c(${componentName},${genData(el, state)}${
+    children ? `,${children}` : ''
+  })`
+}
+
+function genProps (props) {
+  let staticProps = ``;
+  let dynamicProps = ``;
+  for (let i = 0; i < props.length; i++) {
+    const prop = props[i];
+    const value = transformSpecialNewlines(prop.value);
+    if (prop.dynamic) {
+      dynamicProps += `${prop.name},${value},`;
+    } else {
+      staticProps += `"${prop.name}":${value},`;
+    }
+  }
+  staticProps = `{${staticProps.slice(0, -1)}}`;
+  if (dynamicProps) {
+    return `_d(${staticProps},[${dynamicProps.slice(0, -1)}])`
+  } else {
+    return staticProps
+  }
+}
+
+// #3895, #4268
+function transformSpecialNewlines (text) {
+  return text
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029')
+}
+
+/*  */
+
+
+
+
+const plainStringRE = /^"(?:[^"\\]|\\.)*"$|^'(?:[^'\\]|\\.)*'$/;
+
+// let the model AST transform translate v-model into appropriate
+// props bindings
+function applyModelTransform (el, state) {
+  if (el.directives) {
+    for (let i = 0; i < el.directives.length; i++) {
+      const dir = el.directives[i];
+      if (dir.name === 'model') {
+        state.directives.model(el, dir, state.warn);
+        // remove value for textarea as its converted to text
+        if (el.tag === 'textarea' && el.props) {
+          el.props = el.props.filter(p => p.name !== 'value');
+        }
+        break
+      }
+    }
+  }
+}
+
+function genAttrSegments (
+  attrs
+) {
+  return attrs.map(({ name, value }) => genAttrSegment(name, value))
+}
+
+function genDOMPropSegments (
+  props,
+  attrs
+) {
+  const segments = [];
+  props.forEach(({ name, value }) => {
+    name = propsToAttrMap[name] || name.toLowerCase();
+    if (isRenderableAttr(name) &&
+      !(attrs && attrs.some(a => a.name === name))
+    ) {
+      segments.push(genAttrSegment(name, value));
+    }
+  });
+  return segments
+}
+
+function genAttrSegment (name, value) {
+  if (plainStringRE.test(value)) {
+    // force double quote
+    value = value.replace(/^'|'$/g, '"');
+    // force enumerated attr to "true"
+    if (isEnumeratedAttr(name) && value !== `"false"`) {
+      value = `"true"`;
+    }
+    return {
+      type: RAW,
+      value: isBooleanAttr(name)
+        ? ` ${name}="${name}"`
+        : value === '""'
+          ? ` ${name}`
+          : ` ${name}="${JSON.parse(value)}"`
+    }
+  } else {
+    return {
+      type: EXPRESSION,
+      value: `_ssrAttr(${JSON.stringify(name)},${value})`
+    }
+  }
+}
+
+function genClassSegments (
+  staticClass,
+  classBinding
+) {
+  if (staticClass && !classBinding) {
+    return [{ type: RAW, value: ` class="${JSON.parse(staticClass)}"` }]
+  } else {
+    return [{
+      type: EXPRESSION,
+      value: `_ssrClass(${staticClass || 'null'},${classBinding || 'null'})`
+    }]
+  }
+}
+
+function genStyleSegments (
+  staticStyle,
+  parsedStaticStyle,
+  styleBinding,
+  vShowExpression
+) {
+  if (staticStyle && !styleBinding && !vShowExpression) {
+    return [{ type: RAW, value: ` style=${JSON.stringify(staticStyle)}` }]
+  } else {
+    return [{
+      type: EXPRESSION,
+      value: `_ssrStyle(${
+        parsedStaticStyle || 'null'
+      },${
+        styleBinding || 'null'
+      }, ${
+        vShowExpression
+          ? `{ display: (${vShowExpression}) ? '' : 'none' }`
+          : 'null'
+      })`
+    }]
+  }
+}
+
+/*  */
+
+// optimizability constants
+const optimizability = {
+  FALSE: 0,    // whole sub tree un-optimizable
+  FULL: 1,     // whole sub tree optimizable
+  SELF: 2,     // self optimizable but has some un-optimizable children
+  CHILDREN: 3, // self un-optimizable but have fully optimizable children
+  PARTIAL: 4   // self un-optimizable with some un-optimizable children
+};
+
+let isPlatformReservedTag;
+
+function optimize (root, options) {
+  if (!root) return
+  isPlatformReservedTag = options.isReservedTag || no;
+  walk(root, true);
+}
+
+function walk (node, isRoot) {
+  if (isUnOptimizableTree(node)) {
+    node.ssrOptimizability = optimizability.FALSE;
+    return
+  }
+  // root node or nodes with custom directives should always be a VNode
+  const selfUnoptimizable = isRoot || hasCustomDirective(node);
+  const check = child => {
+    if (child.ssrOptimizability !== optimizability.FULL) {
+      node.ssrOptimizability = selfUnoptimizable
+        ? optimizability.PARTIAL
+        : optimizability.SELF;
+    }
+  };
+  if (selfUnoptimizable) {
+    node.ssrOptimizability = optimizability.CHILDREN;
+  }
+  if (node.type === 1) {
+    for (let i = 0, l = node.children.length; i < l; i++) {
+      const child = node.children[i];
+      walk(child);
+      check(child);
+    }
+    if (node.ifConditions) {
+      for (let i = 1, l = node.ifConditions.length; i < l; i++) {
+        const block = node.ifConditions[i].block;
+        walk(block, isRoot);
+        check(block);
+      }
+    }
+    if (node.ssrOptimizability == null ||
+      (!isRoot && (node.attrsMap['v-html'] || node.attrsMap['v-text']))
+    ) {
+      node.ssrOptimizability = optimizability.FULL;
+    } else {
+      node.children = optimizeSiblings(node);
+    }
+  } else {
+    node.ssrOptimizability = optimizability.FULL;
+  }
+}
+
+function optimizeSiblings (el) {
+  const children = el.children;
+  const optimizedChildren = [];
+
+  let currentOptimizableGroup = [];
+  const pushGroup = () => {
+    if (currentOptimizableGroup.length) {
+      optimizedChildren.push({
+        type: 1,
+        parent: el,
+        tag: 'template',
+        attrsList: [],
+        attrsMap: {},
+        rawAttrsMap: {},
+        children: currentOptimizableGroup,
+        ssrOptimizability: optimizability.FULL
+      });
+    }
+    currentOptimizableGroup = [];
+  };
+
+  for (let i = 0; i < children.length; i++) {
+    const c = children[i];
+    if (c.ssrOptimizability === optimizability.FULL) {
+      currentOptimizableGroup.push(c);
+    } else {
+      // wrap fully-optimizable adjacent siblings inside a template tag
+      // so that they can be optimized into a single ssrNode by codegen
+      pushGroup();
+      optimizedChildren.push(c);
+    }
+  }
+  pushGroup();
+  return optimizedChildren
+}
+
+function isUnOptimizableTree (node) {
+  if (node.type === 2 || node.type === 3) { // text or expression
+    return false
+  }
+  return (
+    isBuiltInTag(node.tag) || // built-in (slot, component)
+    !isPlatformReservedTag(node.tag) || // custom component
+    !!node.component || // "is" component
+    isSelectWithModel(node) // <select v-model> requires runtime inspection
+  )
+}
+
+const isBuiltInDir = makeMap('text,html,show,on,bind,model,pre,cloak,once');
+
+function hasCustomDirective (node) {
+  return (
+    node.type === 1 &&
+    node.directives &&
+    node.directives.some(d => !isBuiltInDir(d.name))
+  )
+}
+
+// <select v-model> cannot be optimized because it requires a runtime check
+// to determine proper selected option
+function isSelectWithModel (node) {
+  return (
+    node.type === 1 &&
+    node.tag === 'select' &&
+    node.directives != null &&
+    node.directives.some(d => d.name === 'model')
+  )
+}
+
+/*  */
+
+
+
+
+// segment types
+const RAW = 0;
+const INTERPOLATION = 1;
+const EXPRESSION = 2;
+
+function generate (
+  ast,
+  options
+) {
+  const state = new CodegenState(options);
+  const code = ast ? genSSRElement(ast, state) : '_c("div")';
+  return {
+    render: `with(this){return ${code}}`,
+    staticRenderFns: state.staticRenderFns
+  }
+}
+
+function genSSRElement (el, state) {
+  if (el.for && !el.forProcessed) {
+    return genFor(el, state, genSSRElement)
+  } else if (el.if && !el.ifProcessed) {
+    return genIf(el, state, genSSRElement)
+  } else if (el.tag === 'template' && !el.slotTarget) {
+    return el.ssrOptimizability === optimizability.FULL
+      ? genChildrenAsStringNode(el, state)
+      : genSSRChildren(el, state) || 'void 0'
+  }
+
+  switch (el.ssrOptimizability) {
+    case optimizability.FULL:
+      // stringify whole tree
+      return genStringElement(el, state)
+    case optimizability.SELF:
+      // stringify self and check children
+      return genStringElementWithChildren(el, state)
+    case optimizability.CHILDREN:
+      // generate self as VNode and stringify children
+      return genNormalElement(el, state, true)
+    case optimizability.PARTIAL:
+      // generate self as VNode and check children
+      return genNormalElement(el, state, false)
+    default:
+      // bail whole tree
+      return genElement(el, state)
+  }
+}
+
+function genNormalElement (el, state, stringifyChildren) {
+  const data = el.plain ? undefined : genData(el, state);
+  const children = stringifyChildren
+    ? `[${genChildrenAsStringNode(el, state)}]`
+    : genSSRChildren(el, state, true);
+  return `_c('${el.tag}'${
+    data ? `,${data}` : ''
+  }${
+    children ? `,${children}` : ''
+  })`
+}
+
+function genSSRChildren (el, state, checkSkip) {
+  return genChildren(el, state, checkSkip, genSSRElement, genSSRNode)
+}
+
+function genSSRNode (el, state) {
+  return el.type === 1
+    ? genSSRElement(el, state)
+    : genText(el)
+}
+
+function genChildrenAsStringNode (el, state) {
+  return el.children.length
+    ? `_ssrNode(${flattenSegments(childrenToSegments(el, state))})`
+    : ''
+}
+
+function genStringElement (el, state) {
+  return `_ssrNode(${elementToString(el, state)})`
+}
+
+function genStringElementWithChildren (el, state) {
+  const children = genSSRChildren(el, state, true);
+  return `_ssrNode(${
+    flattenSegments(elementToOpenTagSegments(el, state))
+  },"</${el.tag}>"${
+    children ? `,${children}` : ''
+  })`
+}
+
+function elementToString (el, state) {
+  return `(${flattenSegments(elementToSegments(el, state))})`
+}
+
+function elementToSegments (el, state) {
+  // v-for / v-if
+  if (el.for && !el.forProcessed) {
+    el.forProcessed = true;
+    return [{
+      type: EXPRESSION,
+      value: genFor(el, state, elementToString, '_ssrList')
+    }]
+  } else if (el.if && !el.ifProcessed) {
+    el.ifProcessed = true;
+    return [{
+      type: EXPRESSION,
+      value: genIf(el, state, elementToString, '"<!---->"')
+    }]
+  } else if (el.tag === 'template') {
+    return childrenToSegments(el, state)
+  }
+
+  const openSegments = elementToOpenTagSegments(el, state);
+  const childrenSegments = childrenToSegments(el, state);
+  const { isUnaryTag } = state.options;
+  const close = (isUnaryTag && isUnaryTag(el.tag))
+    ? []
+    : [{ type: RAW, value: `</${el.tag}>` }];
+  return openSegments.concat(childrenSegments, close)
+}
+
+function elementToOpenTagSegments (el, state) {
+  applyModelTransform(el, state);
+  let binding;
+  const segments = [{ type: RAW, value: `<${el.tag}` }];
+  // attrs
+  if (el.attrs) {
+    segments.push.apply(segments, genAttrSegments(el.attrs));
+  }
+  // domProps
+  if (el.props) {
+    segments.push.apply(segments, genDOMPropSegments(el.props, el.attrs));
+  }
+  // v-bind="object"
+  if ((binding = el.attrsMap['v-bind'])) {
+    segments.push({ type: EXPRESSION, value: `_ssrAttrs(${binding})` });
+  }
+  // v-bind.prop="object"
+  if ((binding = el.attrsMap['v-bind.prop'])) {
+    segments.push({ type: EXPRESSION, value: `_ssrDOMProps(${binding})` });
+  }
+  // class
+  if (el.staticClass || el.classBinding) {
+    segments.push.apply(
+      segments,
+      genClassSegments(el.staticClass, el.classBinding)
+    );
+  }
+  // style & v-show
+  if (el.staticStyle || el.styleBinding || el.attrsMap['v-show']) {
+    segments.push.apply(
+      segments,
+      genStyleSegments(
+        el.attrsMap.style,
+        el.staticStyle,
+        el.styleBinding,
+        el.attrsMap['v-show']
+      )
+    );
+  }
+  // _scopedId
+  if (state.options.scopeId) {
+    segments.push({ type: RAW, value: ` ${state.options.scopeId}` });
+  }
+  segments.push({ type: RAW, value: `>` });
+  return segments
+}
+
+function childrenToSegments (el, state) {
+  let binding;
+  if ((binding = el.attrsMap['v-html'])) {
+    return [{ type: EXPRESSION, value: `_s(${binding})` }]
+  }
+  if ((binding = el.attrsMap['v-text'])) {
+    return [{ type: INTERPOLATION, value: `_s(${binding})` }]
+  }
+  if (el.tag === 'textarea' && (binding = el.attrsMap['v-model'])) {
+    return [{ type: INTERPOLATION, value: `_s(${binding})` }]
+  }
+  return el.children
+    ? nodesToSegments(el.children, state)
+    : []
+}
+
+function nodesToSegments (
+  children,
+  state
+) {
+  const segments = [];
+  for (let i = 0; i < children.length; i++) {
+    const c = children[i];
+    if (c.type === 1) {
+      segments.push.apply(segments, elementToSegments(c, state));
+    } else if (c.type === 2) {
+      segments.push({ type: INTERPOLATION, value: c.expression });
+    } else if (c.type === 3) {
+      let text = escape(c.text);
+      if (c.isComment) {
+        text = '<!--' + text + '-->';
+      }
+      segments.push({ type: RAW, value: text });
+    }
+  }
+  return segments
+}
+
+function flattenSegments (segments) {
+  const mergedSegments = [];
+  let textBuffer = '';
+
+  const pushBuffer = () => {
+    if (textBuffer) {
+      mergedSegments.push(JSON.stringify(textBuffer));
+      textBuffer = '';
+    }
+  };
+
+  for (let i = 0; i < segments.length; i++) {
+    const s = segments[i];
+    if (s.type === RAW) {
+      textBuffer += s.value;
+    } else if (s.type === INTERPOLATION) {
+      pushBuffer();
+      mergedSegments.push(`_ssrEscape(${s.value})`);
+    } else if (s.type === EXPRESSION) {
+      pushBuffer();
+      mergedSegments.push(`(${s.value})`);
+    }
+  }
+  pushBuffer();
+
+  return mergedSegments.join('+')
+}
+
+/*  */
+
+
+
+// these keywords should not appear inside expressions, but operators like
+// typeof, instanceof and in are allowed
+new RegExp('\\b' + (
+  'do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,' +
+  'super,throw,while,yield,delete,export,import,return,switch,default,' +
+  'extends,finally,continue,debugger,function,arguments'
+).split(',').join('\\b|\\b') + '\\b');
+
+// these unary operators should not be used as property/method names
+new RegExp('\\b' + (
+  'delete,typeof,void'
+).split(',').join('\\s*\\([^\\)]*\\)|\\b') + '\\s*\\([^\\)]*\\)');
+
+/*  */
+
+
+
+function createFunction (code, errors) {
+  try {
+    return new Function(code)
+  } catch (err) {
+    errors.push({ err, code });
+    return noop$1
+  }
+}
+
+function createCompileToFunctionFn (compile) {
+  const cache = Object.create(null);
+
+  return function compileToFunctions (
+    template,
+    options,
+    vm
+  ) {
+    options = extend({}, options);
+    options.warn || warn$1;
+    delete options.warn;
+
+    // check cache
+    const key = options.delimiters
+      ? String(options.delimiters) + template
+      : template;
+    if (cache[key]) {
+      return cache[key]
+    }
+
+    // compile
+    const compiled = compile(template, options);
+
+    // turn code into functions
+    const res = {};
+    const fnGenErrors = [];
+    res.render = createFunction(compiled.render, fnGenErrors);
+    res.staticRenderFns = compiled.staticRenderFns.map(code => {
+      return createFunction(code, fnGenErrors)
+    });
+
+    return (cache[key] = res)
+  }
+}
+
+/*  */
+
+function createCompilerCreator (baseCompile) {
+  return function createCompiler (baseOptions) {
+    function compile (
+      template,
+      options
+    ) {
+      const finalOptions = Object.create(baseOptions);
+      const errors = [];
+      const tips = [];
+
+      let warn = (msg, range, tip) => {
+        (tip ? tips : errors).push(msg);
+      };
+
+      if (options) {
+        // merge custom modules
+        if (options.modules) {
+          finalOptions.modules =
+            (baseOptions.modules || []).concat(options.modules);
+        }
+        // merge custom directives
+        if (options.directives) {
+          finalOptions.directives = extend(
+            Object.create(baseOptions.directives || null),
+            options.directives
+          );
+        }
+        // copy other options
+        for (const key in options) {
+          if (key !== 'modules' && key !== 'directives') {
+            finalOptions[key] = options[key];
+          }
+        }
+      }
+
+      finalOptions.warn = warn;
+
+      const compiled = baseCompile(template.trim(), finalOptions);
+      compiled.errors = errors;
+      compiled.tips = tips;
+      return compiled
+    }
+
+    return {
+      compile,
+      compileToFunctions: createCompileToFunctionFn(compile)
+    }
+  }
+}
+
+/*  */
+
+const createCompiler = createCompilerCreator(function baseCompile (
+  template,
+  options
+) {
+  const ast = parse(template.trim(), options);
+  optimize(ast, options);
+  const code = generate(ast, options);
+  return {
+    ast,
+    render: code.render,
+    staticRenderFns: code.staticRenderFns
+  }
+});
+
+/*  */
+
+const { compile: compile$1, compileToFunctions } = createCompiler(baseOptions);
+
+/*  */
+
+// The template compiler attempts to minimize the need for normalization by
+// statically analyzing the template at compile time.
+//
+// For plain HTML markup, normalization can be completely skipped because the
+// generated render function is guaranteed to return Array<VNode>. There are
+// two cases where extra normalization is needed:
+
+// 1. When the children contains components - because a functional component
+// may return an Array instead of a single root. In this case, just a simple
+// normalization is needed - if any child is an Array, we flatten the whole
+// thing with Array.prototype.concat. It is guaranteed to be only 1-level deep
+// because functional components already normalize their own children.
+function simpleNormalizeChildren (children) {
+  for (let i = 0; i < children.length; i++) {
+    if (Array.isArray(children[i])) {
+      return Array.prototype.concat.apply([], children)
+    }
+  }
+  return children
+}
+
+// 2. When the children contains constructs that always generated nested Arrays,
+// e.g. <template>, <slot>, v-for, or when the children is provided by user
+// with hand-written render functions / JSX. In such cases a full normalization
+// is needed to cater to all possible types of children values.
+function normalizeChildren (children) {
+  return isPrimitive(children)
+    ? [createTextVNode(children)]
+    : Array.isArray(children)
+      ? normalizeArrayChildren(children)
+      : undefined
+}
+
+function isTextNode (node) {
+  return isDef(node) && isDef(node.text) && isFalse(node.isComment)
+}
+
+function normalizeArrayChildren (children, nestedIndex) {
+  const res = [];
+  let i, c, lastIndex, last;
+  for (i = 0; i < children.length; i++) {
+    c = children[i];
+    if (isUndef(c) || typeof c === 'boolean') continue
+    lastIndex = res.length - 1;
+    last = res[lastIndex];
+    //  nested
+    if (Array.isArray(c)) {
+      if (c.length > 0) {
+        c = normalizeArrayChildren(c, `${nestedIndex || ''}_${i}`);
+        // merge adjacent text nodes
+        if (isTextNode(c[0]) && isTextNode(last)) {
+          res[lastIndex] = createTextVNode(last.text + (c[0]).text);
+          c.shift();
+        }
+        res.push.apply(res, c);
+      }
+    } else if (isPrimitive(c)) {
+      if (isTextNode(last)) {
+        // merge adjacent text nodes
+        // this is necessary for SSR hydration because text nodes are
+        // essentially merged when rendered to HTML strings
+        res[lastIndex] = createTextVNode(last.text + c);
+      } else if (c !== '') {
+        // convert primitive to vnode
+        res.push(createTextVNode(c));
+      }
+    } else {
+      if (isTextNode(c) && isTextNode(last)) {
+        // merge adjacent text nodes
+        res[lastIndex] = createTextVNode(last.text + c.text);
+      } else {
+        // default key for nested array children (likely generated by v-for)
+        if (isTrue(children._isVList) &&
+          isDef(c.tag) &&
+          isUndef(c.key) &&
+          isDef(nestedIndex)) {
+          c.key = `__vlist${nestedIndex}_${i}__`;
+        }
+        res.push(c);
+      }
+    }
+  }
+  return res
+}
+
+/*  */
+
+const ssrHelpers = {
+  _ssrEscape: escape,
+  _ssrNode: renderStringNode$1,
+  _ssrList: renderStringList,
+  _ssrAttr: renderAttr,
+  _ssrAttrs: renderAttrs,
+  _ssrDOMProps: renderDOMProps,
+  _ssrClass: renderSSRClass,
+  _ssrStyle: renderSSRStyle
+};
+
+// 在 Vue 原型上绑定一些 ssr 专用的方法，可以通过 this 来访问这些方法。
+// 在服务端 template -> render 函数这一步，会使用这些方法。
+function installSSRHelpers (vm) {
+  if (vm._ssrNode) {
+    return
+  }
+  let Vue = vm.constructor;
+  while (Vue.super) {
+    Vue = Vue.super;
+  }
+  extend(Vue.prototype, ssrHelpers);
+  if (Vue.FunctionalRenderContext) {
+    extend(Vue.FunctionalRenderContext.prototype, ssrHelpers);
+  }
+}
+
+class StringNode {
+  
+  
+  
+  
+
+  constructor (
+    open,
+    close,
+    children,
+    normalizationType
+  ) {
+    this.isString = true;
+    this.open = open;
+    this.close = close;
+    if (children) {
+      this.children = normalizationType === 1
+        ? simpleNormalizeChildren(children)
+        : normalizationType === 2
+          ? normalizeChildren(children)
+          : children;
+    } else {
+      this.children = void 0;
+    }
+  }
+}
+
+function renderStringNode$1 (
+  open,
+  close,
+  children,
+  normalizationType
+) {
+  return new StringNode(open, close, children, normalizationType)
+}
+
+function renderStringList (
+  val,
+  render
+) {
+  let ret = '';
+  let i, l, keys, key;
+  if (Array.isArray(val) || typeof val === 'string') {
+    for (i = 0, l = val.length; i < l; i++) {
+      ret += render(val[i], i);
+    }
+  } else if (typeof val === 'number') {
+    for (i = 0; i < val; i++) {
+      ret += render(i + 1, i);
+    }
+  } else if (isObject(val)) {
+    keys = Object.keys(val);
+    for (i = 0, l = keys.length; i < l; i++) {
+      key = keys[i];
+      ret += render(val[key], key, i);
+    }
+  }
+  return ret
+}
+
+function renderAttrs (obj) {
+  let res = '';
+  for (const key in obj) {
+    if (isSSRUnsafeAttr(key)) {
+      continue
+    }
+    res += renderAttr(key, obj[key]);
+  }
+  return res
+}
+
+function renderDOMProps (obj) {
+  let res = '';
+  for (const key in obj) {
+    const attr = propsToAttrMap[key] || key.toLowerCase();
+    if (isRenderableAttr(attr)) {
+      res += renderAttr(attr, obj[key]);
+    }
+  }
+  return res
+}
+
+function renderSSRClass (
+  staticClass,
+  dynamic
+) {
+  const res = renderClass$1(staticClass, dynamic);
+  return res === '' ? res : ` class="${escape(res)}"`
+}
+
+function renderSSRStyle (
+  staticStyle,
+  dynamic,
+  extra
+) {
+  const style = {};
+  if (staticStyle) extend(style, staticStyle);
+  if (dynamic) extend(style, normalizeStyleBinding(dynamic));
+  if (extra) extend(style, extra);
+  const res = genStyle(style);
+  return res === '' ? res : ` style=${JSON.stringify(escape(res))}`
+}
+
+/*  */
+
+const seenObjects = new _Set();
+
+/**
+ * Recursively traverse an object to evoke all converted
+ * getters, so that every nested property inside the object
+ * is collected as a "deep" dependency.
+ */
+function traverse (val) {
+  _traverse(val, seenObjects);
+  seenObjects.clear();
+}
+
+function _traverse (val, seen) {
+  let i, keys;
+  const isA = Array.isArray(val);
+  if ((!isA && !isObject(val)) || Object.isFrozen(val) || val instanceof VNode) {
+    return
+  }
+  if (val.__ob__) {
+    const depId = val.__ob__.dep.id;
+    if (seen.has(depId)) {
+      return
+    }
+    seen.add(depId);
+  }
+  if (isA) {
+    i = val.length;
+    while (i--) _traverse(val[i], seen);
+  } else {
+    keys = Object.keys(val);
+    i = keys.length;
+    while (i--) _traverse(val[keys[i]], seen);
+  }
+}
+
+/*  */
+
+const normalizeEvent = cached((name) => {
+  const passive = name.charAt(0) === '&';
+  name = passive ? name.slice(1) : name;
+  const once = name.charAt(0) === '~'; // Prefixed last, checked first
+  name = once ? name.slice(1) : name;
+  const capture = name.charAt(0) === '!';
+  name = capture ? name.slice(1) : name;
+  return {
+    name,
+    once,
+    capture,
+    passive
+  }
+});
+
+function createFnInvoker (fns, vm) {
+  function invoker () {
+    const fns = invoker.fns;
+    if (Array.isArray(fns)) {
+      const cloned = fns.slice();
+      for (let i = 0; i < cloned.length; i++) {
+        invokeWithErrorHandling(cloned[i], null, arguments, vm, `v-on handler`);
+      }
+    } else {
+      // return handler return value for single handlers
+      return invokeWithErrorHandling(fns, null, arguments, vm, `v-on handler`)
+    }
+  }
+  invoker.fns = fns;
+  return invoker
+}
+
+function updateListeners (
+  on,
+  oldOn,
+  add,
+  remove,
+  createOnceHandler,
+  vm
+) {
+  let name, cur, old, event;
+  for (name in on) {
+    cur = on[name];
+    old = oldOn[name];
+    event = normalizeEvent(name);
+    if (isUndef(cur)) ; else if (isUndef(old)) {
+      if (isUndef(cur.fns)) {
+        cur = on[name] = createFnInvoker(cur, vm);
+      }
+      if (isTrue(event.once)) {
+        cur = on[name] = createOnceHandler(event.name, cur, event.capture);
+      }
+      add(event.name, cur, event.capture, event.passive, event.params);
+    } else if (cur !== old) {
+      old.fns = cur;
+      on[name] = old;
+    }
+  }
+  for (name in oldOn) {
+    if (isUndef(on[name])) {
+      event = normalizeEvent(name);
+      remove(event.name, oldOn[name], event.capture);
+    }
+  }
+}
+
+/*  */
+
+function extractPropsFromVNodeData (
+  data,
+  Ctor,
+  tag
+) {
+  // we are only extracting raw values here.
+  // validation and default values are handled in the child
+  // component itself.
+  const propOptions = Ctor.options.props;
+  if (isUndef(propOptions)) {
+    return
+  }
+  const res = {};
+  const { attrs, props } = data;
+  if (isDef(attrs) || isDef(props)) {
+    for (const key in propOptions) {
+      const altKey = hyphenate(key);
+      checkProp(res, props, key, altKey, true) ||
+      checkProp(res, attrs, key, altKey, false);
+    }
+  }
+  return res
+}
+
+function checkProp (
+  res,
+  hash,
+  key,
+  altKey,
+  preserve
+) {
+  if (isDef(hash)) {
+    if (hasOwn(hash, key)) {
+      res[key] = hash[key];
+      if (!preserve) {
+        delete hash[key];
+      }
+      return true
+    } else if (hasOwn(hash, altKey)) {
+      res[key] = hash[altKey];
+      if (!preserve) {
+        delete hash[altKey];
+      }
+      return true
+    }
+  }
+  return false
+}
+
+/*  */
+
+const SIMPLE_NORMALIZE = 1;
+const ALWAYS_NORMALIZE = 2;
+
+// wrapper function for providing a more flexible interface
+// without getting yelled at by flow
+function createElement (
+  context,
+  tag,
+  data,
+  children,
+  normalizationType,
+  alwaysNormalize
+) {
+  if (Array.isArray(data) || isPrimitive(data)) {
+    normalizationType = children;
+    children = data;
+    data = undefined;
+  }
+  if (isTrue(alwaysNormalize)) {
+    normalizationType = ALWAYS_NORMALIZE;
+  }
+  return _createElement(context, tag, data, children, normalizationType)
+}
+
+function _createElement (
+  context,
+  tag,
+  data,
+  children,
+  normalizationType
+) {
+  if (isDef(data) && isDef((data).__ob__)) {
+    return createEmptyVNode()
+  }
+  // object syntax in v-bind
+  if (isDef(data) && isDef(data.is)) {
+    tag = data.is;
+  }
+  if (!tag) {
+    // in case of component :is set to falsy value
+    return createEmptyVNode()
+  }
+  // support single function children as default scoped slot
+  if (Array.isArray(children) &&
+    typeof children[0] === 'function'
+  ) {
+    data = data || {};
+    data.scopedSlots = { default: children[0] };
+    children.length = 0;
+  }
+  if (normalizationType === ALWAYS_NORMALIZE) {
+    children = normalizeChildren(children);
+  } else if (normalizationType === SIMPLE_NORMALIZE) {
+    children = simpleNormalizeChildren(children);
+  }
+  let vnode, ns;
+  if (typeof tag === 'string') {
+    let Ctor;
+    ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag);
+    if ((!data || !data.pre) && isDef(Ctor = resolveAsset(context.$options, 'components', tag))) {
+      // component
+      vnode = createComponent(Ctor, data, context, children, tag);
+    } else {
+      // unknown or unlisted namespaced elements
+      // check at runtime because it may get assigned a namespace when its
+      // parent normalizes children
+      vnode = new VNode(
+        tag, data, children,
+        undefined, undefined, context
+      );
+    }
+  } else {
+    // direct component options / constructor
+    vnode = createComponent(tag, data, context, children);
+  }
+  if (Array.isArray(vnode)) {
+    return vnode
+  } else if (isDef(vnode)) {
+    if (isDef(ns)) applyNS(vnode, ns);
+    if (isDef(data)) registerDeepBindings(data);
+    return vnode
+  } else {
+    return createEmptyVNode()
+  }
+}
+
+function applyNS (vnode, ns, force) {
+  vnode.ns = ns;
+  if (vnode.tag === 'foreignObject') {
+    // use default namespace inside foreignObject
+    ns = undefined;
+    force = true;
+  }
+  if (isDef(vnode.children)) {
+    for (let i = 0, l = vnode.children.length; i < l; i++) {
+      const child = vnode.children[i];
+      if (isDef(child.tag) && (
+        isUndef(child.ns) || (isTrue(force) && child.tag !== 'svg'))) {
+        applyNS(child, ns, force);
+      }
+    }
+  }
+}
+
+// ref #5318
+// necessary to ensure parent re-render when deep bindings like :style and
+// :class are used on slot nodes
+function registerDeepBindings (data) {
+  if (isObject(data.style)) {
+    traverse(data.style);
+  }
+  if (isObject(data.class)) {
+    traverse(data.class);
+  }
+}
+
+/*  */
+
+/**
+ * Runtime helper for rendering v-for lists.
+ */
+function renderList (
+  val,
+  render
+) {
+  let ret, i, l, keys, key;
+  if (Array.isArray(val) || typeof val === 'string') {
+    ret = new Array(val.length);
+    for (i = 0, l = val.length; i < l; i++) {
+      ret[i] = render(val[i], i);
+    }
+  } else if (typeof val === 'number') {
+    ret = new Array(val);
+    for (i = 0; i < val; i++) {
+      ret[i] = render(i + 1, i);
+    }
+  } else if (isObject(val)) {
+    if (hasSymbol && val[Symbol.iterator]) {
+      ret = [];
+      const iterator = val[Symbol.iterator]();
+      let result = iterator.next();
+      while (!result.done) {
+        ret.push(render(result.value, ret.length));
+        result = iterator.next();
+      }
+    } else {
+      keys = Object.keys(val);
+      ret = new Array(keys.length);
+      for (i = 0, l = keys.length; i < l; i++) {
+        key = keys[i];
+        ret[i] = render(val[key], key, i);
+      }
+    }
+  }
+  if (!isDef(ret)) {
+    ret = [];
+  }
+  (ret)._isVList = true;
+  return ret
+}
+
+/*  */
+
+/**
+ * Runtime helper for rendering <slot>
+ */
+function renderSlot (
+  name,
+  fallbackRender,
+  props,
+  bindObject
+) {
+  const scopedSlotFn = this.$scopedSlots[name];
+  let nodes;
+  if (scopedSlotFn) {
+    // scoped slot
+    props = props || {};
+    if (bindObject) {
+      props = extend(extend({}, bindObject), props);
+    }
+    nodes =
+      scopedSlotFn(props) ||
+      (typeof fallbackRender === 'function' ? fallbackRender() : fallbackRender);
+  } else {
+    nodes =
+      this.$slots[name] ||
+      (typeof fallbackRender === 'function' ? fallbackRender() : fallbackRender);
+  }
+
+  const target = props && props.slot;
+  if (target) {
+    return this.$createElement('template', { slot: target }, nodes)
+  } else {
+    return nodes
+  }
+}
+
+/*  */
+
+/**
+ * Runtime helper for resolving filters
+ */
+function resolveFilter (id) {
+  return resolveAsset(this.$options, 'filters', id) || identity
+}
+
+/*  */
+
+function isKeyNotMatch (expect, actual) {
+  if (Array.isArray(expect)) {
+    return expect.indexOf(actual) === -1
+  } else {
+    return expect !== actual
+  }
+}
+
+/**
+ * Runtime helper for checking keyCodes from config.
+ * exposed as Vue.prototype._k
+ * passing in eventKeyName as last argument separately for backwards compat
+ */
+function checkKeyCodes (
+  eventKeyCode,
+  key,
+  builtInKeyCode,
+  eventKeyName,
+  builtInKeyName
+) {
+  const mappedKeyCode = config.keyCodes[key] || builtInKeyCode;
+  if (builtInKeyName && eventKeyName && !config.keyCodes[key]) {
+    return isKeyNotMatch(builtInKeyName, eventKeyName)
+  } else if (mappedKeyCode) {
+    return isKeyNotMatch(mappedKeyCode, eventKeyCode)
+  } else if (eventKeyName) {
+    return hyphenate(eventKeyName) !== key
+  }
+  return eventKeyCode === undefined
+}
+
+/*  */
+
+/**
+ * Runtime helper for merging v-bind="object" into a VNode's data.
+ */
+function bindObjectProps (
+  data,
+  tag,
+  value,
+  asProp,
+  isSync
+) {
+  if (value) {
+    if (!isObject(value)) ; else {
+      if (Array.isArray(value)) {
+        value = toObject(value);
+      }
+      let hash;
+      for (const key in value) {
+        if (
+          key === 'class' ||
+          key === 'style' ||
+          isReservedAttribute(key)
+        ) {
+          hash = data;
+        } else {
+          const type = data.attrs && data.attrs.type;
+          hash = asProp || config.mustUseProp(tag, type, key)
+            ? data.domProps || (data.domProps = {})
+            : data.attrs || (data.attrs = {});
+        }
+        const camelizedKey = camelize(key);
+        const hyphenatedKey = hyphenate(key);
+        if (!(camelizedKey in hash) && !(hyphenatedKey in hash)) {
+          hash[key] = value[key];
+
+          if (isSync) {
+            const on = data.on || (data.on = {});
+            on[`update:${key}`] = function ($event) {
+              value[key] = $event;
+            };
+          }
+        }
+      }
+    }
+  }
+  return data
+}
+
+/*  */
+
+/**
+ * Runtime helper for rendering static trees.
+ */
+function renderStatic (
+  index,
+  isInFor
+) {
+  const cached = this._staticTrees || (this._staticTrees = []);
+  let tree = cached[index];
+  // if has already-rendered static tree and not inside v-for,
+  // we can reuse the same tree.
+  if (tree && !isInFor) {
+    return tree
+  }
+  // otherwise, render a fresh tree.
+  tree = cached[index] = this.$options.staticRenderFns[index].call(
+    this._renderProxy,
+    null,
+    this // for render fns generated for functional component templates
+  );
+  markStatic(tree, `__static__${index}`, false);
+  return tree
+}
+
+/**
+ * Runtime helper for v-once.
+ * Effectively it means marking the node as static with a unique key.
+ */
+function markOnce (
+  tree,
+  index,
+  key
+) {
+  markStatic(tree, `__once__${index}${key ? `_${key}` : ``}`, true);
+  return tree
+}
+
+function markStatic (
+  tree,
+  key,
+  isOnce
+) {
+  if (Array.isArray(tree)) {
+    for (let i = 0; i < tree.length; i++) {
+      if (tree[i] && typeof tree[i] !== 'string') {
+        markStaticNode(tree[i], `${key}_${i}`, isOnce);
+      }
+    }
+  } else {
+    markStaticNode(tree, key, isOnce);
+  }
+}
+
+function markStaticNode (node, key, isOnce) {
+  node.isStatic = true;
+  node.key = key;
+  node.isOnce = isOnce;
+}
+
+/*  */
+
+function bindObjectListeners (data, value) {
+  if (value) {
+    if (!isPlainObject(value)) ; else {
+      const on = data.on = data.on ? extend({}, data.on) : {};
+      for (const key in value) {
+        const existing = on[key];
+        const ours = value[key];
+        on[key] = existing ? [].concat(existing, ours) : ours;
+      }
+    }
+  }
+  return data
+}
+
+/*  */
+
+function resolveScopedSlots (
+  fns, // see flow/vnode
+  res,
+  // the following are added in 2.6
+  hasDynamicKeys,
+  contentHashKey
+) {
+  res = res || { $stable: !hasDynamicKeys };
+  for (let i = 0; i < fns.length; i++) {
+    const slot = fns[i];
+    if (Array.isArray(slot)) {
+      resolveScopedSlots(slot, res, hasDynamicKeys);
+    } else if (slot) {
+      // marker for reverse proxying v-slot without scope on this.$slots
+      if (slot.proxy) {
+        slot.fn.proxy = true;
+      }
+      res[slot.key] = slot.fn;
+    }
+  }
+  if (contentHashKey) {
+    (res).$key = contentHashKey;
+  }
+  return res
+}
+
+/*  */
+
+function bindDynamicKeys (baseObj, values) {
+  for (let i = 0; i < values.length; i += 2) {
+    const key = values[i];
+    if (typeof key === 'string' && key) {
+      baseObj[values[i]] = values[i + 1];
+    }
+  }
+  return baseObj
+}
+
+// helper to dynamically append modifier runtime markers to event names.
+// ensure only append when value is already string, otherwise it will be cast
+// to string and cause the type check to miss.
+function prependModifier (value, symbol) {
+  return typeof value === 'string' ? symbol + value : value
+}
+
+/*  */
+
+function installRenderHelpers (target) {
+  target._o = markOnce;
+  target._n = toNumber;
+  target._s = toString;
+  target._l = renderList;
+  target._t = renderSlot;
+  target._q = looseEqual;
+  target._i = looseIndexOf;
+  target._m = renderStatic;
+  target._f = resolveFilter;
+  target._k = checkKeyCodes;
+  target._b = bindObjectProps;
+  target._v = createTextVNode;
+  target._e = createEmptyVNode;
+  target._u = resolveScopedSlots;
+  target._g = bindObjectListeners;
+  target._d = bindDynamicKeys;
+  target._p = prependModifier;
+}
+
+/*  */
+
+
+
+/**
+ * Runtime helper for resolving raw children VNodes into a slot object.
+ */
+function resolveSlots (
+  children,
+  context
+) {
+  if (!children || !children.length) {
+    return {}
+  }
+  const slots = {};
+  for (let i = 0, l = children.length; i < l; i++) {
+    const child = children[i];
+    const data = child.data;
+    // remove slot attribute if the node is resolved as a Vue slot node
+    if (data && data.attrs && data.attrs.slot) {
+      delete data.attrs.slot;
+    }
+    // named slots should only be respected if the vnode was rendered in the
+    // same context.
+    if ((child.context === context || child.fnContext === context) &&
+      data && data.slot != null
+    ) {
+      const name = data.slot;
+      const slot = (slots[name] || (slots[name] = []));
+      if (child.tag === 'template') {
+        slot.push.apply(slot, child.children || []);
+      } else {
+        slot.push(child);
+      }
+    } else {
+      (slots.default || (slots.default = [])).push(child);
+    }
+  }
+  // ignore slots that contains only whitespace
+  for (const name in slots) {
+    if (slots[name].every(isWhitespace)) {
+      delete slots[name];
+    }
+  }
+  return slots
+}
+
+function isWhitespace (node) {
+  return (node.isComment && !node.asyncFactory) || node.text === ' '
+}
+
+/*  */
+
+function isAsyncPlaceholder (node) {
+  return node.isComment && node.asyncFactory
+}
+
+/*  */
+
+function normalizeScopedSlots (
+  slots,
+  normalSlots,
+  prevSlots
+) {
+  let res;
+  const hasNormalSlots = Object.keys(normalSlots).length > 0;
+  const isStable = slots ? !!slots.$stable : !hasNormalSlots;
+  const key = slots && slots.$key;
+  if (!slots) {
+    res = {};
+  } else if (slots._normalized) {
+    // fast path 1: child component re-render only, parent did not change
+    return slots._normalized
+  } else if (
+    isStable &&
+    prevSlots &&
+    prevSlots !== emptyObject &&
+    key === prevSlots.$key &&
+    !hasNormalSlots &&
+    !prevSlots.$hasNormal
+  ) {
+    // fast path 2: stable scoped slots w/ no normal slots to proxy,
+    // only need to normalize once
+    return prevSlots
+  } else {
+    res = {};
+    for (const key in slots) {
+      if (slots[key] && key[0] !== '$') {
+        res[key] = normalizeScopedSlot(normalSlots, key, slots[key]);
+      }
+    }
+  }
+  // expose normal slots on scopedSlots
+  for (const key in normalSlots) {
+    if (!(key in res)) {
+      res[key] = proxyNormalSlot(normalSlots, key);
+    }
+  }
+  // avoriaz seems to mock a non-extensible $scopedSlots object
+  // and when that is passed down this would cause an error
+  if (slots && Object.isExtensible(slots)) {
+    (slots)._normalized = res;
+  }
+  def(res, '$stable', isStable);
+  def(res, '$key', key);
+  def(res, '$hasNormal', hasNormalSlots);
+  return res
+}
+
+function normalizeScopedSlot(normalSlots, key, fn) {
+  const normalized = function () {
+    let res = arguments.length ? fn.apply(null, arguments) : fn({});
+    res = res && typeof res === 'object' && !Array.isArray(res)
+      ? [res] // single vnode
+      : normalizeChildren(res);
+    let vnode = res && res[0];
+    return res && (
+      !vnode ||
+      (res.length === 1 && vnode.isComment && !isAsyncPlaceholder(vnode)) // #9658, #10391
+    ) ? undefined
+      : res
+  };
+  // this is a slot using the new v-slot syntax without scope. although it is
+  // compiled as a scoped slot, render fn users would expect it to be present
+  // on this.$slots because the usage is semantically a normal slot.
+  if (fn.proxy) {
+    Object.defineProperty(normalSlots, key, {
+      get: normalized,
+      enumerable: true,
+      configurable: true
+    });
+  }
+  return normalized
+}
+
+function proxyNormalSlot(slots, key) {
+  return () => slots[key]
+}
+
+/*  */
+
+function createAsyncPlaceholder (
+  factory,
+  data,
+  context,
+  children,
+  tag
+) {
+  const node = createEmptyVNode();
+  node.asyncFactory = factory;
+  node.asyncMeta = { data, context, children, tag };
+  return node
+}
+
+function resolveAsyncComponent (
+  factory,
+  baseCtor
+) {
+  if (isTrue(factory.error) && isDef(factory.errorComp)) {
+    return factory.errorComp
+  }
+
+  if (isDef(factory.resolved)) {
+    return factory.resolved
+  }
+
+  if (isTrue(factory.loading) && isDef(factory.loadingComp)) {
+    return factory.loadingComp
+  }
+}
+
+/*  */
+
+let target;
+
+function add$1 (event, fn) {
+  target.$on(event, fn);
+}
+
+function remove (event, fn) {
+  target.$off(event, fn);
+}
+
+function createOnceHandler (event, fn) {
+  const _target = target;
+  return function onceHandler () {
+    const res = fn.apply(null, arguments);
+    if (res !== null) {
+      _target.$off(event, onceHandler);
+    }
+  }
+}
+
+function updateComponentListeners (
+  vm,
+  listeners,
+  oldListeners
+) {
+  target = vm;
+  updateListeners(listeners, oldListeners || {}, add$1, remove, createOnceHandler, vm);
+  target = undefined;
+}
+
+/*  */
+
+let activeInstance = null;
+
+function updateChildComponent (
+  vm,
+  propsData,
+  listeners,
+  parentVnode,
+  renderChildren
+) {
+
+  // determine whether component has slot children
+  // we need to do this before overwriting $options._renderChildren.
+
+  // check if there are dynamic scopedSlots (hand-written or compiled but with
+  // dynamic slot names). Static scoped slots compiled from template has the
+  // "$stable" marker.
+  const newScopedSlots = parentVnode.data.scopedSlots;
+  const oldScopedSlots = vm.$scopedSlots;
+  const hasDynamicScopedSlot = !!(
+    (newScopedSlots && !newScopedSlots.$stable) ||
+    (oldScopedSlots !== emptyObject && !oldScopedSlots.$stable) ||
+    (newScopedSlots && vm.$scopedSlots.$key !== newScopedSlots.$key) ||
+    (!newScopedSlots && vm.$scopedSlots.$key)
+  );
+
+  // Any static slot children from the parent may have changed during parent's
+  // update. Dynamic scoped slots may also have changed. In such cases, a forced
+  // update is necessary to ensure correctness.
+  const needsForceUpdate = !!(
+    renderChildren ||               // has new static slots
+    vm.$options._renderChildren ||  // has old static slots
+    hasDynamicScopedSlot
+  );
+
+  vm.$options._parentVnode = parentVnode;
+  vm.$vnode = parentVnode; // update vm's placeholder node without re-render
+
+  if (vm._vnode) { // update child tree's parent
+    vm._vnode.parent = parentVnode;
+  }
+  vm.$options._renderChildren = renderChildren;
+
+  // update $attrs and $listeners hash
+  // these are also reactive so they may trigger child update if the child
+  // used them during render
+  vm.$attrs = parentVnode.data.attrs || emptyObject;
+  vm.$listeners = listeners || emptyObject;
+
+  // update props
+  if (propsData && vm.$options.props) {
+    toggleObserving(false);
+    const props = vm._props;
+    const propKeys = vm.$options._propKeys || [];
+    for (let i = 0; i < propKeys.length; i++) {
+      const key = propKeys[i];
+      const propOptions = vm.$options.props; // wtf flow?
+      props[key] = validateProp(key, propOptions, propsData, vm);
+    }
+    toggleObserving(true);
+    // keep a copy of raw propsData
+    vm.$options.propsData = propsData;
+  }
+
+  // update listeners
+  listeners = listeners || emptyObject;
+  const oldListeners = vm.$options._parentListeners;
+  vm.$options._parentListeners = listeners;
+  updateComponentListeners(vm, listeners, oldListeners);
+
+  // resolve slots + force update if has children
+  if (needsForceUpdate) {
+    vm.$slots = resolveSlots(renderChildren, parentVnode.context);
+    vm.$forceUpdate();
+  }
+}
+
+function isInInactiveTree (vm) {
+  while (vm && (vm = vm.$parent)) {
+    if (vm._inactive) return true
+  }
+  return false
+}
+
+function activateChildComponent (vm, direct) {
+  if (direct) {
+    vm._directInactive = false;
+    if (isInInactiveTree(vm)) {
+      return
+    }
+  } else if (vm._directInactive) {
+    return
+  }
+  if (vm._inactive || vm._inactive === null) {
+    vm._inactive = false;
+    for (let i = 0; i < vm.$children.length; i++) {
+      activateChildComponent(vm.$children[i]);
+    }
+    callHook(vm, 'activated');
+  }
+}
+
+function deactivateChildComponent (vm, direct) {
+  if (direct) {
+    vm._directInactive = true;
+    if (isInInactiveTree(vm)) {
+      return
+    }
+  }
+  if (!vm._inactive) {
+    vm._inactive = true;
+    for (let i = 0; i < vm.$children.length; i++) {
+      deactivateChildComponent(vm.$children[i]);
+    }
+    callHook(vm, 'deactivated');
+  }
+}
+
+function callHook (vm, hook) {
+  // #7573 disable dep collection when invoking lifecycle hooks
+  pushTarget();
+  const handlers = vm.$options[hook];
+  const info = `${hook} hook`;
+  if (handlers) {
+    for (let i = 0, j = handlers.length; i < j; i++) {
+      invokeWithErrorHandling(handlers[i], vm, null, vm, info);
+    }
+  }
+  if (vm._hasHookEvent) {
+    vm.$emit('hook:' + hook);
+  }
+  popTarget();
+}
+
+/*  */
+
+// Async edge case fix requires storing an event listener's attach timestamp.
+let getNow = Date.now;
+
+// Determine what event timestamp the browser is using. Annoyingly, the
+// timestamp can either be hi-res (relative to page load) or low-res
+// (relative to UNIX epoch), so in order to compare time we have to use the
+// same timestamp type when saving the flush timestamp.
+// All IE versions use low-res event timestamps, and have problematic clock
+// implementations (#9632)
+if (inBrowser && !isIE) {
+  const performance = window.performance;
+  if (
+    performance &&
+    typeof performance.now === 'function' &&
+    getNow() > document.createEvent('Event').timeStamp
+  ) {
+    // if the event timestamp, although evaluated AFTER the Date.now(), is
+    // smaller than it, it means the event is using a hi-res timestamp,
+    // and we need to use the hi-res version for event listener timestamps as
+    // well.
+    getNow = () => performance.now();
+  }
+}
+
+/**
+ * Queue a kept-alive component that was activated during patch.
+ * The queue will be processed after the entire tree has been patched.
+ */
+function queueActivatedComponent (vm) {
+  // setting _inactive to false here so that a render function can
+  // rely on checking whether it's in an inactive tree (e.g. router-view)
+  vm._inactive = false;
+}
+
+/*  */
+
+function resolveInject (inject, vm) {
+  if (inject) {
+    // inject is :any because flow is not smart enough to figure out cached
+    const result = Object.create(null);
+    const keys = hasSymbol
+      ? Reflect.ownKeys(inject)
+      : Object.keys(inject);
+
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      // #6574 in case the inject object is observed...
+      if (key === '__ob__') continue
+      const provideKey = inject[key].from;
+      let source = vm;
+      while (source) {
+        if (source._provided && hasOwn(source._provided, provideKey)) {
+          result[key] = source._provided[provideKey];
+          break
+        }
+        source = source.$parent;
+      }
+      if (!source) {
+        if ('default' in inject[key]) {
+          const provideDefault = inject[key].default;
+          result[key] = typeof provideDefault === 'function'
+            ? provideDefault.call(vm)
+            : provideDefault;
+        }
+      }
+    }
+    return result
+  }
+}
+
+/*  */
+
+function resolveConstructorOptions (Ctor) {
+  let options = Ctor.options;
+  if (Ctor.super) {
+    const superOptions = resolveConstructorOptions(Ctor.super);
+    const cachedSuperOptions = Ctor.superOptions;
+    if (superOptions !== cachedSuperOptions) {
+      // super option changed,
+      // need to resolve new options.
+      Ctor.superOptions = superOptions;
+      // check if there are any late-modified/attached options (#4976)
+      const modifiedOptions = resolveModifiedOptions(Ctor);
+      // update base extend options
+      if (modifiedOptions) {
+        extend(Ctor.extendOptions, modifiedOptions);
+      }
+      options = Ctor.options = mergeOptions(superOptions, Ctor.extendOptions);
+      if (options.name) {
+        options.components[options.name] = Ctor;
+      }
+    }
+  }
+  return options
+}
+
+function resolveModifiedOptions (Ctor) {
+  let modified;
+  const latest = Ctor.options;
+  const sealed = Ctor.sealedOptions;
+  for (const key in latest) {
+    if (latest[key] !== sealed[key]) {
+      if (!modified) modified = {};
+      modified[key] = latest[key];
+    }
+  }
+  return modified
+}
+
+/*  */
+
+function FunctionalRenderContext (
+  data,
+  props,
+  children,
+  parent,
+  Ctor
+) {
+  const options = Ctor.options;
+  // ensure the createElement function in functional components
+  // gets a unique context - this is necessary for correct named slot check
+  let contextVm;
+  if (hasOwn(parent, '_uid')) {
+    contextVm = Object.create(parent);
+    // $flow-disable-line
+    contextVm._original = parent;
+  } else {
+    // the context vm passed in is a functional context as well.
+    // in this case we want to make sure we are able to get a hold to the
+    // real context instance.
+    contextVm = parent;
+    // $flow-disable-line
+    parent = parent._original;
+  }
+  const isCompiled = isTrue(options._compiled);
+  const needNormalization = !isCompiled;
+
+  this.data = data;
+  this.props = props;
+  this.children = children;
+  this.parent = parent;
+  this.listeners = data.on || emptyObject;
+  this.injections = resolveInject(options.inject, parent);
+  this.slots = () => {
+    if (!this.$slots) {
+      normalizeScopedSlots(
+        data.scopedSlots,
+        this.$slots = resolveSlots(children, parent)
+      );
+    }
+    return this.$slots
+  };
+
+  Object.defineProperty(this, 'scopedSlots', ({
+    enumerable: true,
+    get () {
+      return normalizeScopedSlots(data.scopedSlots, this.slots())
+    }
+  }));
+
+  // support for compiled functional template
+  if (isCompiled) {
+    // exposing $options for renderStatic()
+    this.$options = options;
+    // pre-resolve slots for renderSlot()
+    this.$slots = this.slots();
+    this.$scopedSlots = normalizeScopedSlots(data.scopedSlots, this.$slots);
+  }
+
+  if (options._scopeId) {
+    this._c = (a, b, c, d) => {
+      const vnode = createElement(contextVm, a, b, c, d, needNormalization);
+      if (vnode && !Array.isArray(vnode)) {
+        vnode.fnScopeId = options._scopeId;
+        vnode.fnContext = parent;
+      }
+      return vnode
+    };
+  } else {
+    this._c = (a, b, c, d) => createElement(contextVm, a, b, c, d, needNormalization);
+  }
+}
+
+installRenderHelpers(FunctionalRenderContext.prototype);
+
+function createFunctionalComponent (
+  Ctor,
+  propsData,
+  data,
+  contextVm,
+  children
+) {
+  const options = Ctor.options;
+  const props = {};
+  const propOptions = options.props;
+  if (isDef(propOptions)) {
+    for (const key in propOptions) {
+      props[key] = validateProp(key, propOptions, propsData || emptyObject);
+    }
+  } else {
+    if (isDef(data.attrs)) mergeProps(props, data.attrs);
+    if (isDef(data.props)) mergeProps(props, data.props);
+  }
+
+  const renderContext = new FunctionalRenderContext(
+    data,
+    props,
+    children,
+    contextVm,
+    Ctor
+  );
+
+  const vnode = options.render.call(null, renderContext._c, renderContext);
+
+  if (vnode instanceof VNode) {
+    return cloneAndMarkFunctionalResult(vnode, data, renderContext.parent, options)
+  } else if (Array.isArray(vnode)) {
+    const vnodes = normalizeChildren(vnode) || [];
+    const res = new Array(vnodes.length);
+    for (let i = 0; i < vnodes.length; i++) {
+      res[i] = cloneAndMarkFunctionalResult(vnodes[i], data, renderContext.parent, options);
+    }
+    return res
+  }
+}
+
+function cloneAndMarkFunctionalResult (vnode, data, contextVm, options, renderContext) {
+  // #7817 clone node before setting fnContext, otherwise if the node is reused
+  // (e.g. it was from a cached normal slot) the fnContext causes named slots
+  // that should not be matched to match.
+  const clone = cloneVNode(vnode);
+  clone.fnContext = contextVm;
+  clone.fnOptions = options;
+  if (data.slot) {
+    (clone.data || (clone.data = {})).slot = data.slot;
+  }
+  return clone
+}
+
+function mergeProps (to, from) {
+  for (const key in from) {
+    to[camelize(key)] = from[key];
+  }
+}
+
+/*  */
+
+// inline hooks to be invoked on component VNodes during patch
+const componentVNodeHooks = {
+  init (vnode, hydrating) {
+    if (
+      vnode.componentInstance &&
+      !vnode.componentInstance._isDestroyed &&
+      vnode.data.keepAlive
+    ) {
+      // kept-alive components, treat as a patch
+      const mountedNode = vnode; // work around flow
+      componentVNodeHooks.prepatch(mountedNode, mountedNode);
+    } else {
+      const child = vnode.componentInstance = createComponentInstanceForVnode(
+        vnode,
+        activeInstance
+      );
+      child.$mount(hydrating ? vnode.elm : undefined, hydrating);
+    }
+  },
+
+  prepatch (oldVnode, vnode) {
+    const options = vnode.componentOptions;
+    const child = vnode.componentInstance = oldVnode.componentInstance;
+    updateChildComponent(
+      child,
+      options.propsData, // updated props
+      options.listeners, // updated listeners
+      vnode, // new parent vnode
+      options.children // new children
+    );
+  },
+
+  insert (vnode) {
+    const { context, componentInstance } = vnode;
+    if (!componentInstance._isMounted) {
+      componentInstance._isMounted = true;
+      callHook(componentInstance, 'mounted');
+    }
+    if (vnode.data.keepAlive) {
+      if (context._isMounted) {
+        // vue-router#1212
+        // During updates, a kept-alive component's child components may
+        // change, so directly walking the tree here may call activated hooks
+        // on incorrect children. Instead we push them into a queue which will
+        // be processed after the whole patch process ended.
+        queueActivatedComponent(componentInstance);
+      } else {
+        activateChildComponent(componentInstance, true /* direct */);
+      }
+    }
+  },
+
+  destroy (vnode) {
+    const { componentInstance } = vnode;
+    if (!componentInstance._isDestroyed) {
+      if (!vnode.data.keepAlive) {
+        componentInstance.$destroy();
+      } else {
+        deactivateChildComponent(componentInstance, true /* direct */);
+      }
+    }
+  }
+};
+
+const hooksToMerge = Object.keys(componentVNodeHooks);
+
+function createComponent (
+  Ctor,
+  data,
+  context,
+  children,
+  tag
+) {
+  if (isUndef(Ctor)) {
+    return
+  }
+
+  const baseCtor = context.$options._base;
+
+  // plain options object: turn it into a constructor
+  if (isObject(Ctor)) {
+    Ctor = baseCtor.extend(Ctor);
+  }
+
+  // if at this stage it's not a constructor or an async component factory,
+  // reject.
+  if (typeof Ctor !== 'function') {
+    return
+  }
+
+  // async component
+  let asyncFactory;
+  if (isUndef(Ctor.cid)) {
+    asyncFactory = Ctor;
+    Ctor = resolveAsyncComponent(asyncFactory);
+    if (Ctor === undefined) {
+      // return a placeholder node for async component, which is rendered
+      // as a comment node but preserves all the raw information for the node.
+      // the information will be used for async server-rendering and hydration.
+      return createAsyncPlaceholder(
+        asyncFactory,
+        data,
+        context,
+        children,
+        tag
+      )
+    }
+  }
+
+  data = data || {};
+
+  // resolve constructor options in case global mixins are applied after
+  // component constructor creation
+  resolveConstructorOptions(Ctor);
+
+  // transform component v-model data into props & events
+  if (isDef(data.model)) {
+    transformModel(Ctor.options, data);
+  }
+
+  // extract props
+  const propsData = extractPropsFromVNodeData(data, Ctor);
+
+  // functional component
+  if (isTrue(Ctor.options.functional)) {
+    return createFunctionalComponent(Ctor, propsData, data, context, children)
+  }
+
+  // extract listeners, since these needs to be treated as
+  // child component listeners instead of DOM listeners
+  const listeners = data.on;
+  // replace with listeners with .native modifier
+  // so it gets processed during parent component patch.
+  data.on = data.nativeOn;
+
+  if (isTrue(Ctor.options.abstract)) {
+    // abstract components do not keep anything
+    // other than props & listeners & slot
+
+    // work around flow
+    const slot = data.slot;
+    data = {};
+    if (slot) {
+      data.slot = slot;
+    }
+  }
+
+  // install component management hooks onto the placeholder node
+  installComponentHooks(data);
+
+  // return a placeholder vnode
+  const name = Ctor.options.name || tag;
+  const vnode = new VNode(
+    `vue-component-${Ctor.cid}${name ? `-${name}` : ''}`,
+    data, undefined, undefined, undefined, context,
+    { Ctor, propsData, listeners, tag, children },
+    asyncFactory
+  );
+
+  return vnode
+}
+
+function createComponentInstanceForVnode (
+  // we know it's MountedComponentVNode but flow doesn't
+  vnode,
+  // activeInstance in lifecycle state
+  parent
+) {
+  const options = {
+    _isComponent: true,
+    _parentVnode: vnode,
+    parent
+  };
+  // check inline-template render functions
+  const inlineTemplate = vnode.data.inlineTemplate;
+  if (isDef(inlineTemplate)) {
+    options.render = inlineTemplate.render;
+    options.staticRenderFns = inlineTemplate.staticRenderFns;
+  }
+  return new vnode.componentOptions.Ctor(options)
+}
+
+function installComponentHooks (data) {
+  const hooks = data.hook || (data.hook = {});
+  for (let i = 0; i < hooksToMerge.length; i++) {
+    const key = hooksToMerge[i];
+    const existing = hooks[key];
+    const toMerge = componentVNodeHooks[key];
+    if (existing !== toMerge && !(existing && existing._merged)) {
+      hooks[key] = existing ? mergeHook(toMerge, existing) : toMerge;
+    }
+  }
+}
+
+function mergeHook (f1, f2) {
+  const merged = (a, b) => {
+    // flow complains about extra args which is why we use any
+    f1(a, b);
+    f2(a, b);
+  };
+  merged._merged = true;
+  return merged
+}
+
+// transform component v-model info (value and callback) into
+// prop and event handler respectively.
+function transformModel (options, data) {
+  const prop = (options.model && options.model.prop) || 'value';
+  const event = (options.model && options.model.event) || 'input'
+  ;(data.attrs || (data.attrs = {}))[prop] = data.model.value;
+  const on = data.on || (data.on = {});
+  const existing = on[event];
+  const callback = data.model.callback;
+  if (isDef(existing)) {
+    if (
+      Array.isArray(existing)
+        ? existing.indexOf(callback) === -1
+        : existing !== callback
+    ) {
+      on[event] = [callback].concat(existing);
+    }
+  } else {
+    on[event] = callback;
+  }
+}
+
+/*  */
+
+let warned = Object.create(null);
+const warnOnce = msg => {
+  if (!warned[msg]) {
+    warned[msg] = true;
+    // eslint-disable-next-line no-console
+    console.warn(`\n\u001b[31m${msg}\u001b[39m\n`);
+  }
+};
+
+const onCompilationError = (err, vm) => {
+  const trace = vm ? generateComponentTrace() : '';
+  throw new Error(`\n\u001b[31m${err}${trace}\u001b[39m\n`)
+};
+
+const normalizeRender = vm => {
+  const { render, template, _scopeId } = vm.$options;
+  if (isUndef(render)) {
+    if (template) {
+      const compiled = compileToFunctions(template, {
+        scopeId: _scopeId,
+        warn: onCompilationError
+      }, vm);
+
+      vm.$options.render = compiled.render;
+      vm.$options.staticRenderFns = compiled.staticRenderFns;
+    } else {
+      throw new Error(
+        `render function or template not defined in component: ${
+          vm.$options.name || vm.$options._componentTag || 'anonymous'
+        }`
+      )
+    }
+  }
+};
+
+function waitForServerPrefetch (vm, resolve, reject) {
+  let handlers = vm.$options.serverPrefetch;
+  /**
+   * 如果 serverPrefetch 报错，则会调用两次 done，renderer.renderToString() 的回调会被调用两次。
+   * 第一次会给回调传入这里的 try catch 语句 或者 promise catch 捕获的错误，和空的 html 字符串。
+   * 第二次会给回调传空的 error 对象，和没有无网络请求下的渲染结果。
+   */
+  if (isDef(handlers)) {
+    if (!Array.isArray(handlers)) handlers = [handlers];
+    try {
+      const promises = [];
+      for (let i = 0, j = handlers.length; i < j; i++) {
+        // 由于这里 .call 传入的 this 是 vm，所以 vm 中的 serverPrefetch 函数,
+        // 是可以通过 this 访问 vm 对象的。获取到数据后，赋值给 this 上的 data。
+        const result = handlers[i].call(vm, vm);
+        if (result && typeof result.then === 'function') {
+          promises.push(result);
+        }
+      }
+      Promise.all(promises).then(resolve).catch(reject);
+      return
+    } catch (e) {
+      reject(e);
+    }
+  }
+  resolve();
+}
+
+function renderNode (node, isRoot, context) {
+  // 字符串节点
+  if (node.isString) {
+    renderStringNode(node, context);
+  } 
+  // vue 组件节点
+  else if (isDef(node.componentOptions)) {
+    renderComponent(node, isRoot, context);
+  } 
+  // html 标签
+  else if (isDef(node.tag)) {
+    renderElement(node, isRoot, context);
+  } 
+  // 注释节点
+  else if (isTrue(node.isComment)) {
+    // 注释节点有可能是一个异步组件
+    if (isDef(node.asyncFactory)) {
+      // 处理异步组件
+      renderAsyncComponent(node, isRoot, context);
+    } else {
+      // 如果不是异步组件，那么就写入注释。
+      context.write(`<!--${node.text}-->`, context.next);
+    }
+  } 
+  // 如果以上节点类型都没有命中，那么就将 text 写入。
+  else {
+    context.write(
+      node.raw ? node.text : escape(String(node.text)),
+      context.next
+    );
+  }
+}
+
+function registerComponentForCache (options, write) {
+  // exposed by vue-loader, need to call this if cache hit because
+  // component lifecycle hooks will not be called.
+  const register = options._ssrRegister;
+  if (write.caching && isDef(register)) {
+    write.componentBuffer[write.componentBuffer.length - 1].add(register);
+  }
+  return register
+}
+
+function renderComponent (node, isRoot, context) {
+  const { write, next, userContext } = context;
+
+  // check cache hit
+  const Ctor = node.componentOptions.Ctor;
+  const getKey = Ctor.options.serverCacheKey;
+  const name = Ctor.options.name;
+  const cache = context.cache;
+  const registerComponent = registerComponentForCache(Ctor.options, write);
+
+  // 如果组件有定义 serverCacheKey，且有 name 属性，那么走组件缓存逻辑。
+  if (isDef(getKey) && isDef(cache) && isDef(name)) {
+    const rawKey = getKey(node.componentOptions.propsData);
+    // 如果 serverCacheKey 的返回值是 false，那么不走缓存逻辑。
+    if (rawKey === false) {
+      renderComponentInner(node, isRoot, context);
+      return
+    }
+    // 将 serverCacheKey 的返回值与 name 拼在一起。
+    // 这也是为什么 vue 强制要求，想要缓存，必须要提供 name 属性的原因。
+    // 为了隔离不同的组件的cache。
+    const key = name + '::' + rawKey;
+    const { has, get } = context;
+    // 兼容 cache 对象没有提供 has 的情况
+    if (isDef(has)) {
+      has(key, hit => {
+        // 如果命中了缓存，则直接写入缓存值。
+        if (hit === true && isDef(get)) {
+          get(key, res => {
+            if (isDef(registerComponent)) {
+              registerComponent(userContext);
+            }
+            res.components.forEach(register => register(userContext));
+            write(res.html, next);
+          });
+        } else {
+          // 如果没有命中缓存，则渲染组件，并设置缓存。
+          renderComponentWithCache(node, isRoot, key, context);
+        }
+      });
+    } else if (isDef(get)) {
+      // 逻辑与上一个 if 分支相同。
+      get(key, res => {
+        if (isDef(res)) {
+          if (isDef(registerComponent)) {
+            registerComponent(userContext);
+          }
+          res.components.forEach(register => register(userContext));
+          write(res.html, next);
+        } else {
+          renderComponentWithCache(node, isRoot, key, context);
+        }
+      });
+    }
+  } else {
+    // 如果组件有定义 serverCacheKey，但是没有 name 属性或者 cache 的实现，
+    // 那么发出一个警告，然后跳过缓存逻辑，像普通组件一样渲染。
+    if (isDef(getKey) && isUndef(cache)) {
+      warnOnce(
+        `[vue-server-renderer] Component ${
+          Ctor.options.name || '(anonymous)'
+        } implemented serverCacheKey, ` +
+        'but no cache was provided to the renderer.'
+      );
+    }
+    if (isDef(getKey) && isUndef(name)) {
+      warnOnce(
+        `[vue-server-renderer] Components that implement "serverCacheKey" ` +
+        `must also define a unique "name" option.`
+      );
+    }
+    renderComponentInner(node, isRoot, context);
+  }
+}
+
+function renderComponentWithCache (node, isRoot, key, context) {
+  const write = context.write;
+  // 将 caching flag 置为 true，意味着接下来的 render 结果都是需要缓存的。
+  write.caching = true;
+  const buffer = write.cacheBuffer;
+  // 记录这个组件的缓存，在 cacheBuffer 的 index，方便后续读取对应缓存。
+  const bufferIndex = buffer.push('') - 1;
+  const componentBuffer = write.componentBuffer;
+  componentBuffer.push(new Set());
+  context.renderStates.push({
+    type: 'ComponentWithCache',
+    key,
+    buffer,
+    bufferIndex,
+    componentBuffer
+  });
+  renderComponentInner(node, isRoot, context);
+}
+
+function renderComponentInner (node, isRoot, context) {
+  // 把前一个活跃组件存起来，这样在这个组件 render 完成后，
+  // 可以将 activeInstance 重置为 prevActive。
+  const prevActive = context.activeInstance;
+  // expose userContext on vnode
+  node.ssrContext = context.userContext;
+  const child = context.activeInstance = createComponentInstanceForVnode(
+    node,
+    // 这是 child 变量中的 parent 值
+    context.activeInstance
+  );
+
+  // 抹平 template 与 render 函数的差异
+  normalizeRender(child);
+
+  const resolve = () => {
+    const childNode = child._render();
+    childNode.parent = node;
+    context.renderStates.push({
+      type: 'Component',
+      prevActive
+    });
+    renderNode(childNode, isRoot, context);
+  };
+
+  const reject = context.done;
+
+  waitForServerPrefetch(child, resolve, reject);
+}
+
+function renderAsyncComponent (node, isRoot, context) {
+  const factory = node.asyncFactory;
+
+  // 在 factory 构造结束后的逻辑
+  const resolve = comp => {
+    if (comp.__esModule && comp.default) {
+      comp = comp.default;
+    }
+    const { data, children, tag } = node.asyncMeta;
+    const nodeContext = node.asyncMeta.context;
+    const resolvedNode = createComponent(
+      comp,
+      data,
+      nodeContext,
+      children,
+      tag
+    );
+    if (resolvedNode) {
+      if (resolvedNode.componentOptions) {
+        // 如果是组件，走组件 render 逻辑
+        renderComponent(resolvedNode, isRoot, context);
+      } else if (!Array.isArray(resolvedNode)) {
+        // single return node from functional component
+        renderNode(resolvedNode, isRoot, context);
+      } else {
+        // multiple return nodes from functional component
+        // 如果是一个数组，那么就入栈
+        context.renderStates.push({
+          type: 'Fragment',
+          children: resolvedNode,
+          rendered: 0,
+          total: resolvedNode.length
+        });
+        // 然后继续渲染它的 children
+        context.next();
+      }
+    } else {
+      // 如果是无效的组件，那么写一个空的注释，然后继续渲染下一个组件。
+      context.write(`<!---->`, context.next);
+    }
+  };
+
+  if (factory.resolved) {
+    resolve(factory.resolved);
+    return
+  }
+
+  const reject = context.done;
+  // 调用 factory 函数来产生一个 vue 组件，然后调用 resolve 函数。
+  let res;
+  try {
+    res = factory(resolve, reject);
+  } catch (e) {
+    reject(e);
+  }
+  if (res) {
+    if (typeof res.then === 'function') {
+      res.then(resolve, reject).catch(reject);
+    } else {
+      // new syntax in 2.3
+      const comp = res.component;
+      if (comp && typeof comp.then === 'function') {
+        comp.then(resolve, reject).catch(reject);
+      }
+    }
+  }
+}
+
+function renderStringNode (el, context) {
+  const { write, next } = context;
+  if (isUndef(el.children) || el.children.length === 0) {
+    write(el.open + (el.close || ''), next);
+  } else {
+    const children = el.children;
+    context.renderStates.push({
+      type: 'Element',
+      children,
+      rendered: 0,
+      total: children.length,
+      endTag: el.close
+    });
+    write(el.open, next);
+  }
+}
+
+function renderElement (el, isRoot, context) {
+  const { write, next } = context;
+
+  // 如果是根节点，那么在节点上加上 ssr 渲染标记。
+  if (isTrue(isRoot)) {
+    if (!el.data) el.data = {};
+    if (!el.data.attrs) el.data.attrs = {};
+    el.data.attrs[SSR_ATTR] = 'true';
+  }
+
+  if (el.fnOptions) {
+    registerComponentForCache(el.fnOptions, write);
+  }
+
+  // 渲染起始标签，包含 指令、class、style 等各种逻辑。
+  const startTag = renderStartingTag(el, context);
+  const endTag = `</${el.tag}>`;
+  // 如果是自闭合标签，那么只需要写入开始标签即可。
+  if (context.isUnaryTag(el.tag)) {
+    write(startTag, next);
+  } 
+  // 如果不是自闭合标签，但是没有 children，那么写入开始+结束标签。
+  else if (isUndef(el.children) || el.children.length === 0) {
+    write(startTag + endTag, next);
+  } 
+  // 如果有 children，那么推入 renderStates，然后渲染该标签的 children。
+  else {
+    const children = el.children;
+    context.renderStates.push({
+      type: 'Element',
+      children,
+      rendered: 0,
+      total: children.length,
+      endTag
+    });
+    write(startTag, next);
+  }
+}
+
+function hasAncestorData (node) {
+  const parentNode = node.parent;
+  return isDef(parentNode) && (isDef(parentNode.data) || hasAncestorData(parentNode))
+}
+
+function getVShowDirectiveInfo (node) {
+  let dir;
+  let tmp;
+
+  while (isDef(node)) {
+    if (node.data && node.data.directives) {
+      tmp = node.data.directives.find(dir => dir.name === 'show');
+      if (tmp) {
+        dir = tmp;
+      }
+    }
+    node = node.parent;
+  }
+  return dir
+}
+
+// 渲染起始标签，包含指令、class、style等各种逻辑。
+function renderStartingTag (node, context) {
+  let markup = `<${node.tag}`;
+  const { directives, modules } = context;
+
+  // construct synthetic data for module processing
+  // because modules like style also produce code by parent VNode data
+  if (isUndef(node.data) && hasAncestorData(node)) {
+    node.data = {};
+  }
+  if (isDef(node.data)) {
+    // vue 指令
+    const dirs = node.data.directives;
+    if (dirs) {
+      for (let i = 0; i < dirs.length; i++) {
+        const name = dirs[i].name;
+        if (name !== 'show') {
+          const dirRenderer = resolveAsset(context, 'directives', name);
+          if (dirRenderer) {
+            // directives mutate the node's data
+            // which then gets rendered by modules
+            dirRenderer(node, dirs[i]);
+          }
+        }
+      }
+    }
+
+    // v-show 逻辑
+    const vshowDirectiveInfo = getVShowDirectiveInfo(node);
+    if (vshowDirectiveInfo) {
+      directives.show(node, vshowDirectiveInfo);
+    }
+
+    // modules 函数调用
+    for (let i = 0; i < modules.length; i++) {
+      const res = modules[i](node);
+      if (res) {
+        markup += res;
+      }
+    }
+  }
+  // attach scoped CSS ID
+  let scopeId;
+  const activeInstance = context.activeInstance;
+  if (isDef(activeInstance) &&
+    activeInstance !== node.context &&
+    isDef(scopeId = activeInstance.$options._scopeId)
+  ) {
+    markup += ` ${(scopeId)}`;
+  }
+  if (isDef(node.fnScopeId)) {
+    markup += ` ${node.fnScopeId}`;
+  } else {
+    while (isDef(node)) {
+      if (isDef(scopeId = node.context.$options._scopeId)) {
+        markup += ` ${scopeId}`;
+      }
+      node = node.parent;
+    }
+  }
+  return markup + '>'
+}
+
+function createRenderFunction (
+  modules,
+  directives,
+  isUnaryTag,
+  cache
+) {
+  return function render (
+    component,
+    write,
+    // userContext 包括用户传入的希望替换 html 模板中的内容，
+    // 但也绑定了 templateRenderer 中的 html 模板 render 方法，比如 renderScripts, renderStyle 等。
+    userContext,
+    done
+  ) {
+    warned = Object.create(null);
+    const context = new RenderContext({
+      activeInstance: component,
+      userContext,
+      write,
+      // 这个 done 不是用户传入的回调，而是 render 函数的回调。
+      // render 函数的回调里面才会去调用用户传入的回调。
+      done,
+      renderNode,
+      isUnaryTag, 
+      modules, 
+      directives,
+      cache
+    });
+    installSSRHelpers(component);
+    // 如果用户包含 template 而不含 render 函数，
+    // 那么将 template 编译程 render 函数。
+    // 如果 component 中使用 template 而不是 render 函数，
+    // 那么这一步将使用 SSRHElpers 中的函数。
+    normalizeRender(component);
+
+    const resolve = () => {
+      renderNode(component._render(), true, context);
+    };
+    // 在获取服务端数据后，再调用 resolve，开始 render node。
+    waitForServerPrefetch(component, resolve, done);
+  }
+}
+
+/*  */
+
+const isJS = (file) => /\.js(\?[^.]+)?$/.test(file);
+
+const isCSS = (file) => /\.css(\?[^.]+)?$/.test(file);
+
+function createPromiseCallback () {
+  let resolve, reject;
+  const promise = new Promise((_resolve, _reject) => {
+    resolve = _resolve;
+    reject = _reject;
+  });
+  const cb = (err, res) => {
+    if (err) return reject(err)
+    resolve(res || '');
+  };
+  return { promise, cb }
+}
+
+/*  */
+
+const Transform = require('stream').Transform;
+
+
+
+class TemplateStream extends Transform {
+  
+  
+  
+  
+  
+
+  constructor (
+    renderer,
+    template,
+    context
+  ) {
+    super();
+    this.started = false;
+    this.renderer = renderer;
+    this.template = template;
+    this.context = context || {};
+    this.inject = renderer.inject;
+  }
+
+  _transform (data, encoding, done) {
+    if (!this.started) {
+      this.emit('beforeStart');
+      this.start();
+    }
+    this.push(data);
+    done();
+  }
+
+  start () {
+    this.started = true;
+    this.push(this.template.head(this.context));
+
+    if (this.inject) {
+      // inline server-rendered head meta information
+      if (this.context.head) {
+        this.push(this.context.head);
+      }
+
+      // inline preload/prefetch directives for initial/async chunks
+      const links = this.renderer.renderResourceHints(this.context);
+      if (links) {
+        this.push(links);
+      }
+
+      // CSS files and inline server-rendered CSS collected by vue-style-loader
+      const styles = this.renderer.renderStyles(this.context);
+      if (styles) {
+        this.push(styles);
+      }
+    }
+
+    this.push(this.template.neck(this.context));
+  }
+
+  _flush (done) {
+    this.emit('beforeEnd');
+
+    if (this.inject) {
+      // inline initial store state
+      const state = this.renderer.renderState(this.context);
+      if (state) {
+        this.push(state);
+      }
+
+      // embed scripts needed
+      const scripts = this.renderer.renderScripts(this.context);
+      if (scripts) {
+        this.push(scripts);
+      }
+    }
+
+    this.push(this.template.tail(this.context));
+    done();
+  }
+}
+
+/*  */
+
+const compile = require('lodash.template');
+const compileOptions = {
+  escape: /{{([^{][\s\S]+?[^}])}}/g,
+  interpolate: /{{{([\s\S]+?)}}}/g
+};
+
+
+
+function parseTemplate (
+  template,
+  contentPlaceholder = '<!--vue-ssr-outlet-->'
+) {
+  if (typeof template === 'object') {
+    return template
+  }
+
+  let i = template.indexOf('</head>');
+  const j = template.indexOf(contentPlaceholder);
+
+  if (j < 0) {
+    throw new Error(`Content placeholder not found in template.`)
+  }
+
+  if (i < 0) {
+    i = template.indexOf('<body>');
+    if (i < 0) {
+      i = j;
+    }
+  }
+
+  return {
+    head: compile(template.slice(0, i), compileOptions),
+    neck: compile(template.slice(i, j), compileOptions),
+    tail: compile(template.slice(j + contentPlaceholder.length), compileOptions)
+  }
+}
+
+/*  */
+
+/**
+ * Creates a mapper that maps components used during a server-side render
+ * to async chunk files in the client-side build, so that we can inline them
+ * directly in the rendered HTML to avoid waterfall requests.
+ */
+
+
+
+
+
+function createMapper (
+  clientManifest
+) {
+  const map = createMap(clientManifest);
+  // map server-side moduleIds to client-side files
+  return function mapper (moduleIds) {
+    const res = new Set();
+    for (let i = 0; i < moduleIds.length; i++) {
+      const mapped = map.get(moduleIds[i]);
+      if (mapped) {
+        for (let j = 0; j < mapped.length; j++) {
+          res.add(mapped[j]);
+        }
+      }
+    }
+    return Array.from(res)
+  }
+}
+
+function createMap (clientManifest) {
+  const map = new Map();
+  Object.keys(clientManifest.modules).forEach(id => {
+    map.set(id, mapIdToFile(id, clientManifest));
+  });
+  return map
+}
+
+function mapIdToFile (id, clientManifest) {
+  const files = [];
+  const fileIndices = clientManifest.modules[id];
+  if (fileIndices) {
+    fileIndices.forEach(index => {
+      const file = clientManifest.all[index];
+      // only include async files or non-js, non-css assets
+      if (
+        file &&
+        (clientManifest.async.indexOf(file) > -1 ||
+          !/\.(js|css)($|\?)/.test(file))
+      ) {
+        files.push(file);
+      }
+    });
+  }
+  return files
+}
+
+/*  */
+
+const path$2 = require('path');
+const serialize = require('serialize-javascript');
+
+
+
+
+
+
+
+
+
+class TemplateRenderer {
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  constructor (options) {
+    this.options = options;
+    this.inject = options.inject !== false;
+    // if no template option is provided, the renderer is created
+    // as a utility object for rendering assets like preload links and scripts.
+    
+    const { template } = options;
+    // 将 template 转换为三个 head neck tail 三个部分
+    this.parsedTemplate = template
+      ? typeof template === 'string'
+        ? parseTemplate(template)
+        : template
+      : null;
+
+    // function used to serialize initial state JSON
+    this.serialize = options.serializer || (state => {
+      return serialize(state, { isJSON: true })
+    });
+
+    // extra functionality with client manifest
+    if (options.clientManifest) {
+      const clientManifest = this.clientManifest = options.clientManifest;
+      // ensure publicPath ends with /
+      this.publicPath = clientManifest.publicPath === ''
+        ? ''
+        : clientManifest.publicPath.replace(/([^\/])$/, '$1/');
+      // preload/prefetch directives
+      this.preloadFiles = (clientManifest.initial || []).map(normalizeFile);
+      this.prefetchFiles = (clientManifest.async || []).map(normalizeFile);
+      // initial async chunk mapping
+      this.mapFiles = createMapper(clientManifest);
+    }
+  }
+
+  // 将 renderStyles 等几个函数，绑定到 context 上。
+  // 此处的 context 是用户传入的，用于替换模板中的 {{{}}} 的上下文。
+  bindRenderFns (context) {
+    const renderer = this
+    ;['ResourceHints', 'State', 'Scripts', 'Styles'].forEach(type => {
+      context[`render${type}`] = renderer[`render${type}`].bind(renderer, context);
+    });
+    // also expose getPreloadFiles, useful for HTTP/2 push
+    context.getPreloadFiles = renderer.getPreloadFiles.bind(renderer, context);
+  }
+
+  // 将所有零散 html 字符串，拼接成最终输出的字符串。
+  render (content, context) {
+    const template = this.parsedTemplate;
+    if (!template) {
+      throw new Error('render cannot be called without a template.')
+    }
+    context = context || {};
+
+    if (typeof template === 'function') {
+      return template(content, context)
+    }
+
+    if (this.inject) {
+      return (
+        template.head(context) +
+        (context.head || '') +
+        this.renderResourceHints(context) +
+        this.renderStyles(context) +
+        template.neck(context) +
+        content +
+        this.renderState(context) +
+        this.renderScripts(context) +
+        template.tail(context)
+      )
+    } else {
+      return (
+        template.head(context) +
+        template.neck(context) +
+        content +
+        template.tail(context)
+      )
+    }
+  }
+
+  renderStyles (context) {
+    const initial = this.preloadFiles || [];
+    const async = this.getUsedAsyncFiles(context) || [];
+    const cssFiles = initial.concat(async).filter(({ file }) => isCSS(file));
+    return (
+      // render links for css files
+      (cssFiles.length
+        ? cssFiles.map(({ file }) => `<link rel="stylesheet" href="${this.publicPath}${file}">`).join('')
+        : '') +
+      // context.styles is a getter exposed by vue-style-loader which contains
+      // the inline component styles collected during SSR
+      (context.styles || '')
+    )
+  }
+
+  // preload + prefetch
+  renderResourceHints (context) {
+    return this.renderPreloadLinks(context) + this.renderPrefetchLinks(context)
+  }
+
+  getPreloadFiles (context) {
+    const usedAsyncFiles = this.getUsedAsyncFiles(context);
+    if (this.preloadFiles || usedAsyncFiles) {
+      return (this.preloadFiles || []).concat(usedAsyncFiles || [])
+    } else {
+      return []
+    }
+  }
+
+  // 拼接 preload link
+  renderPreloadLinks (context) {
+    const files = this.getPreloadFiles(context);
+    const shouldPreload = this.options.shouldPreload;
+    if (files.length) {
+      return files.map(({ file, extension, fileWithoutQuery, asType }) => {
+        let extra = '';
+        // by default, we only preload scripts or css
+        if (!shouldPreload && asType !== 'script' && asType !== 'style') {
+          return ''
+        }
+        // user wants to explicitly control what to preload
+        if (shouldPreload && !shouldPreload(fileWithoutQuery, asType)) {
+          return ''
+        }
+        if (asType === 'font') {
+          extra = ` type="font/${extension}" crossorigin`;
+        }
+        return `<link rel="preload" href="${
+          this.publicPath}${file
+        }"${
+          asType !== '' ? ` as="${asType}"` : ''
+        }${
+          extra
+        }>`
+      }).join('')
+    } else {
+      return ''
+    }
+  }
+
+  renderPrefetchLinks (context) {
+    const shouldPrefetch = this.options.shouldPrefetch;
+    if (this.prefetchFiles) {
+      const usedAsyncFiles = this.getUsedAsyncFiles(context);
+      const alreadyRendered = file => {
+        return usedAsyncFiles && usedAsyncFiles.some(f => f.file === file)
+      };
+      return this.prefetchFiles.map(({ file, fileWithoutQuery, asType }) => {
+        if (shouldPrefetch && !shouldPrefetch(fileWithoutQuery, asType)) {
+          return ''
+        }
+        if (alreadyRendered(file)) {
+          return ''
+        }
+        return `<link rel="prefetch" href="${this.publicPath}${file}">`
+      }).join('')
+    } else {
+      return ''
+    }
+  }
+
+  // 服务端获取的接口数据 ？
+  renderState (context, options) {
+    const {
+      contextKey = 'state',
+      windowKey = '__INITIAL_STATE__'
+    } = options || {};
+    const state = this.serialize(context[contextKey]);
+    const autoRemove = ';(function(){var s;(s=document.currentScript||document.scripts[document.scripts.length-1]).parentNode.removeChild(s);}());'
+      ;
+    const nonceAttr = context.nonce ? ` nonce="${context.nonce}"` : '';
+    return context[contextKey]
+      ? `<script${nonceAttr}>window.${windowKey}=${state}${autoRemove}</script>`
+      : ''
+  }
+
+  // <script> 标签
+  renderScripts (context) {
+    if (this.clientManifest) {
+      const initial = this.preloadFiles.filter(({ file }) => isJS(file));
+      const async = (this.getUsedAsyncFiles(context) || []).filter(({ file }) => isJS(file));
+      const needed = [initial[0]].concat(async, initial.slice(1));
+      return needed.map(({ file }) => {
+        return `<script src="${this.publicPath}${file}" defer></script>`
+      }).join('')
+    } else {
+      return ''
+    }
+  }
+
+  getUsedAsyncFiles (context) {
+    if (!context._mappedFiles && context._registeredComponents && this.mapFiles) {
+      const registered = Array.from(context._registeredComponents);
+      context._mappedFiles = this.mapFiles(registered).map(normalizeFile);
+    }
+    return context._mappedFiles
+  }
+
+  // create a transform stream
+  createStream (context) {
+    if (!this.parsedTemplate) {
+      throw new Error('createStream cannot be called without a template.')
+    }
+    return new TemplateStream(this, this.parsedTemplate, context || {})
+  }
+}
+
+function normalizeFile (file) {
+  const withoutQuery = file.replace(/\?.*/, '');
+  const extension = path$2.extname(withoutQuery).slice(1);
+  return {
+    file,
+    extension,
+    fileWithoutQuery: withoutQuery,
+    asType: getPreloadType(extension)
+  }
+}
+
+function getPreloadType (ext) {
+  if (ext === 'js') {
+    return 'script'
+  } else if (ext === 'css') {
+    return 'style'
+  } else if (/jpe?g|png|svg|gif|webp|ico/.test(ext)) {
+    return 'image'
+  } else if (/woff2?|ttf|otf|eot/.test(ext)) {
+    return 'font'
+  } else {
+    // not exhausting all possibilities here, but above covers common cases
+    return ''
+  }
+}
+
+let wasm;
+
+let cachedTextDecoder = new TextDecoder('utf-8', { ignoreBOM: true, fatal: true });
+
+cachedTextDecoder.decode();
+
+let cachegetUint8Memory0 = null;
+function getUint8Memory0() {
+    if (cachegetUint8Memory0 === null || cachegetUint8Memory0.buffer !== wasm.memory.buffer) {
+        cachegetUint8Memory0 = new Uint8Array(wasm.memory.buffer);
+    }
+    return cachegetUint8Memory0;
+}
+
+function getStringFromWasm0(ptr, len) {
+    return cachedTextDecoder.decode(getUint8Memory0().subarray(ptr, ptr + len));
+}
+
+let WASM_VECTOR_LEN = 0;
+
+let cachedTextEncoder = new TextEncoder('utf-8');
+
+const encodeString = (typeof cachedTextEncoder.encodeInto === 'function'
+    ? function (arg, view) {
+    return cachedTextEncoder.encodeInto(arg, view);
+}
+    : function (arg, view) {
+    const buf = cachedTextEncoder.encode(arg);
+    view.set(buf);
+    return {
+        read: arg.length,
+        written: buf.length
+    };
+});
+
+function passStringToWasm0(arg, malloc, realloc) {
+
+    if (realloc === undefined) {
+        const buf = cachedTextEncoder.encode(arg);
+        const ptr = malloc(buf.length);
+        getUint8Memory0().subarray(ptr, ptr + buf.length).set(buf);
+        WASM_VECTOR_LEN = buf.length;
+        return ptr;
+    }
+
+    let len = arg.length;
+    let ptr = malloc(len);
+
+    const mem = getUint8Memory0();
+
+    let offset = 0;
+
+    for (; offset < len; offset++) {
+        const code = arg.charCodeAt(offset);
+        if (code > 0x7F) break;
+        mem[ptr + offset] = code;
+    }
+
+    if (offset !== len) {
+        if (offset !== 0) {
+            arg = arg.slice(offset);
+        }
+        ptr = realloc(ptr, len, len = offset + arg.length * 3);
+        const view = getUint8Memory0().subarray(ptr + offset, ptr + len);
+        const ret = encodeString(arg, view);
+
+        offset += ret.written;
+    }
+
+    WASM_VECTOR_LEN = offset;
+    return ptr;
+}
+/**
+* @param {string} name
+*/
+function greet(name) {
+    var ptr0 = passStringToWasm0(name, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    var len0 = WASM_VECTOR_LEN;
+    wasm.greet(ptr0, len0);
+}
+
+/**
+* @param {number} a
+* @param {number} b
+* @returns {number}
+*/
+function add(a, b) {
+    var ret = wasm.add(a, b);
+    return ret;
+}
+
+async function load(module, imports) {
+    if (typeof Response === 'function' && module instanceof Response) {
+        if (typeof WebAssembly.instantiateStreaming === 'function') {
+            try {
+                return await WebAssembly.instantiateStreaming(module, imports);
+
+            } catch (e) {
+                if (module.headers.get('Content-Type') != 'application/wasm') {
+                    console.warn("`WebAssembly.instantiateStreaming` failed because your server does not serve wasm with `application/wasm` MIME type. Falling back to `WebAssembly.instantiate` which is slower. Original error:\n", e);
+
+                } else {
+                    throw e;
+                }
+            }
+        }
+
+        const bytes = await module.arrayBuffer();
+        return await WebAssembly.instantiate(bytes, imports);
+
+    } else {
+        const instance = await WebAssembly.instantiate(module, imports);
+
+        if (instance instanceof WebAssembly.Instance) {
+            return { instance, module };
+
+        } else {
+            return instance;
+        }
+    }
+}
+
+async function init(input) {
+    if (typeof input === 'undefined') {
+        input = new URL('index_bg.wasm', (typeof document === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : (document.currentScript && document.currentScript.src || new URL('build.prod.js', document.baseURI).href)));
+    }
+    const imports = {};
+    imports.wbg = {};
+    imports.wbg.__wbg_alert_8a44b3152c7fba98 = function(arg0, arg1) {
+        alert(getStringFromWasm0(arg0, arg1));
+    };
+
+    if (typeof input === 'string' || (typeof Request === 'function' && input instanceof Request) || (typeof URL === 'function' && input instanceof URL)) {
+        input = fetch(input);
+    }
+
+
+
+    const { instance, module } = await load(await input, imports);
+
+    wasm = instance.exports;
+    init.__wbindgen_wasm_module = module;
+
+    return wasm;
+}
+
+var exports$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  greet: greet,
+  add: add,
+  'default': init
+});
+
+function loadFile(url) {
+                return new Promise((resolve, reject) => {
+                    require("fs").readFile(url, (err, data) => {
+                        if (err) {
+                            reject(err);
+
+                        } else {
+                            resolve(data);
+                        }
+                    });
+                });
+            }
+
+                    var rust = async (opt = {}) => {
+                        let {importHook, serverPath} = opt;
+
+                        let path = loadFile("assets/rust-e83cc80f.wasm");
+
+                        if (serverPath != null) {
+                            path = serverPath + /[^\/\\]*$/.exec(path)[0];
+                        }
+
+                        if (importHook != null) {
+                            path = importHook(path);
+                        }
+
+                        await init(path);
+                        return exports$1;
+                    };
+
+/*  */
+
+
+
+
+
+
+
+
+function createRenderer$1({
+  modules = [],
+  directives = {},
+  isUnaryTag = () => false,
+  template,
+  inject,
+  cache,
+  shouldPreload,
+  shouldPrefetch,
+  clientManifest,
+  serializer,
+  useRust = true,
+} = {}) {
+  /**
+   * createRenderer 函数的整体流程：
+   * 1. 创建 render 函数，负责将 Vue 对象渲染成字符串。
+   * 2. 创建 templateRenderer，负责将 步骤1 中的结果与 html 模板拼接成完整的 html 文档。
+   * renderToString 部分
+   * 3. 创建一个具备 缓存、避免最大栈溢出的 write 函数。
+   * 4. 调用 render 函数，与 templateRenderer 协作，拼接最终响应结果。
+   */
+
+  /**
+   * modules: 根据 vnode 渲染 startTag 的一部分。
+   * directives: server 端指令的实现。
+   * isUnaryTag: 判断某个 html 元素是否是一元标签(比如 <img >)
+   * cache: 组件缓存的实现，通常为 lru cache. 至少需要实现 get set 两个方法。
+   */
+  const render = createRenderFunction(modules, directives, isUnaryTag, cache);
+  // 模版渲染器，作用是将 vnode 渲染的结果和 html 模板进行拼接，最终生成返回给浏览器的内容。
+  const templateRenderer = new TemplateRenderer({
+    template,
+    inject,
+    shouldPreload,
+    shouldPrefetch,
+    clientManifest,
+    serializer,
+  });
+
+  return {
+    renderToString(
+      component,
+      context,
+      cb
+    ) {
+      if (typeof context === "function") {
+        cb = context;
+        context = {};
+      }
+
+      // 抹平 callback 和 promise 两种方式的区别。如果用户希望采用 promise 方式，
+      // 那么创建一个 promise, 并创建一个 callback，在 callback 中调用 resolve 方法。
+      // 所以在后续的处理中，无论是 promise 还是回调，只要调用 cb()，就可以将结果返回给用户。
+      let promise;
+      if (!cb) {
+        ({ promise, cb } = createPromiseCallback());
+      }
+
+      // context 对象包含用户自定义的，需要在 html 模板上替换的变量。
+      if (context) {
+        templateRenderer.bindRenderFns(context);
+      }
+      
+
+      const wasmCreatePromise = useRust ? rust() : Promise.resolve();
+
+      wasmCreatePromise.then((wasm) => {
+        console.log('wasm.add ==========>', wasm.add(1, 2));
+        // vnode 渲染结果存储变量，不包含 html 模板内容。
+        let result = "";
+        // 创建一个 write 函数，将 ssr 数据写入 result 中。
+        // 第二个参数 cb 是一个 onError 函数。
+        const write = createWriteFunction((text) => {
+          result += text;
+          return false;
+        }, cb);
+        try {
+          render(component, write, context, (err) => {
+            if (err) {
+              return cb(err);
+            }
+            if (context && context.rendered) {
+              context.rendered(context);
+            }
+            // 如果用户传入了模板，那么根据模板，进行渲染。
+            if (template) {
+              try {
+                const res = templateRenderer.render(result, context);
+                // 如果 res 是 Promise
+                if (typeof res !== "string") {
+                  res.then((html) => cb(null, html)).catch(cb);
+                } else {
+                  // 如果 res 是 string，就直接调用 cb 返回。
+                  cb(null, res);
+                }
+              } catch (e) {
+                cb(e);
+              }
+            } else {
+              // 如果没有模板，就直接返回 vnode 渲染的结果。
+              cb(null, result);
+            }
+          });
+        } catch (e) {
+          cb(e);
+        }
+      });
+      return promise;
+    },
+
+    renderToStream(component, context) {
+      if (context) {
+        templateRenderer.bindRenderFns(context);
+      }
+      const renderStream = new RenderStream((write, done) => {
+        render(component, write, context, done);
+      });
+      if (!template) {
+        if (context && context.rendered) {
+          const rendered = context.rendered;
+          renderStream.once("beforeEnd", () => {
+            rendered(context);
+          });
+        }
+        return renderStream;
+      } else if (typeof template === "function") {
+        throw new Error(
+          `function template is only supported in renderToString.`
+        );
+      } else {
+        const templateStream = templateRenderer.createStream(context);
+        renderStream.on("error", (err) => {
+          templateStream.emit("error", err);
+        });
+        renderStream.pipe(templateStream);
+        if (context && context.rendered) {
+          const rendered = context.rendered;
+          renderStream.once("beforeEnd", () => {
+            rendered(context);
+          });
+        }
+        return templateStream;
+      }
+    },
+  };
+}
+
+const vm = require('vm');
+const path$1 = require('path');
+const resolve = require('resolve');
+const NativeModule = require('module');
+
+function createSandbox (context) {
+  const sandbox = {
+    Buffer,
+    console,
+    process,
+    setTimeout,
+    setInterval,
+    setImmediate,
+    clearTimeout,
+    clearInterval,
+    clearImmediate,
+    __VUE_SSR_CONTEXT__: context
+  };
+  sandbox.global = sandbox;
+  return sandbox
+}
+
+function compileModule (files, basedir, runInNewContext) {
+  const compiledScripts = {};
+  const resolvedModules = {};
+
+  function getCompiledScript (filename) {
+    if (compiledScripts[filename]) {
+      return compiledScripts[filename]
+    }
+    const code = files[filename];
+    const wrapper = NativeModule.wrap(code);
+    const script = new vm.Script(wrapper, {
+      filename,
+      displayErrors: true
+    });
+    compiledScripts[filename] = script;
+    return script
+  }
+
+  function evaluateModule (filename, sandbox, evaluatedFiles = {}) {
+    if (evaluatedFiles[filename]) {
+      return evaluatedFiles[filename]
+    }
+
+    const script = getCompiledScript(filename);
+    const compiledWrapper = runInNewContext === false
+      ? script.runInThisContext()
+      : script.runInNewContext(sandbox);
+    const m = { exports: {}};
+    const r = file => {
+      file = path$1.posix.join('.', file);
+      if (files[file]) {
+        return evaluateModule(file, sandbox, evaluatedFiles)
+      } else if (basedir) {
+        return require(
+          resolvedModules[file] ||
+          (resolvedModules[file] = resolve.sync(file, { basedir }))
+        )
+      } else {
+        return require(file)
+      }
+    };
+    compiledWrapper.call(m.exports, m.exports, r, m);
+
+    const res = Object.prototype.hasOwnProperty.call(m.exports, 'default')
+      ? m.exports.default
+      : m.exports;
+    evaluatedFiles[filename] = res;
+    return res
+  }
+  return evaluateModule
+}
+
+function deepClone (val) {
+  if (isPlainObject(val)) {
+    const res = {};
+    for (const key in val) {
+      res[key] = deepClone(val[key]);
+    }
+    return res
+  } else if (Array.isArray(val)) {
+    return val.slice()
+  } else {
+    return val
+  }
+}
+
+function createBundleRunner (entry, files, basedir, runInNewContext) {
+  const evaluate = compileModule(files, basedir, runInNewContext);
+  if (runInNewContext !== false && runInNewContext !== 'once') {
+    // new context mode: creates a fresh context and re-evaluate the bundle
+    // on each render. Ensures entire application state is fresh for each
+    // render, but incurs extra evaluation cost.
+    return (userContext = {}) => new Promise(resolve => {
+      userContext._registeredComponents = new Set();
+      const res = evaluate(entry, createSandbox(userContext));
+      resolve(typeof res === 'function' ? res(userContext) : res);
+    })
+  } else {
+    // direct mode: instead of re-evaluating the whole bundle on
+    // each render, it simply calls the exported function. This avoids the
+    // module evaluation costs but requires the source code to be structured
+    // slightly differently.
+    let runner; // lazy creation so that errors can be caught by user
+    let initialContext;
+    return (userContext = {}) => new Promise(resolve => {
+      if (!runner) {
+        const sandbox = runInNewContext === 'once'
+          ? createSandbox()
+          : global;
+        // the initial context is only used for collecting possible non-component
+        // styles injected by vue-style-loader.
+        initialContext = sandbox.__VUE_SSR_CONTEXT__ = {};
+        runner = evaluate(entry, sandbox);
+        // On subsequent renders, __VUE_SSR_CONTEXT__ will not be available
+        // to prevent cross-request pollution.
+        delete sandbox.__VUE_SSR_CONTEXT__;
+        if (typeof runner !== 'function') {
+          throw new Error(
+            'bundle export should be a function when using ' +
+            '{ runInNewContext: false }.'
+          )
+        }
+      }
+      userContext._registeredComponents = new Set();
+
+      // vue-style-loader styles imported outside of component lifecycle hooks
+      if (initialContext._styles) {
+        userContext._styles = deepClone(initialContext._styles);
+        // #6353 ensure "styles" is exposed even if no styles are injected
+        // in component lifecycles.
+        // the renderStyles fn is exposed by vue-style-loader >= 3.0.3
+        const renderStyles = initialContext._renderStyles;
+        if (renderStyles) {
+          Object.defineProperty(userContext, 'styles', {
+            enumerable: true,
+            get () {
+              return renderStyles(userContext._styles)
+            }
+          });
+        }
+      }
+
+      resolve(runner(userContext));
+    })
+  }
+}
+
+/*  */
+
+const SourceMapConsumer = require('source-map').SourceMapConsumer;
+
+const filenameRE = /\(([^)]+\.js):(\d+):(\d+)\)$/;
+
+function createSourceMapConsumers (rawMaps) {
+  const maps = {};
+  Object.keys(rawMaps).forEach(file => {
+    maps[file] = new SourceMapConsumer(rawMaps[file]);
+  });
+  return maps
+}
+
+function rewriteErrorTrace (e, mapConsumers) {
+  if (e && typeof e.stack === 'string') {
+    e.stack = e.stack.split('\n').map(line => {
+      return rewriteTraceLine(line, mapConsumers)
+    }).join('\n');
+  }
+}
+
+function rewriteTraceLine (trace, mapConsumers) {
+  const m = trace.match(filenameRE);
+  const map = m && mapConsumers[m[1]];
+  if (m != null && map) {
+    const originalPosition = map.originalPositionFor({
+      line: Number(m[2]),
+      column: Number(m[3])
+    });
+    if (originalPosition.source != null) {
+      const { source, line, column } = originalPosition;
+      const mappedPosition = `(${source.replace(/^webpack:\/\/\//, '')}:${String(line)}:${String(column)})`;
+      return trace.replace(filenameRE, mappedPosition)
+    } else {
+      return trace
+    }
+  } else {
+    return trace
+  }
+}
+
+/*  */
+
+const fs = require('fs');
+const path = require('path');
+const PassThrough = require('stream').PassThrough;
+
+const INVALID_MSG =
+  'Invalid server-rendering bundle format. Should be a string ' +
+  'or a bundle Object of type:\n\n' +
+`{
+  entry: string;
+  files: { [filename: string]: string; };
+  maps: { [filename: string]: string; };
+}\n`;
+
+// The render bundle can either be a string (single bundled file)
+// or a bundle manifest object generated by vue-ssr-webpack-plugin.
+
+
+function createBundleRendererCreator (
+  createRenderer
+) {
+  return function createBundleRenderer (
+    bundle,
+    rendererOptions = {}
+  ) {
+    let files, entry, maps;
+    let basedir = rendererOptions.basedir;
+
+    // load bundle if given filepath
+    if (
+      typeof bundle === 'string' &&
+      /\.js(on)?$/.test(bundle) &&
+      path.isAbsolute(bundle)
+    ) {
+      if (fs.existsSync(bundle)) {
+        const isJSON = /\.json$/.test(bundle);
+        basedir = basedir || path.dirname(bundle);
+        bundle = fs.readFileSync(bundle, 'utf-8');
+        if (isJSON) {
+          try {
+            bundle = JSON.parse(bundle);
+          } catch (e) {
+            throw new Error(`Invalid JSON bundle file: ${bundle}`)
+          }
+        }
+      } else {
+        throw new Error(`Cannot locate bundle file: ${bundle}`)
+      }
+    }
+
+    if (typeof bundle === 'object') {
+      entry = bundle.entry;
+      files = bundle.files;
+      basedir = basedir || bundle.basedir;
+      maps = createSourceMapConsumers(bundle.maps);
+      if (typeof entry !== 'string' || typeof files !== 'object') {
+        throw new Error(INVALID_MSG)
+      }
+    } else if (typeof bundle === 'string') {
+      entry = '__vue_ssr_bundle__';
+      files = { '__vue_ssr_bundle__': bundle };
+      maps = {};
+    } else {
+      throw new Error(INVALID_MSG)
+    }
+
+    const renderer = createRenderer(rendererOptions);
+
+    const run = createBundleRunner(
+      entry,
+      files,
+      basedir,
+      rendererOptions.runInNewContext
+    );
+
+    return {
+      renderToString: (context, cb) => {
+        if (typeof context === 'function') {
+          cb = context;
+          context = {};
+        }
+
+        let promise;
+        if (!cb) {
+          ({ promise, cb } = createPromiseCallback());
+        }
+
+        run(context).catch(err => {
+          rewriteErrorTrace(err, maps);
+          cb(err);
+        }).then(app => {
+          if (app) {
+            renderer.renderToString(app, context, (err, res) => {
+              rewriteErrorTrace(err, maps);
+              cb(err, res);
+            });
+          }
+        });
+
+        return promise
+      },
+
+      renderToStream: (context) => {
+        const res = new PassThrough();
+        run(context).catch(err => {
+          rewriteErrorTrace(err, maps);
+          // avoid emitting synchronously before user can
+          // attach error listener
+          process.nextTick(() => {
+            res.emit('error', err);
+          });
+        }).then(app => {
+          if (app) {
+            const renderStream = renderer.renderToStream(app, context);
+
+            renderStream.on('error', err => {
+              rewriteErrorTrace(err, maps);
+              res.emit('error', err);
+            });
+
+            // relay HTMLStream special events
+            if (rendererOptions && rendererOptions.template) {
+              renderStream.on('beforeStart', () => {
+                res.emit('beforeStart');
+              });
+              renderStream.on('beforeEnd', () => {
+                res.emit('beforeEnd');
+              });
+            }
+
+            renderStream.pipe(res);
+          }
+        });
+
+        return res
+      }
+    }
+  }
+}
+
+/*  */
+
+process.env.VUE_ENV = 'server';
+
+function createRenderer (options = {}) {
+  return createRenderer$1(extend(extend({}, options), {
+    isUnaryTag,
+    canBeLeftOpenTag,
+    modules: modules$1,
+    // user can provide server-side implementations for custom directives
+    // when creating the renderer.
+    directives: extend(baseDirectives$1, options.directives)
+  }))
+}
+
+const createBundleRenderer = createBundleRendererCreator(createRenderer);
+
+exports.createBundleRenderer = createBundleRenderer;
+exports.createRenderer = createRenderer;

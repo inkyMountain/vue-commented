@@ -2358,6 +2358,7 @@
     'link,meta,param,source,track,wbr'
   );
 
+
   // Elements that you can, intentionally, leave open
   // (and which close themselves)
   var canBeLeftOpenTag = makeMap(
@@ -2434,6 +2435,7 @@
   }
 
   /*  */
+
 
 
 

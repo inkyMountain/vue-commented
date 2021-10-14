@@ -10,15 +10,6 @@ import { isUnaryTag, canBeLeftOpenTag } from './compiler/util'
 import { createRenderer as _createRenderer } from 'server/create-renderer'
 import { createBundleRendererCreator } from 'server/bundle-renderer/create-bundle-renderer'
 
-import rust from '../../server/rust/Cargo.toml'
-
-let wasm = null
-rust().then(wasm => {
-  const result = wasm.add(1, 2)
-  console.log('result', result)
-})
-
-
 export function createRenderer (options?: Object = {}): {
   renderToString: Function,
   renderToStream: Function
